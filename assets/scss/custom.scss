@@ -1,0 +1,15 @@
+$custom: rgb(68, 164, 49) !default;
+$primary: $custom;
+$link: $custom;
+$danger: $custom;
+$info: white;
+$warning: lightgrey;
+$success: black;
+
+$select-border-width: 0;
+$dimensions: 24 48 128 192 366;
+
+// Used for the breadcrumb section:
+// Same orizzontal padding but reduced vertical
+$section-padding-medium: 0.75rem 3rem;
+

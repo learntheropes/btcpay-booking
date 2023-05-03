@@ -1,0 +1,72 @@
+// rounded corners
+// with same radious as other oruga components
+.ltr-corner-rounded {
+  border-radius: $base-border-radius;
+  overflow: hidden;
+}
+
+// Fit on the screen
+.ltr-fit {
+  max-width: 100%;
+  max-height: 90vh;
+}
+
+// Overlays
+.ltr-is-center-center {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+.ltr-is-top-left {
+  background: none;
+  position: fixed;
+  left: 20px;
+  top: 20px;
+}
+.ltr-is-center-left {
+  background: none;
+  position: fixed;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.ltr-is-center-right {
+  background: none;
+  position: fixed;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.ltr-is-bottom-left {
+  background: none;
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+}
+.ltr-is-bottom-right {
+  background: none;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+}
+.ltr-is-bottom-center {
+  background: none;
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+// make the text white inside the oruga notification
+div.media-content {
+	color: white;
+}
+
+// Class for the paid invoice icon with primary color
+.ltr-is-192by192-primary svg {
+  min-height: 192px;
+  min-width: 192px;
+  color: $primary;
+}
+
+

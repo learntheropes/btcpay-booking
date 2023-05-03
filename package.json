@@ -1,0 +1,40 @@
+{
+  "private": true,
+  "scripts": {
+    "build": "nuxi build",
+    "start": "node .output/server/index.mjs",
+    "dev": "nuxi dev",
+    "generate": "nuxi generate",
+    "preview": "nuxi preview",
+    "prod": "nuxi generate && nuxi start",
+    "kill": "sudo kill -9 `sudo lsof -t -i:3000`"
+  },
+  "engines": {
+    "node": "16.x"
+  },
+  "devDependencies": {
+    "@mdi/font": "^7.2.96",
+    "@nuxt/content": "^2.5.2",
+    "@nuxt/image-edge": "^1.0.0-28020728.5df24eb",
+    "@nuxtjs/i18n": "^8.0.0-beta.10",
+    "@oruga-ui/oruga-next": "^0.5.10",
+    "@oruga-ui/theme-bulma": "^0.2.9",
+    "nuxt": "^3.3.1",
+    "sass": "^1.52.1",
+    "sass-loader": "^10.2.1"
+  },
+  "dependencies": {
+    "@vee-validate/i18n": "^4.8.3",
+    "@vee-validate/rules": "^4.8.4",
+    "dayjs": "^1.11.7",
+    "lodash.find": "^4.6.0",
+    "lodash.findindex": "^4.6.0",
+    "mitt": "^3.0.0",
+    "nuxt-icons": "^3.2.1",
+    "pusher": "^5.1.2",
+    "pusher-js": "^8.0.2",
+    "qrcode": "^1.5.3",
+    "save": "^2.9.0",
+    "vee-validate": "^4.8.4"
+  }
+}

@@ -1,0 +1,79 @@
+# All settings are optional unless specified as mandatory
+
+# Accepted coins settings. Set which type of payments the buyer can choose from. YOU ALWAYS RECEIVE BITCOINS!!
+# Altcoins and fiat, if enabled, are charged with a 10% surchearge that goes to me :D and to the services we use to enable the feature. 
+# By default, only bitcoin is accepted
+gateways:
+  # Optional, default is true
+  bitcoin: true
+  # If you enable at least one between altcoins and fiat, make sure that bitcoin onchain payments are enabled on your btcpay store
+  # for the lowest amount you expect to receive because they payout is onchain only (I pay the transaction fee).
+  # Optional, default is false
+  altcoins: false
+  # Optional, default is false
+  fiat: true
+# Btcpay server settings 
+# You can provide your own btcpay instance details
+# Or you can email me asking for a non custodial store on my Btcpay instance
+# with on-chain and Lightning Network payments enabled.
+# giovanni@learntheropes.xyz
+btcapay:
+  # Your btcpay server store id.
+  # You can find it under the Store Settings.
+  # Mandatory
+  storeid: 4hEu1jrrC9VKLpLjcVtdLYf1FZTb3bqgUoERboCnGbXE
+  # Your btcpay clearnet or Tor hidden service url.
+  # Clearnet url is the same of your dashboard.
+  # Tor onion service url is in the dashboard footer, under Copy Tor URL.
+  # Mandatory
+  host: https://testnet.demo.btcpayserver.org
+# smtp settings to send email notifications to the buyer and to you.
+smtp:
+  # The email that will send the notification.
+  # This is also the username to login smtp.
+  username: giovanni@learntheropes.xyz
+
+  port: 111
+# One of 'serial' and 'parallel' or null for default, that is serial.
+# Serial means the bookings of the different services can't overlap. Used for instance if you are a consultant that offers multiple services.
+# Parallel means the different services can overlap. Used for instance in case of each service is a different room in your house that you rent.
+# If not provided, the default is serial
+concurrency: serial
+# Your available slots on the calendar.
+# By day of the week starting form Sunday.
+# Mandatory
+availability:
+  # Sunday - from and to in UTC time zone or null.
+  - null
+  # Monday - from and to in UTC time zone or null.
+  - from: 7
+    to: 15
+  # Tuesday - from and to in UTC time zone or null.
+  - from: 8
+    to: 18
+  # Wednesday - from and to in UTC time zone or null.
+  - from: 10
+    to: 13
+  # Thursday - from and to in UTC time zone or null.
+  - from: 9
+    to: 15
+  # Friday - from and to UTC time zone or null.
+  - from: 9
+    to: 15
+  # Saturday - from and to UTC time zone or null.
+  - null
+# Fields setting for the buyer booking form
+# For each supportd field, you can set the visibility and if it is mandatory to fill.
+# false or null means it will not show to the buyer.
+# true means it will be show and will be optional.
+# "required" means it will show and will be mandatory for the buyer.
+fields:
+  # n\Name of the buyer.
+  name: false
+  # Email of the buyer.
+  email: required
+  # pgp key of the buyer for encrypted email communication.
+  pgp: true
+  # additional note from the buyer.
+  # For instance to share the url of the virtual meeting or place of the physical meeting.
+  details: true
