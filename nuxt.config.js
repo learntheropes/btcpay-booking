@@ -104,16 +104,18 @@ export default defineNuxtConfig({
       avatar: {
         modifiers: {
           format: 'webp',
-          width: 128,
-          height: 128
+          width: 192,
+          height: 192,
+          quality: 70
         }
       },
       preview: {
         modifiers: {
           format: 'webp',
           fit: 'cover',
-          width: 128,
-          height: 128
+          width: 192,
+          height: 192,
+          quality: 70
         }
       },
       modal: {
