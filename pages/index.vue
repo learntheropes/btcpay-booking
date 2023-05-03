@@ -21,13 +21,11 @@
 <template>
   <NuxtLayout>
     <section class="section is-medium">
-      <IconWithText
-        icon="github"
-        text="btcpay-booking"
-        textVariant="primary"
-        textTo="https://github.com/learntheropes/ancap-booking"
-        textTarget="_blank"
-      />
+      <nav class="breadcrumb" aria-label="breadcrumbs">
+        <ul>
+          <li>&nbsp;</li>
+        </ul>
+      </nav>
     </section>
     <div class="columns">
       <div class="column">

@@ -97,8 +97,8 @@ export default defineNuxtConfig({
 
   image: {
     screens: {
-      avatar: 128,
-      galleryPreview: 128,
+      avatar: 192,
+      preview: 192,
     },
     presets: {
       avatar: {

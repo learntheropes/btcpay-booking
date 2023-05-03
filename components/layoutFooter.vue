@@ -8,7 +8,15 @@ const availableLocales = computed(() => (locales.value).filter(i => i.code !== l
   <footer class="footer">
     <nav class="level">
       <div class="level-left">
-        <!-- Build with love by learntheropes with Nuxt, Oruga and Btcpay -->
+        <div class="level-item">
+          <IconWithText
+            icon="github"
+            text="btcpay-booking"
+            textVariant="primary"
+            textTo="https://github.com/learntheropes/ancap-booking"
+            textTarget="_blank"
+          />
+        </div>
       </div>
       <div class="level-right">
         <div class="level-item">
