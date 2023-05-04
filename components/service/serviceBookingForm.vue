@@ -5,8 +5,6 @@ import { ref, watch } from 'vue';
 const {
   locale,
   service,
-  extras,
-  duration
 } = defineProps({
   locale: {
     type: String,
@@ -15,16 +13,16 @@ const {
   service: {
     type: String,
     required: true
-  },
-  extras: {
-    type: Array,
-    default: []
-  },
-  duration: {
-    type: Number,
-    required: true
   }
-})
+});
+
+// Get the service specific settings from md file
+const  {
+  duration,
+  currency,
+  price,
+  extras
+} = await queryContent(`/services/${service}`).locale(locale).findOne();
 
 // Get needed functions from plugins
 const {
@@ -41,21 +39,21 @@ const {
   $createInvoice,
   // Function to listen event
   $listen
-} = useNuxtApp()
+} = useNuxtApp();
 
 // Dirty hack to show and disable previous icon in datepicker
 // if there isn't a previous month available and enable it again
 $disableDatapickerNavigationOnMount();
-let datepickerCurrentMonth = new Date().getMonth()
+let datepickerCurrentMonth = new Date().getMonth();
 const onChangeMonth = (month) => {
   datepickerCurrentMonth = month
   $updateDatapickerNavigation('booking', datepickerCurrentMonth, datepickerCurrentYear)
-}
-let datepickerCurrentYear = new Date().getFullYear()
+};
+let datepickerCurrentYear = new Date().getFullYear();
 const onChangeYear = (year) => {
   datepickerCurrentYear = year
   $updateDatapickerNavigation('booking', datepickerCurrentMonth, datepickerCurrentYear)
-}
+};
 
 // Get merchant fields settings
 const {
@@ -114,7 +112,7 @@ const validationSchema = {
 
 // Listen for the pgp key emited by the custom validation finction
 // This is to avoid calling the server twice, for validation and storing
-$listen('setPGP', (pgp) => form.value.buyerPGP = pgp)
+$listen('setPGP', (pgp) => form.value.buyerPGP = pgp);
 
 // Get the calendar settings object
 const {
@@ -139,21 +137,15 @@ watch(async () => form.value.buyerDate, async () => {
   })
 });
 
-// Get the service specific settings from md file
-const  {
-  currency,
-  price,
-} = await queryContent(`/services/${service}`).locale(locale).findOne()
-
 const amount = computed(() => {
-  return form.value.buyerTime.length * price
-})
+  return (form.value.buyerTime.length * price) + form.value.buyerExtras.reduce((sum, extra) => sum + extra.price, 0);
+});
 
 // Listen to setGateway emitted changes
 $listen('setGateway', async (gateway) => {
   form.value.buyerGateway = gateway
   await $createInvoice(form.value)
-})
+});
 
 </script>
 
@@ -226,6 +218,36 @@ $listen('setGateway', async (gateway) => {
             :key="freeSlot.value"
             :value="freeSlot.value"
           >{{ $t('from') }} {{ freeSlot.display.from }} {{ $t('to') }} {{ freeSlot.display.to }}</option>
+        </OSelect>
+      </OField>
+    </VField>
+
+    <VField
+      v-if="extras && extras.length"
+      name="buyerExtras"
+      :label="$t('buyerExtras')"
+      v-slot="{ handleChange, handleBlur, value, errors }"
+      v-model="form.buyerExtras"
+    >
+      <OField
+        :label="$t('buyerExtras')"
+        :variant="errors[0] ? 'danger' : null"
+        :message="errors[0] ? errors[0] : ''"
+      >
+        <OSelect
+          :model-value="value"
+          @update:modelValue="handleChange"
+          @change="handleChange"
+          @blur="handleBlur"
+          :native-size="extras.length"
+          multiple
+          expanded
+        >
+          <option
+            v-for="extra of extras"
+            :key="extra.title"
+            :value="extra"
+          >{{ extra.title }} - {{ extra.price }} {{ currency }}</option>
         </OSelect>
       </OField>
     </VField>
@@ -356,4 +378,3 @@ select {
   white-space: pre-wrap;
 }
 </style>
-

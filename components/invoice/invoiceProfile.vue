@@ -87,7 +87,7 @@ const qrCode = await generateQrCode(`${deploymentDomain}/invoice/${invoiceId}`)
     </div>
     <div class=block>
       <div class="has-text-weight-semibold">{{ $t('buyerExtras') }}</div>
-      <div>{{ (buyerExtras.length) ? buyerExtras.join('\n\n') : $t('notProvided') }}</div>
+      <div>{{ (buyerExtras.length) ? buyerExtras.split(', ').join('\n') : $t('notProvided') }}</div>
     </div>
     <div class=block>
       <div class="has-text-weight-semibold">{{ $t('buyerName') }}</div>

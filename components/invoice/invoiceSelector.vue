@@ -15,6 +15,7 @@
   });
 
   // Fix the surcharge for shitcoins gateway 
+  // Also referenced in plugins/createInvoice.js
   const surcharge = 5;
 
   // Filter merchant enabled gateways

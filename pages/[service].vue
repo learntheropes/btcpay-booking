@@ -51,8 +51,6 @@
           <ServiceBookingForm
             :locale="locale"
             :service="service"
-            :extras="extras"
-            :duration="duration"
           />
         </section>
       </div>

@@ -4,6 +4,10 @@ export default defineNuxtPlugin((nuxtApp) => {
 
   const { public: { deploymentDomain }} = useRuntimeConfig();
 
+  // Fix the surcharge for shitcoins gateway 
+  // Also referenced in components/invoice/invoiceSelector.vue
+  const surcharge = 5;
+
   return {
     provide: {
       createInvoice: async ({
@@ -51,6 +55,13 @@ export default defineNuxtPlugin((nuxtApp) => {
             expirationMinutes = null
             monitoringMinutes = null
         }
+
+        const getAmount = () => {
+          const time = buyerTime.length * price
+          const extras = buyerExtras.reduce((sum, extra) => sum + extra.price, 0)
+          const moltiplicator = (buyerGateway === 'bitcoin') ? 1 : (1 + (surcharge / 100))
+          return (time + extras) * moltiplicator
+        } 
       
         // Create the invoice on btcpay Greenfield api
         // And get the invoiceId page
@@ -59,11 +70,11 @@ export default defineNuxtPlugin((nuxtApp) => {
           // Create the request body for btcpay
           body: {
             currency,
-            amount: buyerTime.length * price,
+            amount: getAmount(),
             metadata: {
               orderId: `${buyerService}-${buyerTime.map(t => new Date(t).getTime()).join('-')}`,
               buyerTime,
-              buyerExtras,
+              buyerExtras: buyerExtras.map(extra => extra.title).join(', '),
               buyerName,
               buyerEmail,
               buyerFingerprint,
