@@ -44,9 +44,21 @@
         <section class="section">
           <MerchantServiceSelector
             :locale="locale"
+            class="is-hidden-mobile"
+          />
+          <MerchantServiceSelector
+            :locale="locale"
+            class="is-hidden-tablet"
           />
         </section>
       </div>
     </div>
   </NuxtLayout>
 </template>
+
+<style scoped>
+  .is-hidden-mobile {
+    min-width: 366px;
+    max-width: 366px;
+  }
+</style>
