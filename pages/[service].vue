@@ -51,9 +51,22 @@
           <ServiceBookingForm
             :locale="locale"
             :service="service"
+            class="is-hidden-mobile"
+          />
+          <ServiceBookingForm
+            :locale="locale"
+            :service="service"
+            class="is-hidden-tablet"
           />
         </section>
       </div>
     </div>
   </NuxtLayout>
 </template>
+
+<style scoped>
+  .is-hidden-mobile {
+    min-width: 366px;
+    max-width: 366px;
+  }
+</style>

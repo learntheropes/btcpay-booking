@@ -50,52 +50,23 @@
 
 <template>
 <div>
-  <div class="is-hidden-mobile">
-    <OField
-      grouped 
-      group-multiline
+  <OField
+    grouped 
+    group-multiline
+  >
+    <OButton
+      v-for="gateway in enabledGateways"
+      :key="gateway"
+      variant="primary"
+      :outlined="gateway !== 'bitcoin'"
+      @click.native="setGateway(gateway)"
     >
-      <OButton
-        v-for="gateway in enabledGateways"
-        :key="gateway"
-        variant="primary"
-        :outlined="gateway !== 'bitcoin'"
-        @click.native="setGateway(gateway)"
-      >
-      {{ `${$t('payWith')} ${gateway} ${(gateway === 'bitcoin') ? amount.toFixed(decimal) : (amount * (1 + (surcharge / 100))).toFixed(decimal)} ${currency}` }}
-      </OButton>
-    </OField>
-    <p class="help">{{ $t('surcharge', {
-      surcharge,
-      gateways: Object.keys(gateways).filter((g) => gateways[g] && g !== 'bitcoin' ).join(` ${$t('and')} `)
-    }) }}</p>
-  </div>
-  <div class="is-hidden-tablet">
-    <OField
-      grouped 
-      group-multiline
-    >
-      <OButton
-        v-for="gateway in enabledGateways"
-        :key="gateway"
-        variant="primary"
-        :outlined="gateway !== 'bitcoin'"
-        @click.native="setGateway(gateway)"
-      >
-      {{ `${$t('payWith')} ${gateway} ${(gateway === 'bitcoin') ? amount.toFixed(decimal) : (amount * (1 + (surcharge / 100))).toFixed(decimal)} ${currency}` }}
-      </OButton>
-    </OField>
-    <p class="help">{{ $t('surcharge', {
-      surcharge,
-      gateways: Object.keys(gateways).filter((g) => gateways[g] && g !== 'bitcoin' ).join(` ${$t('and')} `)
-    }) }}</p>
-  </div>
+    {{ `${$t('payWith')} ${gateway} ${(gateway === 'bitcoin') ? amount.toFixed(decimal) : (amount * (1 + (surcharge / 100))).toFixed(decimal)} ${currency}` }}
+    </OButton>
+  </OField>
+  <p class="help">{{ $t('surcharge', {
+    surcharge,
+    gateways: Object.keys(gateways).filter((g) => gateways[g] && g !== 'bitcoin' ).join(` ${$t('and')} `)
+  }) }}</p>
 </div>
 </template>
-
-<style scoped>
-  .is-hidden-mobile {
-    min-width: 366px;
-    max-width: 366px;
-  }
-</style>
