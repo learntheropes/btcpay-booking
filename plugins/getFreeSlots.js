@@ -1,6 +1,6 @@
 import { defineNuxtPlugin } from '#app';
 import find from 'lodash.find'
-import { defaultLocale } from '~/assets/js/locales'
+import flatten from 'lodash.flatten'
 
 export default defineNuxtPlugin((nuxtApp) => {
 
@@ -63,43 +63,45 @@ export default defineNuxtPlugin((nuxtApp) => {
           return [];
         };
 
-        // Get existing _bookings from content json file
-        // With direct fetch api because there is a bug with queryContent
-        // That always add .sort({ $numeric: true }) even if not asked.
-        // await queryContent(`/bookings`).locale('en').findOne()
-        const [{ all: bookings }] = await $fetch(`/api/_content/query?_params=` + JSON.stringify({
-          where: [{
-            _partial: true,
-            _locale: defaultLocale,
-            _path: '/_bookings',
-            _dir: ''
-          }]
-        }))
+        // Get the paid invoice to extract the busy slots.
+        const invoices = await $fetch('/api/invoices');
+
+        // Filter the invoice that have been paid
+        const paidInvoices = invoices.filter(({ status }) => status === 'Settled');
+
+        // Extract the service name and the start time of the booking
+        const busySlots = flatten(paidInvoices.map(({ metadata: { buyerService, buyerTime }}) => buyerTime.map(time => {
+          return {
+            from: new Date(parseInt(time * 1000)).toISOString(),
+            to: new Date(parseInt(time * 1000 + parseInt(duration * 60 * 1000))).toISOString(),
+            service: buyerService
+          }
+        })));
 
         // Functiion to get the free slots in case of parallel concurrency
-        const getFreeParallelSlots = (bookings, slot) => {
-          return !find(bookings,  booking => {
-            return booking.service === service &&
-            ((slot.from >= booking.from && slot.from < booking.to) ||
-            (slot.to > booking.from && slot.to <= booking.to))
-          })
-        }
+        const getFreeParallelSlots = (busySlots, slot) => {
+
+          return !find(busySlots,  busySlot => {
+
+            return busySlot.service === service && (slot >= busySlot.from && slot < busySlot.to);
+          });
+        };
 
         // Functiion to get the free slots in case of (default) serial concurrency
-        const getFreeSerialSlot = (bookings, slot) => {
-          return !find(bookings,  booking => {
-            return ((slot.from >= booking.from && slot.from < booking.to) ||
-            (slot.to > booking.from && slot.to <= booking.to))
-          })
-        }
+        const getFreeSerialSlot = (busySlots, slot) => {
+
+          return !find(busySlots,  busySlot => {
+
+            return ((slot >= busySlot.from && slot < busySlot.to));
+          });
+        };
 
         // Filter out the already booked slots
+        // Serial concurrency is default
         const getFreeSlots = (availableSlots) => {
 
-          // Return the not booked slots
-          // Serial concurrency is default
-          if (concurrency === 'parallel') return availableSlots.filter(getFreeParallelSlots(bookings, slot.value))
-          else return availableSlots.filter(slot => getFreeSerialSlot(bookings, slot.value))
+          if (concurrency === 'parallel') return availableSlots.filter(getFreeParallelSlots(busySlots, slot.value))
+          else return availableSlots.filter(slot => getFreeSerialSlot(busySlots, slot.value))
         }
 
         const localBuyerDate = getLocalBuyerDate();

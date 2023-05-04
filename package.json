@@ -30,6 +30,7 @@
     "dayjs": "^1.11.7",
     "lodash.find": "^4.6.0",
     "lodash.findindex": "^4.6.0",
+    "lodash.flatten": "^4.4.0",
     "mitt": "^3.0.0",
     "nuxt-icons": "^3.2.1",
     "pusher": "^5.1.2",
