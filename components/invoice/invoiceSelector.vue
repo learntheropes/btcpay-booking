@@ -22,7 +22,23 @@
   const {
     gateways,
   } = await queryContent(`/settings`).findOne();
-  const enabledGateways = Object.keys(gateways).filter((i) => gateways[i]);  
+  const enabledGateways = Object.keys(gateways).filter((i) => gateways[i]);
+
+  // Define the decimal length based on the currency
+  let decimal
+  switch(currency) {
+    case 'BTC':
+      decimal = 8
+      break;
+    case 'SATS':
+      decimal = 0
+      break;
+    case 'ARS':
+      decimal = 0
+      break;
+    default:
+      decimal = 2
+  }
 
   // emit gateway selection
   const { $event } = useNuxtApp(); 
@@ -46,7 +62,7 @@
         :outlined="gateway !== 'bitcoin'"
         @click.native="setGateway(gateway)"
       >
-      {{ `${$t('payWith')} ${gateway} ${(gateway === 'bitcoin') ? amount : amount * (1 + (surcharge / 100))} ${currency}` }}
+      {{ `${$t('payWith')} ${gateway} ${(gateway === 'bitcoin') ? amount.toFixed(decimal) : (amount * (1 + (surcharge / 100))).toFixed(decimal)} ${currency}` }}
       </OButton>
     </OField>
     <p class="help">{{ $t('surcharge', {
@@ -66,7 +82,7 @@
         :outlined="gateway !== 'bitcoin'"
         @click.native="setGateway(gateway)"
       >
-      {{ `${$t('payWith')} ${gateway} ${(gateway === 'bitcoin') ? amount : amount * (1 + (surcharge / 100))} ${currency}` }}
+      {{ `${$t('payWith')} ${gateway} ${(gateway === 'bitcoin') ? amount.toFixed(decimal) : (amount * (1 + (surcharge / 100))).toFixed(decimal)} ${currency}` }}
       </OButton>
     </OField>
     <p class="help">{{ $t('surcharge', {

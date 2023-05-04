@@ -55,10 +55,27 @@ export default defineNuxtPlugin((nuxtApp) => {
         }
 
         const getAmount = () => {
+
+          // Define the decimal length based on the currency
+          let decimal
+          switch(currency) {
+            case 'BTC':
+              decimal = 8
+              break;
+            case 'SATS':
+              decimal = 0
+              break;
+            case 'ARS':
+              decimal = 0
+              break;
+            default:
+              decimal = 2
+          }
+
           const time = buyerTime.length * price
-          const extras = buyerExtras.reduce((sum, extra) => sum + extra.price, 0)
+          const extras = (buyerTime.length) ? buyerExtras.reduce((sum, extra) => sum + extra.price, 0) : 0
           const moltiplicator = (buyerGateway === 'bitcoin') ? 1 : (1 + (surcharge / 100))
-          return (time + extras) * moltiplicator
+          return ((time + extras) * moltiplicator).toFixed(decimal)
         } 
       
         // Create the invoice on btcpay Greenfield api

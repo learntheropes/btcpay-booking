@@ -247,7 +247,7 @@ $listen('setGateway', async (gateway) => {
             v-for="extra of extras"
             :key="extra.title"
             :value="extra"
-          >{{ extra.title }} - {{ extra.price }} {{ currency }}</option>
+          >{{ extra.title }}</option>
         </OSelect>
       </OField>
     </VField>
