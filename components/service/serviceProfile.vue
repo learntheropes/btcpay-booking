@@ -43,8 +43,8 @@
                 preset="avatar"
                 :src="'/'+image"
                 :alt="title"
-                height="128"
-                width="128"
+                height="192"
+                width="192"
               />
             </figure>
           </div>
