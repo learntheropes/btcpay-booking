@@ -10,7 +10,6 @@ import {
 const isDev = process.env.NODE_ENV !== 'production'
 const isDeployed = process.env.DEPLOYMENT_DOMAIN
 const deploymentDomain = (isDeployed) ? `https://${process.env.DEPLOYMENT_DOMAIN}` : 'http://localhost:3000'
-const webhookDomain = (isDeployed) ? `https://${process.env.DEPLOYMENT_DOMAIN}` : process.env.NGROK_URL
 
 export default defineNuxtConfig({
 
@@ -45,7 +44,6 @@ export default defineNuxtConfig({
       isDev,
       isDeployed,
       deploymentDomain,
-      webhookDomain,
       pusherApikey: process.env.PUSHER_APIKEY,
       pusherCluster: process.env.PUSHER_CLUSTER,
       pusherAppId: process.env.PUSHER_APP_ID,

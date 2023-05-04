@@ -42,8 +42,8 @@ export default defineNuxtPlugin((nuxtApp) => {
         let expirationMinutes, monitoringMinutes
         switch(buyerGateway) {
           case 'altcoins':
-            expirationMinutes = 1
-            monitoringMinutes = null
+            expirationMinutes = 60
+            monitoringMinutes = 60 * 24
             break;
           case 'fiat':
             expirationMinutes = 60 * 24 * 2
@@ -85,7 +85,7 @@ export default defineNuxtPlugin((nuxtApp) => {
             checkout: {
               // Expiration 1 minutes for test purpose only
               // Remove it when done
-              expirationMinutes: 1,
+              expirationMinutes,
               monitoringMinutes,
               redirectAutomatically: false,
               requiresRefundEmail: email === 'required'
@@ -95,21 +95,18 @@ export default defineNuxtPlugin((nuxtApp) => {
 
         // Create the webhhok for notification about the invoice
         // With the same id of the invoiceId
-        // The secret is added serverside
-        const { public: { webhookDomain }} = useRuntimeConfig();
-
-        await $fetch('/api/webhooks', {
+        // The secret and url are added serverside
+        const webhook = await $fetch('/api/webhooks', {
           method: 'POST',
           body: {
             id: invoiceId,
-            url: `${webhookDomain}/api/socket`,
-            automaticRedelivery: false
           }
-        })
-        
+        });
+
+        // Navigate to the invoice page
         await navigateTo({
           path: `/${locale}/invoice/${invoiceId}`
-        })
+        });
       }
     }
   }

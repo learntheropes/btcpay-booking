@@ -1,8 +1,6 @@
-// import { pusherTrigger } from "../utils/pusherTrigger";
-
 export default defineEventHandler(async (event) => {
 
-  // Verify the Greenfield api webhook and return in unauthorized
+  // Verify the Greenfield api webhook and return if unauthorized
   let { statusCode, body } = await verifyWebhook(event);
 
   if (statusCode !== 200) {
@@ -20,5 +18,5 @@ export default defineEventHandler(async (event) => {
   
   // Return ok to the Greenfield
   return 'ok';
-})
+});
 
