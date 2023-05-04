@@ -333,10 +333,6 @@ $listen('setGateway', async (gateway) => {
         :variant="errors[0] ? 'danger' : null"
         :message="errors[0] ? errors[0] : ''"
       >
-        <!-- :autosize="true"
-        :maxlength="500"
-        :hasCounter="true"
-        [nitro] [dev] [unhandledRejection] TypeError: Cannot read properties of undefined (reading 'scrollHeight')  -->
         <OInput
           :label="$t('buyerDetails')"
           type="textarea"
@@ -345,6 +341,8 @@ $listen('setGateway', async (gateway) => {
           @change="handleChange"
           @blur="handleBlur"
           expanded
+          :maxlength="250"
+          :hasCounter="true"
         />
       </OField>
     </VField>
