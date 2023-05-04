@@ -10,19 +10,35 @@ const {
   }
 } = useRuntimeConfig();
 
-let webhookDomain;
-
 export default defineEventHandler(async (event) => {
 
   // For local development, create a ngrok tunnel and set is as webhook domain
   // Otherwise use the deplyment domain
-  if (!webhookDomain) {
-    webhookDomain = deploymentDomain;
-    if (!isDeployed) {
-      const ngrokUrl = await ngrok.connect({ addr: 3000, region: pusherCluster }) ;// authtoken: process.env.NGROK_TOKEN
-      webhookDomain = ngrokUrl;
+    let webhookDomain;
+
+    if (isDeployed) {
+
+      webhookDomain = deploymentDomain
     }
-  };
+    else {
+
+      const apiUrl = ngrok.getUrl();
+
+      if (apiUrl) {
+
+        const api = ngrok.getApi();
+        const tunnels = await api.listTunnels();
+
+        webhookDomain = tunnels.tunnels[0].public_url;
+      }
+      else {
+        const ngrokUrl = await ngrok.connect({
+          addr: 3000, region: pusherCluster
+        });
+
+        webhookDomain = ngrokUrl;
+      }
+    }
 
   const body = await readBody(event);
 
