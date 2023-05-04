@@ -8,8 +8,9 @@ import {
 // import startSocketServer from './server/sockets/index.js'
 
 const isDev = process.env.NODE_ENV !== 'production'
-const iDeployed = process.env.DEPLOYMENT_DOMAIN
-const deploymentDomain = (iDeployed) ? `https://${process.env.DEPLOYMENT_DOMAIN}` : 'http://localhost:3000'
+const isDeployed = process.env.DEPLOYMENT_DOMAIN
+const deploymentDomain = (isDeployed) ? `https://${process.env.DEPLOYMENT_DOMAIN}` : 'http://localhost:3000'
+const webhookDomain = (isDeployed) ? `https://${process.env.DEPLOYMENT_DOMAIN}` : process.env.NGROK_URL
 
 export default defineNuxtConfig({
 
@@ -42,13 +43,12 @@ export default defineNuxtConfig({
     smtpPassword: process.env.SMTP_PASSWORD,
     public: {
       isDev,
-      iDeployed,
-      // nakedDeplymentDomain: process.env.DEPLOYMENT_DOMAIN,
+      isDeployed,
       deploymentDomain,
+      webhookDomain,
       pusherApikey: process.env.PUSHER_APIKEY,
       pusherCluster: process.env.PUSHER_CLUSTER,
       pusherAppId: process.env.PUSHER_APP_ID,
-      ngrokUrl: process.env.NGROK_URL,
     }
   },
 

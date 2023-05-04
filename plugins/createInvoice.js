@@ -2,8 +2,6 @@ import { defineNuxtPlugin } from '#app';
 
 export default defineNuxtPlugin((nuxtApp) => {
 
-  const { public: { deploymentDomain }} = useRuntimeConfig();
-
   // Fix the surcharge for shitcoins gateway 
   // Also referenced in components/invoice/invoiceSelector.vue
   const surcharge = 5;
@@ -98,11 +96,13 @@ export default defineNuxtPlugin((nuxtApp) => {
         // Create the webhhok for notification about the invoice
         // With the same id of the invoiceId
         // The secret is added serverside
+        const { public: { webhookDomain }} = useRuntimeConfig();
+
         await $fetch('/api/webhooks', {
           method: 'POST',
           body: {
             id: invoiceId,
-            url: `${deploymentDomain}/api/socket`,
+            url: `${webhookDomain}/api/socket`,
             automaticRedelivery: false
           }
         })
