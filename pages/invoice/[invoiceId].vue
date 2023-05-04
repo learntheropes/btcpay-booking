@@ -40,8 +40,8 @@
       <nav class="breadcrumb" aria-label="breadcrumbs">
       <ul>
         <li><a href="/">{{ profile }}</a></li>
-        <li><a :href="'/'+buyerService" aria-current="page">{{ buyerServiceTitle }}</a></li>
-        <li class="is-active"><a :href="'/invoice/'+invoiceId" aria-current="page">{{ `${t('invoice')} ${invoiceId}` }}</a></li>
+        <li><a :href="'/'+locale+'/'+buyerService" aria-current="page">{{ buyerServiceTitle }}</a></li>
+        <li class="is-active">{{ `${t('invoice')} ${invoiceId}` }}</li>
       </ul>
     </nav>
     </section>
