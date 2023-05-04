@@ -85,14 +85,7 @@ export default defineNuxtConfig({
     lazy: true,
     langDir: 'lang',
     strategy: 'prefix',
-    vueI18n: {
-      detectBrowserLanguage: {
-        useCookie: false,
-        redirectOnRoot: true,
-        // alwaysRedirect: true
-        fallbackLocale: defaultLocale
-      }
-    }
+    vueI18n: './i18n.config.js'
   },
 
   image: {
