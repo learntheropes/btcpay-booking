@@ -1,15 +1,18 @@
 <script setup>
 // Get invoice prop
 const {
+  invoiceId,
   invoice,
 } = defineProps({
+  invoiceId: {
+    type: String,
+    required: true
+  },
   invoice: {
     type: Object,
     required: true
   }
 });
-
-const { invoiceId } = invoice;
 
 // Get updated  payment methods from BTCPay Greenfield API to get the payments timestamp
 const paymentMethods = await $fetch(`/api/invoices/${invoiceId}/payment-methods`, {

@@ -79,6 +79,7 @@
 
 <style scoped>
   .is-hidden-mobile {
+    min-width: 366px;
     max-width: 366px;
   }
 </style>

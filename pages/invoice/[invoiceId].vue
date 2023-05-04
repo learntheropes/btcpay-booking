@@ -58,9 +58,24 @@
             :invoiceId="invoiceId"
             :invoice="invoice"
             :status="status"
+            class="is-hidden-mobile"
+          />
+          <invoiceBitcoin
+            v-if="buyerGateway === 'bitcoin'"
+            :invoiceId="invoiceId"
+            :invoice="invoice"
+            :status="status"
+            class="is-hidden-tablet"
           />
         </section>
       </div>
     </div>
   </NuxtLayout>
 </template>
+
+<style scoped>
+  .is-hidden-mobile {
+    min-width: 366px;
+    max-width: 366px;
+  }
+</style>

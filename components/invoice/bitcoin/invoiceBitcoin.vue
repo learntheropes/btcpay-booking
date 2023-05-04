@@ -80,10 +80,12 @@ onBeforeUnmount(() => {
   />
   <InvoiceBitcoinProcessing
     v-else-if="status == 'Processing' || status === 'InvoiceProcessing'"
+    :invoiceId="invoiceId"
     :invoice="invoice"
   />
   <InvoiceBitcoinReceived
     v-else-if="status === 'Settled' || status === 'InvoiceReceivedPayment'"
+    :invoiceId="invoiceId"
     :invoice="invoice"
   />
   <div v-else>Something went wrong</div>
