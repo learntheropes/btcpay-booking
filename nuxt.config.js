@@ -54,7 +54,7 @@ export default defineNuxtConfig({
 
   css: [
     '~/assets/scss/main.scss',
-    '~/assets/css/mdi.css',
+    '~/assets/scss/mdi.scss',
     // "@mdi/font/css/materialdesignicons.css"
   ],
 

@@ -17,16 +17,33 @@
     image,
     extras,
     body,
-    gallery,
-    duration
+    gallery
   } = await queryContent(`/services/${service}`).locale(locale).findOne();
 
+  // Handle the loading page after submitting the form
+  const isLoading = ref(false);
+
+  const {
+    // Function to listen event
+    $listen
+  } = useNuxtApp();
+
+  $listen('setGateway', (_gateway) => {
+    isLoading.value = true;
+});
   // Set title and description page
   useContentHead({ title, description });
 </script>
 
 <template>
   <NuxtLayout>
+    <OLoading
+      :full-page="true"
+      v-model:active="isLoading"
+      :can-cancel="false"
+    >
+      <OIcon pack="mdi" icon="loading" size="large" spin />
+    </OLoading>
     <section class="section is-medium">
       <nav class="breadcrumb" aria-label="breadcrumbs">
       <ul>

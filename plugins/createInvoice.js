@@ -65,7 +65,8 @@ export default defineNuxtPlugin((nuxtApp) => {
           return ((time + extras) * moltiplicator).toFixed(decimal)
         };
 
-        // workaround to avoid posting a duplicate invoice with 0 value
+        // Workaround to avoid posting a duplicate invoice with 0 value
+        // Apparently is not due to server client. Needs better investigation
         if (Number(getAmount()) !== 0) {
 
           // Create the invoice on btcpay Greenfield api
