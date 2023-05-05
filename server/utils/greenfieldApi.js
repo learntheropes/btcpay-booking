@@ -27,26 +27,22 @@ export const greenfieldApi = async (endpoint, event) => {
       Authorization: `token ${btcpayApikey}`
     },
     redirect: 'follow',
-    // async onRequest({ request, options }) {
-    //   isDev ? console.log('[fetch request]', request, options) : null
-    // },
-    // async onResponse({ request, response, options }) {
-    //   isDev ? console.log('[fetch response]', request, response.status, response.body) : null
-    // },
-    // async onRequestError({ request, options, error }) {
-    //   isDev ?  console.log('[fetch request error]', request, error) : null
-    // },
-    // async onResponseError({ request, response, options }) {
-    //   isDev ? console.log('[fetch response error]', request, response.status, response.body) : null
-    // }
+    async onRequestError({ request, error }) {
+      isDev ?  console.log('[fetch request error]', request, error) : null
+    },
+    async onResponseError({ request, response }) {
+      isDev ? console.log('[fetch response error]', request, response.status, response.body) : null
+    }
   });
 
-  const method = getMethod(event)
+  const method = getMethod(event);
 
   let query, body;
   if (method === 'GET') {
+
     query = getQuery(event);
   } else {
+
     body = await readBody(event);
   };
 

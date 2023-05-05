@@ -32,11 +32,11 @@ import { surcharge } from '../../assets/js/mix';
 
   // emit gateway selection
   const setGateway = (gateway) => {
-  $event('setGateway', gateway);
+    $event('setGateway', gateway);
+  }
 
-    // Define the decimal length based on the currency
-    const decimal = $getDecimal(currency);
-}
+  // Define the decimal length based on the currency
+  const decimal = $getDecimal(currency);
 </script>
 
 <template>

@@ -96,8 +96,8 @@ const {
           </div>
         </OCollapse>
       </div>
-      <div>{{ $t('invoiceExpired') }} {{ $dayjs(invoice.expirationTime * 1000).fromNow() }}</div>
-      <div class="block has-text-centered">{{ $t('invoiceValidity', { minutes: invoice.checkout.expirationMinutes }) }}</div>
+      <div>{{ $t('invoiceExpired') }} {{ $dayjs(invoice.expirationTime * 1000).fromNow() }}.</div>
+      <div>{{ $t('invoiceValidity', { minutes: invoice.checkout.expirationMinutes }) }}.</div>
     </div>
     <footer class="card-footer">
       <NuxtLink

@@ -8,7 +8,7 @@ const {
   public: {
     deploymentDomain
   }
-} = useRuntimeConfig()
+} = useRuntimeConfig();
 
 // Get props
 const {
@@ -18,7 +18,7 @@ const {
     type: Object,
     required: true
   }
-})
+});
 
 // Deconstruct props
 const {
@@ -36,7 +36,7 @@ const {
     buyerService,
     buyerGateway
   }
-} = invoice
+} = invoice;
 
   // Get the service name for the breadcrumb
   const {
@@ -49,7 +49,12 @@ const generateQrCode = async (text) => {
 };
 
 // Generate the qrcode for the invoice URL
-const qrCode = await generateQrCode(`${deploymentDomain}/invoice/${invoiceId}`)
+const qrCode = await generateQrCode(`${deploymentDomain}/invoice/${invoiceId}`);
+
+const {
+  // function to display the time of the booking
+  $dayjs,
+} = useNuxtApp();
 </script>
 
 <template>
@@ -83,11 +88,11 @@ const qrCode = await generateQrCode(`${deploymentDomain}/invoice/${invoiceId}`)
     </div>
     <div class=block>
       <div class="has-text-weight-semibold">{{ $t('buyerTime') }}</div>
-      <div>{{ buyerTime.map(t => new Date(t).toLocaleString(buyerLanguage)).join('\n\n') }}</div>
+      <div>{{ buyerTime.map(t => $dayjs(t * 1000).format('llll')).join('\n') }}</div>
     </div>
     <div class=block>
       <div class="has-text-weight-semibold">{{ $t('buyerExtras') }}</div>
-      <div>{{ (buyerExtras.length) ? buyerExtras.split(', ').join('\n') : $t('notProvided') }}</div>
+      <div>{{ (buyerExtras.split('\n').length) ? buyerExtras : $t('notProvided') }}</div>
     </div>
     <div class=block>
       <div class="has-text-weight-semibold">{{ $t('buyerName') }}</div>

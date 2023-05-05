@@ -143,7 +143,7 @@ const amount = computed(() => {
 
 // Listen to setGateway emitted changes
 $listen('setGateway', async (gateway) => {
-  form.value.buyerGateway = gateway
+  form.value.buyerGateway = gateway;
   await $createInvoice(form.value)
 });
 
@@ -156,7 +156,6 @@ $listen('setGateway', async (gateway) => {
   <VForm
     name="booking"
     :validation-schema="validationSchema"
-    @submit="$createInvoice(form)"
   >
     <VField
       name="buyerDate"

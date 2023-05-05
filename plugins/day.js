@@ -1,13 +1,14 @@
-import dayjs from 'dayjs'
-import relativeTime from 'dayjs/plugin/relativeTime'
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+import localizedFormat from 'dayjs/plugin/localizedFormat';
 // import { locales } from '~/assets/js/locales'
 
 // Import in the classic way
 // waiting that this is answered
 // https://github.com/iamkun/dayjs/issues/2301
-import 'dayjs/locale/en'
-import 'dayjs/locale/es'
-import 'dayjs/locale/it'
+import 'dayjs/locale/en';
+import 'dayjs/locale/es';
+import 'dayjs/locale/it';
 
 // locales.map(locale => import(`dayjs/locale/${locale.code}`) )
 
@@ -22,6 +23,9 @@ export default defineNuxtPlugin(nuxtApp => {
 
   // To use fromNow and toNow functions
   dayjs.extend(relativeTime);
+
+  // To use localized date
+  dayjs.extend(localizedFormat);
 
   // Initial dayjs localization setup
   const { locale } = nuxtApp.$i18n;

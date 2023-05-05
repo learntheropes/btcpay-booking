@@ -63,54 +63,61 @@ export default defineNuxtPlugin((nuxtApp) => {
           const extras = (buyerTime.length) ? buyerExtras.reduce((sum, extra) => sum + extra.price, 0) : 0
           const moltiplicator = (buyerGateway === 'bitcoin') ? 1 : (1 + (surcharge / 100))
           return ((time + extras) * moltiplicator).toFixed(decimal)
-        } 
-      
-        // Create the invoice on btcpay Greenfield api
-        // And get the invoiceId page
-        const { id: invoiceId } = await $fetch('/api/invoices', {
-          method: 'POST',
-          // Create the request body for btcpay
-          body: {
-            currency,
-            amount: getAmount(),
-            metadata: {
-              orderId: `${buyerService}-${buyerTime.map(t => new Date(t).getTime()).join('-')}`,
-              buyerTime,
-              buyerExtras: buyerExtras.map(extra => extra.title).join(', '),
-              buyerName,
-              buyerEmail,
-              buyerFingerprint,
-              buyerPGP,
-              buyerDetails,
-              buyerLanguage: locale,
-              buyerService,
-              buyerGateway
-            },
-            checkout: {
-              // Expiration 1 minutes for test purpose only
-              // Remove it when done
-              expirationMinutes,
-              monitoringMinutes,
-              redirectAutomatically: false,
-              requiresRefundEmail: email === 'required'
+        };
+
+        // workaround to avoid posting a duplicate invoice with 0 value
+        if (Number(getAmount()) !== 0) {
+
+          // Create the invoice on btcpay Greenfield api
+          // And get the invoiceId page
+          const { id: invoiceId } = await $fetch('/api/invoices', {
+            method: 'POST',
+            // Create the request body for btcpay
+            body: {
+              currency,
+              amount: getAmount(),
+              metadata: {
+                // The order id is the concatenation of the service slug and the epoch in seconds of the bookings
+                orderId: `${buyerService}-${buyerTime.map(t => new Date(t).getTime()).join('-')}`,
+                buyerTime,
+                // This is added to show properly formatted time on the btcpay invoice dashboar
+                buyerBooking: buyerTime.map(t => nuxtApp.$dayjs(t).format('llll')).join('\n'),
+                buyerExtras: buyerExtras.map(extra => extra.title).join('\n'),
+                buyerName,
+                buyerEmail,
+                buyerFingerprint,
+                buyerPGP,
+                buyerDetails,
+                buyerLanguage: locale,
+                buyerService,
+                buyerGateway
+              },
+              checkout: {
+                // Expiration 1 minutes for test purpose only
+                // Remove it when done
+                expirationMinutes,
+                monitoringMinutes,
+                redirectAutomatically: false,
+                requiresRefundEmail: email === 'required'
+              }
             }
-          }
-        });
+          });
 
-        // Create the webhhok for notification about the invoice
-        // With the same id of the invoiceId
-        // The secret and url are added serverside
-        const webhook = await $fetch('/api/webhooks', {
-          method: 'POST',
-          body: {
-            id: invoiceId,
-          }
-        });
+          // Create the webhhok for notification about the invoice
+          // With the same id of the invoiceId
+          // The secret and url are added serverside
+          await $fetch('/api/webhooks', {
+            method: 'POST',
+            body: {
+              id: invoiceId,
+            }
+          });
 
-        // Navigate to the invoice page
-        await navigateTo({
-          path: `/${locale}/invoice/${invoiceId}`
-        });
+          // Navigate to the invoice page
+          await navigateTo({
+            path: `/${locale}/invoice/${invoiceId}`
+          });
+        };
       }
     }
   }
