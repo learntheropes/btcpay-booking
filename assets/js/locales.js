@@ -49,7 +49,7 @@ export const staticRouteRules = locales.reduce((obj, locale) => {
   }
   return obj
 }, {
-  '_ipx': {
+  '_ipx/**': {
     headers: {
       'Cache-Control': `s-maxage=${60 * 60 * 24 * 365}`
     }
