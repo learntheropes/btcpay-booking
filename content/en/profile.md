@@ -30,9 +30,7 @@ websites:
   - title: btcpay
     url: https://learntheropes.xyz
 ---
-My name is Giovanni.  
-I'm italian living between Paraguay and Argentina.  
+My name is Giovanni. I'm italian living between Paraguay and Argentina.  
 In the pre bitcoin era I was a sailor and boatbuilder.  
 Since I discovered Bitcoin in 2014 I left my previous life to work online as disputes analyist at Localbitcoins Oy.  
-I'm a self made nodejs and nuxt developer.  
-I also like Btcpay Server and bitcoinjs-lib a lot.  
+I'm a self made nodejs and nuxt developer that likes Btcpay Server and bitcoinjs-lib a lot.  
