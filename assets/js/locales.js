@@ -34,19 +34,25 @@ export const staticRouteRules = locales.reduce((obj, locale) => {
     static: true,
     cors: true,
     headers: {
-      'Cache-Control': `s-maxage=${60*60*24*365}`
+      'Cache-Control': `s-maxage=${60 * 60 * 24 * 365}`
     }
   }
   obj[`/${locale.code}/**`] = {
     static: true,
     cors: true,
     headers: {
-      'Cache-Control': `s-maxage=${60*60*24*365}`
+      'Cache-Control': `s-maxage=${60 * 60 * 24 * 365}`
     }
   }
   obj[`/${locale.code}/invoice/**`] = {
     cors: true
   }
   return obj
+}, {
+  '_ipx': {
+    headers: {
+      'Cache-Control': `s-maxage=${60 * 60 * 24 * 365}`
+    }
+  }
 })
 
