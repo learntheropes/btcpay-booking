@@ -9,6 +9,9 @@ export default defineNuxtPlugin((nuxtApp) => {
 
       getFreeSlots: async ({ form, service, duration }) => {
 
+        // Set the component as loading
+        nuxtApp.$event('setIsLoadingFreeSlots', true);
+
         // Get availability and concurrency from general settings from yaml file
         const {
           availability,
@@ -108,7 +111,10 @@ export default defineNuxtPlugin((nuxtApp) => {
 
         const localBuyerDate = getLocalBuyerDate();
         const availableSlots = getAvailableSlots(localBuyerDate);
-        const freeSlots = getFreeSlots(availableSlots)
+        const freeSlots = getFreeSlots(availableSlots);
+
+        // Set the component as lnot oading
+        nuxtApp.$event('setIsLoadingFreeSlots', false);
 
         return freeSlots;
       }

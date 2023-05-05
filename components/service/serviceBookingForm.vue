@@ -147,6 +147,12 @@ $listen('setGateway', async (gateway) => {
   await $createInvoice(form.value)
 });
 
+// Handle is loading free slots
+const isLoading = ref(false);
+
+$listen('setIsLoadingFreeSlots', (bool) => {
+  isLoading.value = bool;
+});
 </script>
 
 <template>
@@ -197,12 +203,19 @@ $listen('setGateway', async (gateway) => {
         :variant="errors[0] ? 'danger' : null"
         :message="errors[0] ? errors[0] : ''"
       >
+        <OLoading
+          :full-page="false"
+          v-model:active="isLoading"
+          :can-cancel="false"
+        >
+          <OIcon pack="mdi" icon="loading" size="large" spin />
+        </OLoading>
         <OSelect
           :model-value="value"
           @update:modelValue="handleChange"
           @change="handleChange"
           @blur="handleBlur"
-          :native-size="freeSlots.length || 1"
+          :native-size="freeSlots.length || 3"
           multiple
           expanded
         >
