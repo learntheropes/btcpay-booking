@@ -8,6 +8,11 @@ title: Giovanni Learntheropes
 description: My consultancies booking website powered by Btcpay and Nuxt
 # Your profile picture name that you need to put in the public folder.
 image: me.jpg
+# List of image to show on the page
+# Save the file in the ./public foder and list the file name here
+# I don't have a gallery in this case.
+# Check the paraguay-redincy file for an example
+gallery:
 # Your twitter handle.
 twitter: learntheropes_
 # Your Nostr pubkey or NIP-05

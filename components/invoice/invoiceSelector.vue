@@ -1,4 +1,7 @@
 <script setup>
+// Import the surcharge for shitcoins gateway 
+import { surcharge } from '../../assets/js/mix';
+
   // Get props
   const {
     amount,
@@ -14,37 +17,25 @@
     }
   });
 
-  // Fix the surcharge for shitcoins gateway 
-  // Also referenced in plugins/createInvoice.js
-  const surcharge = 5;
-
   // Filter merchant enabled gateways
   const {
     gateways,
   } = await queryContent(`/settings`).findOne();
   const enabledGateways = Object.keys(gateways).filter((i) => gateways[i]);
 
-  // Define the decimal length based on the currency
-  let decimal
-  switch(currency) {
-    case 'BTC':
-      decimal = 8
-      break;
-    case 'SATS':
-      decimal = 0
-      break;
-    case 'ARS':
-      decimal = 0
-      break;
-    default:
-      decimal = 2
-  }
+  const {
+    // emit gateway selection function
+    $event,
+    // getDecimal function from currency
+    $getDecimal
+  } = useNuxtApp();
 
   // emit gateway selection
-  const { $event } = useNuxtApp(); 
-
   const setGateway = (gateway) => {
   $event('setGateway', gateway);
+
+    // Define the decimal length based on the currency
+    const decimal = $getDecimal(currency);
 }
 </script>
 

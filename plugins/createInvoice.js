@@ -1,10 +1,9 @@
 import { defineNuxtPlugin } from '#app';
 
-export default defineNuxtPlugin((nuxtApp) => {
+// Import the surcharge for shitcoins gateway 
+import { surcharge } from '../assets/js/mix';
 
-  // Fix the surcharge for shitcoins gateway 
-  // Also referenced in components/invoice/invoiceSelector.vue
-  const surcharge = 5;
+export default defineNuxtPlugin((nuxtApp) => {
 
   return {
     provide: {
@@ -27,7 +26,8 @@ export default defineNuxtPlugin((nuxtApp) => {
         const  {
           currency,
           price,
-        } = await queryContent(`/services/${buyerService}`).locale(locale).findOne()
+        } = await queryContent(`/services/${buyerService}`).locale(locale).findOne();
+
 
         // Get merchant email requirement settings
         const {
@@ -39,38 +39,25 @@ export default defineNuxtPlugin((nuxtApp) => {
 
         // Set the expiration and monitoring in minutes for shitcoins based on the gateway selected
         // Leave the btcpay store default for bitcoin
-        let expirationMinutes, monitoringMinutes
+        let expirationMinutes, monitoringMinutes;
         switch(buyerGateway) {
           case 'altcoins':
-            expirationMinutes = 60
-            monitoringMinutes = 60 * 24
+            expirationMinutes = 60;
+            monitoringMinutes = 60 * 24;
             break;
           case 'fiat':
-            expirationMinutes = 60 * 24 * 2
-            monitoringMinutes = 60 * 24 * 7
+            expirationMinutes = 60 * 24 * 2;
+            monitoringMinutes = 60 * 24 * 7;
             break;
           default:
-            expirationMinutes = null
-            monitoringMinutes = null
+            expirationMinutes = null;
+            monitoringMinutes = null;
         }
 
         const getAmount = () => {
 
           // Define the decimal length based on the currency
-          let decimal
-          switch(currency) {
-            case 'BTC':
-              decimal = 8
-              break;
-            case 'SATS':
-              decimal = 0
-              break;
-            case 'ARS':
-              decimal = 0
-              break;
-            default:
-              decimal = 2
-          }
+          const decimal = nuxtApp.$getDecimal(currency);
 
           const time = buyerTime.length * price
           const extras = (buyerTime.length) ? buyerExtras.reduce((sum, extra) => sum + extra.price, 0) : 0
