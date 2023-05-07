@@ -153,6 +153,15 @@ const isLoading = ref(false);
 $listen('setIsLoadingFreeSlots', (bool) => {
   isLoading.value = bool;
 });
+
+const clearTime = () => {
+  form.value.buyerTime = [];
+};
+
+const clearExtras = () => {
+  form.value.buyerExtras  = [];
+};
+
 </script>
 
 <template>
@@ -232,6 +241,14 @@ $listen('setIsLoadingFreeSlots', (bool) => {
           >{{ $t('from') }} {{ freeSlot.display.from }} {{ $t('to') }} {{ freeSlot.display.to }}</option>
         </OSelect>
       </OField>
+      <p
+        v-if="form.buyerTime.length"
+        @click.native="clearTime"
+        class="help is-primary"
+      >
+        <OIcon pack="mdi" icon="close" size="small" />
+        {{ $t('clearSelection') }}
+      </p>
     </VField>
 
     <VField
@@ -262,6 +279,14 @@ $listen('setIsLoadingFreeSlots', (bool) => {
           >{{ extra.title }}</option>
         </OSelect>
       </OField>
+      <p
+        v-if="form.buyerExtras.length"
+        @click.native="clearExtras"
+        class="help is-primary"
+      >
+        <OIcon pack="mdi" icon="close" size="small" />
+        {{ $t('clearSelection') }}
+      </p>
     </VField>
 
     <VField

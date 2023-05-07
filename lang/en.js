@@ -19,6 +19,7 @@ export default {
   buyerService: "Service",
   buyerGateway: "Payment type",
   bookEvent: "Book",
+  clearSelection: "Clear selection",
   // components/invoiceProfile.vue
   invoice: "Invoice",
   booking: "Booking",
