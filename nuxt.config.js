@@ -13,6 +13,10 @@ const deploymentDomain = (isDeployed) ? `https://${process.env.DEPLOYMENT_DOMAIN
 
 export default defineNuxtConfig({
 
+  $production: {
+    routeRules: staticRouteRules
+  },
+
   app: {
     head: {
       meta: [
@@ -33,8 +37,6 @@ export default defineNuxtConfig({
       ]
     },
   },
-
-  routeRules: staticRouteRules,
 
   runtimeConfig: {
     btcpayApikey: process.env.BTCPAY_APIKEY,
@@ -69,6 +71,11 @@ export default defineNuxtConfig({
     '@nuxtjs/i18n',
     '@nuxt/image-edge',
     'nuxt-icons'
+  ],
+
+  extends: [
+    // Settings provided as envvariables on production
+    'nuxt-umami'
   ],
 
   content: {
