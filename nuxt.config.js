@@ -74,7 +74,6 @@ export default defineNuxtConfig({
   ],
 
   extends: [
-    // Settings provided as envvariables on production
     'nuxt-umami'
   ],
 
@@ -123,5 +122,12 @@ export default defineNuxtConfig({
         }
       }
     }
-  }
+  },
+
+  appConfig: {
+    // id and host provided as envvariables on production
+    umami: {
+      version: 2,
+    },
+  },
 });
