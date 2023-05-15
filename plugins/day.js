@@ -10,12 +10,6 @@ locales.map(locale => require(`dayjs/locale/${locale.code}`));
 
 export default defineNuxtPlugin(nuxtApp => {
 
-  // import in parallel all the needed localized dates
-  // https://vitejs.dev/guide/features.html#glob-import-as
-  // const modules = import.meta.glob('../node_modules/dayjs/locale/*.js',  {
-  //   eager: true
-  // });
-
   // To use fromNow and toNow functions
   dayjs.extend(relativeTime);
 
@@ -30,8 +24,7 @@ export default defineNuxtPlugin(nuxtApp => {
   // Update dayjs language on locale switch
   nuxtApp.$i18n.onBeforeLanguageSwitch = (_oldLocale, newLocale, _isInitialSetup, _nuxtApp) => {
 
-    // Require the localization file and switch language.
-    // modules[`../node_modules/dayjs/locale/${newLocale}.js`];
+    // Switch language.
     dayjs.locale(newLocale);
   };
 
