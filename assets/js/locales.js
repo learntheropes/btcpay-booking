@@ -29,7 +29,7 @@ export const localeCodes = locales.map(locale => locale.code);
 
 export const defaultLocale = find(locales, { default: true }).code;
 
-export const staticRouteRules = locales.reduce((obj, locale) => {
+export const routeRules = locales.reduce((obj, locale) => {
   obj[`/${locale.code}`] = {
     static: true,
     cors: true,

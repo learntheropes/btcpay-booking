@@ -1,7 +1,7 @@
-import { getMethod, readBody, getQuery } from 'h3'
-import { ofetch } from 'ofetch'
-const { btcpayApikey, public: { isDev, deploymentDomain }} = useRuntimeConfig()
-import { defaultLocale } from '~/assets/js/locales'
+import { getMethod, readBody, getQuery } from 'h3';
+import { ofetch } from 'ofetch';
+const { btcpayApikey, public: { isDev, deploymentDomain }} = useRuntimeConfig();
+import { defaultLocale } from '~/assets/js/locales';
 
 // Wtapper for the greenfield Api fetch 
 export const greenfieldApi = async (endpoint, event) => {

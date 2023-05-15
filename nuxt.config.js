@@ -2,7 +2,7 @@ import {
   locales,
   localeCodes,
   defaultLocale,
-  staticRouteRules
+  routeRules
 } from './assets/js/locales'
 
 // import startSocketServer from './server/sockets/index.js'
@@ -14,7 +14,7 @@ const deploymentDomain = (isDeployed) ? `https://${process.env.DEPLOYMENT_DOMAIN
 export default defineNuxtConfig({
 
   $production: {
-    routeRules: staticRouteRules
+    routeRules
   },
 
   app: {

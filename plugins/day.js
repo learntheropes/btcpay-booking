@@ -1,17 +1,12 @@
+import { locales } from '~/assets/js/locales';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
 // import { locales } from '~/assets/js/locales'
 
-// Import in the classic way
-// waiting that this is answered
+// Require localized messages
 // https://github.com/iamkun/dayjs/issues/2301
-import 'dayjs/locale/en';
-import 'dayjs/locale/es';
-import 'dayjs/locale/it';
-
-// locales.map(locale => import(`dayjs/locale/${locale.code}`) )
-
+locales.map(locale => require(`dayjs/locale/${locale.code}`));
 
 export default defineNuxtPlugin(nuxtApp => {
 
