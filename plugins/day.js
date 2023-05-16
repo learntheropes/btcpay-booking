@@ -2,11 +2,18 @@ import { locales } from '~/assets/js/locales';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
-// import { locales } from '~/assets/js/locales'
 
-// Require localized messages
+// Workaround to import localized messages
 // https://github.com/iamkun/dayjs/issues/2301
-locales.map(locale => require(`dayjs/locale/${locale.code}`));
+// https://vitejs.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility
+// locales.map(locale => import(`../node_modules/dayjs/locale/${locale.code}.js`));
+import 'dayjs/locale/en'
+import 'dayjs/locale/es'
+import 'dayjs/locale/it'
+import 'dayjs/locale/de'
+import 'dayjs/locale/pt'
+import 'dayjs/locale/fr'
+import 'dayjs/locale/ru'
 
 export default defineNuxtPlugin(nuxtApp => {
 
@@ -18,12 +25,10 @@ export default defineNuxtPlugin(nuxtApp => {
 
   // Initial dayjs localization setup
   const { locale } = nuxtApp.$i18n;
-  // modules[`../node_modules/dayjs/locale/${locale.value}.js`];
   dayjs.locale(locale.value);
 
   // Update dayjs language on locale switch
-  nuxtApp.$i18n.onBeforeLanguageSwitch = (_oldLocale, newLocale, _isInitialSetup, _nuxtApp) => {
-
+  nuxtApp.$i18n.onLanguageSwitched = (_oldLocale, newLocale, _isInitialSetup, _nuxtApp) => {
     // Switch language.
     dayjs.locale(newLocale);
   };

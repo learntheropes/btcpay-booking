@@ -14,7 +14,11 @@ const deploymentDomain = (isDeployed) ? `https://${process.env.DEPLOYMENT_DOMAIN
 export default defineNuxtConfig({
 
   $production: {
-    routeRules
+    routeRules,
+
+    extends: [
+      'nuxt-umami'
+    ],
   },
 
   app: {
@@ -71,10 +75,6 @@ export default defineNuxtConfig({
     '@nuxtjs/i18n',
     '@nuxt/image-edge',
     'nuxt-icons'
-  ],
-
-  extends: [
-    'nuxt-umami'
   ],
 
   content: {
