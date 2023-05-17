@@ -20,4 +20,4 @@ export const pusherTrigger = async (channel, event, data) => {
   });
 
   return await pusher.trigger(channel, event, data);
-}
+};

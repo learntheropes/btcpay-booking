@@ -17,4 +17,3 @@
 6. Set a custom color in the first line of `./assets/scss/custom.scss`.  
 7. Optionally add or remove languages support:  
 8. Star ⭐ this repo and deploy your booking system with Btcpay Server!   
-

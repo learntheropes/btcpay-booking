@@ -14,4 +14,4 @@ export default defineNuxtPlugin(() => {
       pusher: pusher
     }
   };
-})
+});

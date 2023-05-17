@@ -12,4 +12,4 @@ export default defineNuxtPlugin(() => {
       listen: emitter.on
     }
   }
-})
+});

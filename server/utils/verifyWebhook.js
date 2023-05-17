@@ -31,4 +31,4 @@ export const verifyWebhook = async (event) => {
     statusCode: 200,
     body: JSON.parse(rawBody)
   };
-}
+};

@@ -4,18 +4,18 @@ import { locales } from '../assets/js/locales';
 
 // Check that the selected slots in a day is included between accepted values
 const arrayLengthBetween = (value,{ min, max }) => {
-  return value && value.length >= Number(min) && value.length <= Number(max)
-}
+  return value && value.length >= Number(min) && value.length <= Number(max);
+};
 
 // Check that the pgp hey fingerpint is on the server and the key is associated with the provided email
 const checkPGPKey = async (nuxtApp, value, [target], _ctx) => {
 
   // Always validate if empty because we eventually already checked it with required standard rule is required by the merchant
-  if (!value) return true
-  const { t } = nuxtApp.$i18n
+  if (!value) return true;
+  const { t } = nuxtApp.$i18n;
 
   // Remove the ususual empty spaces from the provided fingerprint
-  const fingerprint = value.replaceAll(' ', '')
+  const fingerprint = value.replaceAll(' ', '');
 
   try {
     // Try to retrive the pub key from openpgp xerver
@@ -41,7 +41,7 @@ const checkPGPKey = async (nuxtApp, value, [target], _ctx) => {
     // Return the error message to inform the user that the fingerprint is not on server
     return t('customRules._isOnServer', { fingerprint })
   }
-}
+};
 
 export default defineNuxtPlugin(nuxtApp => {
 
@@ -62,7 +62,7 @@ export default defineNuxtPlugin(nuxtApp => {
   const modules = import.meta.glob('../lang/*.js',  {
     import: 'default',
     eager: true
-  })
+  });
 
   // build the localization object
   // Load all the properties in the customRules object except the ones starting with _
@@ -82,10 +82,11 @@ export default defineNuxtPlugin(nuxtApp => {
     }
 
     return obj
-  }, {})
+  }, {});
   
   // configure localized messages
   configure({
     generateMessage: localize(localizeMessages),
   })
-})
+});
+

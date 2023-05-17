@@ -36,3 +36,4 @@ export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.vueApp.component('OLoading', OLoading);
   nuxtApp.vueApp.use(Config, myConfig);
 });
+

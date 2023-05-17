@@ -24,4 +24,4 @@ export default defineNuxtPlugin((nuxtApp) => {
       }
     }
   }
-})
+});

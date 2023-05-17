@@ -38,7 +38,5 @@ export default defineNuxtPlugin((nuxtApp) => {
       }
     }
   }
-})
-// #__nuxt > div > div > div > div.column.is-narrow > 
-// querySelectorAll()
-// form.querySelector('input[name="pwd"]')
+});
+

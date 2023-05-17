@@ -51,4 +51,4 @@ export const greenfieldApi = async (endpoint, event) => {
     query,
     body
   });
-}
+};

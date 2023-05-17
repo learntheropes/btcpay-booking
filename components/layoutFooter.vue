@@ -35,5 +35,3 @@ const availableLocales = computed(() => (locales.value).filter(i => i.code !== l
     </nav>
   </footer>
 </template>
-
-

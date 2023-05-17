@@ -19,4 +19,3 @@ export default defineEventHandler(async (event) => {
   // Return ok to the Greenfield
   return 'ok';
 });
-

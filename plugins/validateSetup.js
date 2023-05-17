@@ -16,4 +16,5 @@ export default defineNuxtPlugin(nuxtApp => {
   nuxtApp.$i18n.onBeforeLanguageSwitch = (_oldLocale, newLocale, _isInitialSetup, _nuxtApp) => {
     setLocale(newLocale);
   };
-})
+});
+
