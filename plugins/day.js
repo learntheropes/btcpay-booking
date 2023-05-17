@@ -1,4 +1,4 @@
-import { locales } from '~/assets/js/locales';
+// import { locales } from '~/assets/js/locales';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
@@ -28,7 +28,7 @@ export default defineNuxtPlugin(nuxtApp => {
   dayjs.locale(locale.value);
 
   // Update dayjs language on locale switch
-  nuxtApp.$i18n.onLanguageSwitched = (_oldLocale, newLocale, _isInitialSetup, _nuxtApp) => {
+  nuxtApp.$i18n.onLanguageSwitched = (_oldLocale, newLocale) => {
     // Switch language.
     dayjs.locale(newLocale);
   };
