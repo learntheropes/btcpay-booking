@@ -13,7 +13,7 @@ const availableLocales = computed(() => (locales.value).filter(i => i.code !== l
             icon="github"
             text="btcpay-booking"
             textVariant="primary"
-            textTo="https://github.com/learntheropes/ancap-booking"
+            textTo="https://github.com/learntheropes/btcpay-booking"
             textTarget="_blank"
           />
         </div>
