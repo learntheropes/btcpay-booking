@@ -21,9 +21,11 @@
 <template>
   <NuxtLayout>
     <section class="section is-medium">
-      <nav class="breadcrumb" aria-label="breadcrumbs">
+      <nav class="breadcrumb">
         <ul>
-          <li>&nbsp;</li>
+          <li>
+            <NuxtLink>&nbsp;</NuxtLink>
+          </li>
         </ul>
       </nav>
     </section>

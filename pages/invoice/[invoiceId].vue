@@ -37,11 +37,17 @@
 <template>
   <NuxtLayout>
     <section class="section is-medium">
-      <nav class="breadcrumb" aria-label="breadcrumbs">
+      <nav class="breadcrumb">
       <ul>
-        <li><a href="/">{{ profile }}</a></li>
-        <li><a :href="'/'+locale+'/'+buyerService" aria-current="page">{{ buyerServiceTitle }}</a></li>
-        <li class="is-active">{{ `${t('invoice')} ${invoiceId}` }}</li>
+        <li>
+          <NuxtLink to="/">{{ profile }}</NuxtLink>
+        </li>
+        <li>
+          <NuxtLink :to="'/'+locale+'/'+buyerService">{{ buyerServiceTitle }}</NuxtLink>
+        </li>
+        <li class="is-active">
+          <NuxtLink>{{ `${t('invoice')} ${invoiceId}` }}</NuxtLink>
+        </li>
       </ul>
     </nav>
     </section>

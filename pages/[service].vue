@@ -45,10 +45,14 @@
       <OIcon pack="mdi" icon="loading" size="large" spin />
     </OLoading>
     <section class="section is-medium">
-      <nav class="breadcrumb" aria-label="breadcrumbs">
+      <nav class="breadcrumb">
       <ul>
-        <li><a href="/">{{ profile }}</a></li>
-        <li class="is-active"><a :href="'/'+service" aria-current="page">{{ title }}</a></li>
+        <li>
+          <NuxtLink to="/">{{ profile }}</NuxtLink>
+        </li>
+        <li class="is-active">
+          <NuxtLink :to="'/'+service">{{ title }}</NuxtLink>
+        </li>
       </ul>
     </nav>
     </section>
