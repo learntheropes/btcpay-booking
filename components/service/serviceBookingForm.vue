@@ -217,8 +217,8 @@ const clearExtras = () => {
           v-model:active="isLoading"
           :can-cancel="false"
         >
-          <OIcon pack="mdi" icon="loading" size="large" spin class="is-hidden-mobile"/>
-          <OIcon pack="mdi" icon="loading" size="small" spin class="is-hidden-tablet"/>
+          <OIcon pack="mdi" icon="loading" size="large" spin class="is-hidden-mobile" />
+          <OIcon pack="mdi" icon="loading" size="small" spin class="is-hidden-tablet" />
         </OLoading>
         <OSelect
           :model-value="value"
