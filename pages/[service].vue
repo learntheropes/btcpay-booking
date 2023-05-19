@@ -42,7 +42,12 @@
       v-model:active="isLoading"
       :can-cancel="false"
     >
-      <OIcon pack="mdi" icon="loading" size="large" spin />
+      <OIcon
+        pack="mdi"
+        icon="loading"
+        size="large"
+        spin
+      />
     </OLoading>
     <section class="section is-medium">
       <nav class="breadcrumb">

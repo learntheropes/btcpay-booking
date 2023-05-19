@@ -49,6 +49,9 @@ export const routeRules = locales.reduce((obj, locale) => {
   }
   return obj
 }, {
+  '/': {
+    cors: true
+  },
   '_ipx/**': {
     headers: {
       'Cache-Control': `s-maxage=${60 * 60 * 24 * 365}`
