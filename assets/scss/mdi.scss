@@ -50,6 +50,10 @@
   content: "\F0C68";
 }
 
+.mdi-content-copy::before {
+  content: "\F018F";
+}
+
 .mdi-18px.mdi-set, .mdi-18px.mdi:before {
   font-size: 18px;
 }

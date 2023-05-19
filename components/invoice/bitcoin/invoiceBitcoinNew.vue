@@ -3,6 +3,7 @@ import QRCode from 'qrcode';
 import find from 'lodash.find';
 import findIndex from 'lodash.findindex';
 import { NotificationProgrammatic } from "@oruga-ui/oruga-next";
+import { computed } from '@vue/reactivity';
 
 // Get invoice props
 const {
@@ -84,7 +85,9 @@ const copyDestination = () => {
   NotificationProgrammatic.open('Address copied');
 };
 
-// Copy btc or sat amount based on the payment method selected
+// Render and copy btc or sat amount based on the payment method selected
+const renderAmount = computed(() => (selectedMethodIndex.value === 0) ? paymentMethods[selectedMethodIndex.value].due : paymentMethods[selectedMethodIndex.value].due * 100000000);
+
 const copyAmount = () => {
   navigator.clipboard.writeText((selectedMethodIndex.value === 0) ? paymentMethods[selectedMethodIndex.value].due : paymentMethods[selectedMethodIndex.value].due * 100000000);
   NotificationProgrammatic.open('Amount copied');
@@ -190,47 +193,32 @@ const copyAmount = () => {
       </div>
     </div>
     <div class="card-content">
-      <IconWithText
-        icon="content-copy"
-        iconSide="right"
-        iconSize="16"
-        :text="$t(allowedMethods[selectedMethodIndex].destination)"
-        textClass="has-text-weight-semibold"
-        @click.native="copyDestination"
-      />
-      <div>
-        <p class="scrollable">{{ paymentMethods[selectedMethodIndex].destination }}</p>
-      </div>
-      <IconWithText
-        icon="content-copy"
-        iconSide="right"
-        iconSize="16"
-        :text="$t('amount')"
-        textClass="has-text-weight-semibold"
-        @click.native="copyAmount"
-      />
-      <div>
-        <p class="scrollable">{{ (selectedMethodIndex === 0) ? paymentMethods[selectedMethodIndex].due : paymentMethods[selectedMethodIndex].due * 100000000 }}</p>
-      </div>
+      <OField :label="$t(allowedMethods[selectedMethodIndex].destination)">
+        <OInput
+          v-model="paymentMethods[selectedMethodIndex].destination"
+          icon-right="content-copy"
+          icon-right-clickable
+          @icon-right-click="copyDestination"
+          size="small"
+          readonly
+        />
+      </OField>
+      <OField :label="$t('amount')">
+        <OInput
+          v-model="renderAmount"
+          icon-right="content-copy"
+          icon-right-clickable
+          @icon-right-click="copyAmount"
+          size="small"
+          readonly
+        />
+      </OField>
     </div>
     <footer class="card-footer">
       <NuxtLink :to="paymentMethods[selectedMethodIndex].paymentLink" class="card-footer-item">{{ $t('payInWallet') }}</NuxtLink>
     </footer>
   </div>
 </template>
-  
-<style scoped>
-.scrollable {
-  width: 350px;
-  overflow-x: auto; 
-  -ms-overflow-style: none;  /* Hide scrollbar IE and Edge */
-  scrollbar-width: none;  /* Hide scrollbar Firefox */
-}
-/* Hide scrollbar for Chrome, Safari and Opera */
-.scrollable::-webkit-scrollbar {
-  display: none;
-}
-</style>
 
 <style>
 .ltr-is-48by48 svg {
