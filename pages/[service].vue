@@ -30,7 +30,7 @@
 
   $listen('setGateway', (_gateway) => {
     isLoading.value = true;
-});
+   });
   // Set title and description page
   useContentHead({ title, description });
 </script>

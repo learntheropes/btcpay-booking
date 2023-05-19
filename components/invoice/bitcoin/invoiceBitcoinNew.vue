@@ -92,6 +92,15 @@ const copyAmount = () => {
   navigator.clipboard.writeText((selectedMethodIndex.value === 0) ? paymentMethods[selectedMethodIndex.value].due : parseInt(Number(paymentMethods[selectedMethodIndex.value].due) * 100000000));
   NotificationProgrammatic.open('Amount copied');
 };
+
+// Get needed functions from plugins
+const {
+  // function to emit loading event
+  $event
+} = useNuxtApp();
+// set the initial status of the invoiceBitcoin component to false
+// After that the invoice has been refreshed by the invoiceBitcoinExpired component
+$event('invoiceBitcoinIsLoading', false);
 </script>
 
 <template>

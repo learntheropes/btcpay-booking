@@ -28,8 +28,20 @@ const {
   // Function the get the invoice from btcpay
   $createInvoice,
   // function to display the ellapsed time since expiration
-  $dayjs
+  $dayjs,
+  // function to emit loading event
+  $event
 } = useNuxtApp();
+
+// Create a new invoice for the same service
+const refreshInvoice = async (metadata) => {
+  // Set the component as loading
+  $event('invoiceBitcoinIsLoading', true);
+  // Create the invoice
+  await $createInvoice(metadata);
+  // We don't set the loading as false
+  // because this is done by the invoiceBitcoinNew component
+}
 </script>
 
 <template>
@@ -101,7 +113,7 @@ const {
     </div>
     <footer class="card-footer">
       <NuxtLink
-        @click.native="$createInvoice(invoice.metadata)"
+        @click.native=refreshInvoice(invoice.metadata)
         class="card-footer-item"
       >{{ $t('payWithBitcoin') }}</NuxtLink>
     </footer>

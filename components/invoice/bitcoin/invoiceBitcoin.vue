@@ -19,9 +19,10 @@ const {
   // function to display the countdown
   $dayjs,
   // Class to use pusher
-  $pusher
+  $pusher,
+  // Function to listen loading event
+  $listen
 } = useNuxtApp();
-
 
 // Get invoice  payment methods from BTCPay Greenfield API
 const paymentMethods = await $fetch(`/api/invoices/${invoiceId}/payment-methods`, {
@@ -62,31 +63,53 @@ onMounted(()=> {
 onBeforeUnmount(() => {
   clearInterval(refreshIntervalId);
 });
+
+// Set initial status of the component to not loading the page
+const isLoading = ref(false);
+
+// Listen to set that the invoice is refreshing and the component is loading
+$listen('invoiceBitcoinIsLoading', (value) => {
+  isLoading.value = value;
+  });
 </script>
 
 <template>
-  <InvoiceBitcoinNew
-    v-if="status === 'New' || status === 'InvoiceCreated'"
-    :invoice="invoice"
-    :paymentMethods="paymentMethods"
-    :expiresIn="expiresIn"
-    :expiresInString="expiresInString"
-    :initialExpiresIn="initialExpiresIn"
-  />
-  <InvoiceBitcoinExpired
-    v-else-if="status === 'Expired' || status === 'InvoiceExpired'"
-    :invoice="invoice"
-    :paymentMethods="paymentMethods"
-  />
-  <InvoiceBitcoinProcessing
-    v-else-if="status == 'Processing' || status === 'InvoiceProcessing'"
-    :invoiceId="invoiceId"
-    :invoice="invoice"
-  />
-  <InvoiceBitcoinReceived
-    v-else-if="status === 'Settled' || status === 'InvoiceReceivedPayment'"
-    :invoiceId="invoiceId"
-    :invoice="invoice"
-  />
-  <div v-else>Something went wrong</div>
+  <div>
+    <OLoading
+      :full-page="true"
+      v-model:active="isLoading"
+      :can-cancel="false"
+    >
+      <OIcon
+        pack="mdi"
+        icon="loading"
+        size="large"
+        spin
+      />
+    </OLoading>
+    <InvoiceBitcoinNew
+      v-if="status === 'New' || status === 'InvoiceCreated'"
+      :invoice="invoice"
+      :paymentMethods="paymentMethods"
+      :expiresIn="expiresIn"
+      :expiresInString="expiresInString"
+      :initialExpiresIn="initialExpiresIn"
+    />
+    <InvoiceBitcoinExpired
+      v-else-if="status === 'Expired' || status === 'InvoiceExpired'"
+      :invoice="invoice"
+      :paymentMethods="paymentMethods"
+    />
+    <InvoiceBitcoinProcessing
+      v-else-if="status == 'Processing' || status === 'InvoiceProcessing'"
+      :invoiceId="invoiceId"
+      :invoice="invoice"
+    />
+    <InvoiceBitcoinReceived
+      v-else-if="status === 'Settled' || status === 'InvoiceReceivedPayment'"
+      :invoiceId="invoiceId"
+      :invoice="invoice"
+    />
+    <div v-else>Something went wrong</div>
+  </div>
 </template>
