@@ -86,10 +86,10 @@ const copyDestination = () => {
 };
 
 // Render and copy btc or sat amount based on the payment method selected
-const renderAmount = computed(() => (selectedMethodIndex.value === 0) ? paymentMethods[selectedMethodIndex.value].due : paymentMethods[selectedMethodIndex.value].due * 100000000);
+const renderAmount = computed(() => (selectedMethodIndex.value === 0) ? paymentMethods[selectedMethodIndex.value].due : parseInt(Number(paymentMethods[selectedMethodIndex.value].due) * 100000000));
 
 const copyAmount = () => {
-  navigator.clipboard.writeText((selectedMethodIndex.value === 0) ? paymentMethods[selectedMethodIndex.value].due : paymentMethods[selectedMethodIndex.value].due * 100000000);
+  navigator.clipboard.writeText((selectedMethodIndex.value === 0) ? paymentMethods[selectedMethodIndex.value].due : parseInt(Number(paymentMethods[selectedMethodIndex.value].due) * 100000000));
   NotificationProgrammatic.open('Amount copied');
 };
 </script>
