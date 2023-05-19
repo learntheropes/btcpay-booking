@@ -79,20 +79,12 @@ const {
       <div>{{ buyerServiceTitle }}</div>
     </div>
     <div class=block>
-      <div class="has-text-weight-semibold">{{ $t('buyerGateway') }}</div>
-      <div>{{ buyerGateway }}</div>
-    </div>
-    <div class=block>
-      <div class="has-text-weight-semibold">{{ $t('buyerDetails') }}</div>
-      <div>{{ buyerDetails || $t('notProvided') }}</div>
-    </div>
-    <div class=block>
       <div class="has-text-weight-semibold">{{ $t('buyerTime') }}</div>
       <div>{{ buyerTime.map(t => $dayjs(t * 1000).format('llll')).join('\n') }}</div>
     </div>
     <div class=block>
       <div class="has-text-weight-semibold">{{ $t('buyerExtras') }}</div>
-      <div>{{ (buyerExtras.split('\n').length) ? buyerExtras : $t('notProvided') }}</div>
+      <div>{{ (buyerExtras.length) ? buyerExtras.map(e => e.title).join('\n') : $t('notProvided') }}</div>
     </div>
     <div class=block>
       <div class="has-text-weight-semibold">{{ $t('buyerName') }}</div>
@@ -109,6 +101,14 @@ const {
     <div class=block>
       <div class="has-text-weight-semibold">{{ $t('buyerPGP') }}</div>
       <div>{{ buyerPGP || $t('notProvided') }}</div>
+    </div>
+    <div class=block>
+      <div class="has-text-weight-semibold">{{ $t('buyerDetails') }}</div>
+      <div>{{ buyerDetails || $t('notProvided') }}</div>
+    </div>
+    <div class=block>
+      <div class="has-text-weight-semibold">{{ $t('buyerGateway') }}</div>
+      <div>{{ buyerGateway }}</div>
     </div>
     <div class=block>
       <div class="has-text-weight-semibold">{{ $t('buyerLanguage') }}</div>

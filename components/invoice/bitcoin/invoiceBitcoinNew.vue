@@ -2,6 +2,7 @@
 import QRCode from 'qrcode';
 import find from 'lodash.find';
 import findIndex from 'lodash.findindex';
+import { NotificationProgrammatic } from "@oruga-ui/oruga-next";
 
 // Get invoice props
 const {
@@ -77,9 +78,7 @@ watch(async () => selectedMethodIndex.value, async () => {
   qrCode.value = newQrCode;
 });
 
-// Functions to copy the address/invoice and the amount with notification
-import { NotificationProgrammatic } from "@oruga-ui/oruga-next";
-
+// Functions to copy the address/invoice with notification
 const copyDestination = () => {
   navigator.clipboard.writeText(paymentMethods[selectedMethodIndex.value].destination);
   NotificationProgrammatic.open('Address copied');

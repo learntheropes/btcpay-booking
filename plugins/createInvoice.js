@@ -59,10 +59,10 @@ export default defineNuxtPlugin((nuxtApp) => {
           // Define the decimal length based on the currency
           const decimal = nuxtApp.$getDecimal(currency);
 
-          const time = buyerTime.length * price
-          const extras = (buyerTime.length) ? buyerExtras.reduce((sum, extra) => sum + extra.price, 0) : 0
-          const moltiplicator = (buyerGateway === 'bitcoin') ? 1 : (1 + (surcharge / 100))
-          return ((time + extras) * moltiplicator).toFixed(decimal)
+          const time = buyerTime.length * price;
+          const extras = (buyerExtras.length) ? buyerExtras.reduce((sum, extra) => sum + extra.price, 0) : 0;
+          const moltiplicator = (buyerGateway === 'bitcoin') ? 1 : (1 + (surcharge / 100));
+          return ((time + extras) * moltiplicator).toFixed(decimal);
         };
 
         // Workaround to avoid posting a duplicate invoice with 0 value
@@ -81,9 +81,11 @@ export default defineNuxtPlugin((nuxtApp) => {
                 // The order id is the concatenation of the service slug and the epoch in seconds of the bookings
                 orderId: `${buyerService}-${buyerTime.map(t => new Date(t).getTime()).join('-')}`,
                 buyerTime,
-                // This is added to show properly formatted time on the btcpay invoice dashboar
-                buyerBooking: buyerTime.map(t => nuxtApp.$dayjs(t).format('llll')).join('\n'),
-                buyerExtras: buyerExtras.map(extra => extra.title).join('\n'),
+                // This is added to show properly formatted time on the btcpay invoice dashboard
+                buyerBookingTime: buyerTime.map(t => nuxtApp.$dayjs(t).format('llll')).join('\n'),
+                buyerExtras,
+                // This is added to show extras on the btcpay invoice dashboard
+                buyerBookingExtras: buyerExtras.map(extra => extra.title).join('\n'),
                 buyerName,
                 buyerEmail,
                 buyerFingerprint,
