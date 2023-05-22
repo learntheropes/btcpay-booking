@@ -12,8 +12,8 @@
 1. Clone the repo.  
 2. Edit the repo configuration in `./content/settings.yaml` accordingly to your needs. The file is commented to explain each setting meaning.  
 3. Create one file for each service inside `./content` folder and the language subfolder. Optionally, if you want to show the services in a specific order, add the order number at the beginning of the name followed by a dot.  
-4. Deploy on Vercel with default `./package.json` settings or adapt them to deploy on any other provider.  
+4. Deploy on Digital Ocean or Vercel with default `./package.json` settings or adapt them to deploy on any other provider.  
 5. Set the enviroment variables as in the `./.env.example` file.  
 6. Set a custom color in the first line of `./assets/scss/custom.scss`.  
-7. Optionally add or remove languages support:  
+7. Optionally add or remove languages support by adding, removing translations in `./lang` folder and settings in `./assets/js/locale.js` `locales` json object. 
 8. Star ⭐ this repo and deploy your booking system with Btcpay Server!   
