@@ -5,7 +5,6 @@
 - Unlimited services and unlimited extras for each service.  
 - Supports any service duration, from 1 minutes to multiple days.  
 - Static generate pages without cookies.   
-- SEO and Google Lighthouse optimized.  
 - Multilingual: English, Spanish and Italian out of the box with the easy option to add additional translations.   
 
 ## Setup

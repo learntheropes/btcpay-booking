@@ -53,6 +53,8 @@ const openModal = (gallery, index) => {
           preset="preview"
           :src="'/'+image"
           :alt="image"
+          height="128"
+          width="128"
         />
       </figure>  
     </div>
