@@ -1,6 +1,6 @@
 ---
 title: Giovanni Learntheropes
-description: Il mio sito di prenotazione di consulenze powered by Btcpay e Nuxt
+description: Il mio sito di prenotazione di consulenze sviluppato con Btcpay e Nuxt
 image: me.jpg
 gallery:
 twitter: learntheropes_

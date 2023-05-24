@@ -6,13 +6,13 @@ const {
     type: Array,
     default: []
   }
-})
+});
 
-const { $event } = useNuxtApp()
+const { $event } = useNuxtApp();
 
 const openModal = (gallery, index) => {
-  $event('openModal', { gallery, index })
-}
+  $event('openModal', { gallery, index });
+};
 </script>
 
 <template>

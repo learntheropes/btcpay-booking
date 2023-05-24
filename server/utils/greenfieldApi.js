@@ -7,7 +7,7 @@ import { defaultLocale } from '~/assets/js/locales';
 export const greenfieldApi = async (endpoint, event) => {
 
   const [{
-    btcapay: {
+    btcpay: {
       storeid,
       host
     }

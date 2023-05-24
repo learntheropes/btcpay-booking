@@ -20,13 +20,13 @@ export default {
   buyerGateway: "Payment type",
   bookEvent: "Book",
   clearSelection: "Clear selection",
-  // components/invoiceProfile.vue
+  // components/invoice/invoiceProfile.vue
   invoice: "Invoice",
   booking: "Booking",
   surcharge: "Due to payment processor fee, we are forced to charge a {surcharge}% surcharge on shitcoins payment ({gateways}).",
   and: "and",
   notProvided: "Not provided",
-  // components/invoiceBitcoinNew.vue
+  // components/invoice/bitcoin/invoiceBitcoinNew.vue
   invoiceNew: "New invoice",
   invoiceId: "Invoice ID",
   oderId: "Order ID",
@@ -39,20 +39,31 @@ export default {
   recommendedFee: "Recommended Fee",
   payWith: "Pay with",
   bitcoin: "Bitcoin",
+  lnurl: "Lnurl",
   lightning: "Lightning",
   address: "Address",
   invoice: "Invoice",
   amount: "Amount",
   payInWallet: "Pay in wallet",
-  // components/invoiceBitcoinExpired.vue
+  // components/invoice/bitcoin/invoiceBitcoinExpired.vue
   invoiceExpired: "Invoice expired",
   invoiceValidity: "A bitcoin invoice is only valid for {minutes} minutes",
   payWithBitcoin: "Pay with Bitcoin",
-  // components/invoiceBitcoinReceived.vue
+  // components/invoice/bitcoin/invoiceBitcoinReceived.vue
   invoicePaid: "Invoice paid",
   invoiceReceived: "have been paid",
   printReceipt: "Print receipt",
-  // error,vue
+  // components/invoice/fiat/invoiceFiatSelector.vue
+  selectPaymentMethod: 'Choose a payment method',
+  // components/invoice/fiat/invoiceFiatSepa.vue
+  buyerLegalName: 'First name and last name',
+  buyerLegalAddress: 'Address',
+  buyerLegalCity: 'City',
+  buyerLegalZip: 'ZIP Code',
+  buyerLegalCountry: 'Country',
+  buyerBic: 'Bank BIC',
+  buyerIban: 'IBAN',
+  // error.vue
   pageNotFound: "This page could not be found",
   unauthorized: "Unauthorized",
   somethingWentWrong: "Something went wrong",

@@ -58,16 +58,28 @@
         />
       </div>
       <div class="column is-narrow">
-        <section class="section">
+        <section v-if="buyerGateway === 'bitcoin'" class="section">
           <invoiceBitcoin
-            v-if="buyerGateway === 'bitcoin'"
             :invoiceId="invoiceId"
             :invoice="invoice"
             :status="status"
             class="is-hidden-mobile"
           />
           <invoiceBitcoin
-            v-if="buyerGateway === 'bitcoin'"
+            :invoiceId="invoiceId"
+            :invoice="invoice"
+            :status="status"
+            class="is-hidden-tablet"
+          />
+        </section>
+        <section v-else-if="buyerGateway === 'fiat'" class="section">
+          <invoiceFiat
+            :invoiceId="invoiceId"
+            :invoice="invoice"
+            :status="status"
+            class="is-hidden-mobile"
+          />
+          <invoiceFiat
             :invoiceId="invoiceId"
             :invoice="invoice"
             :status="status"

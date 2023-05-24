@@ -108,7 +108,7 @@ const {
     </div>
     <div class=block>
       <div class="has-text-weight-semibold">{{ $t('buyerGateway') }}</div>
-      <div>{{ buyerGateway }}</div>
+      <div class="is-capitalized">{{ buyerGateway }}</div>
     </div>
     <div class=block>
       <div class="has-text-weight-semibold">{{ $t('buyerLanguage') }}</div>

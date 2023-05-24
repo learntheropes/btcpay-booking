@@ -1,9 +1,7 @@
-import { defineNuxtPlugin } from '#app';
-
 // Import the surcharge for shitcoins gateway 
 import { surcharge } from '../assets/js/mix';
 
-export default defineNuxtPlugin((nuxtApp) => {
+export default defineNuxtPlugin(nuxtApp => {
 
   return {
     provide: {
@@ -41,10 +39,11 @@ export default defineNuxtPlugin((nuxtApp) => {
         // Leave the btcpay store default for bitcoin
         let expirationMinutes, monitoringMinutes;
         switch(buyerGateway) {
-          case 'altcoins':
+          case 'crypto':
             expirationMinutes = 60;
             monitoringMinutes = 60 * 24;
             break;
+          // Set longer perios waiting for the SEPA to arrive 
           case 'fiat':
             expirationMinutes = 60 * 24 * 2;
             monitoringMinutes = 60 * 24 * 7;
@@ -96,8 +95,6 @@ export default defineNuxtPlugin((nuxtApp) => {
                 buyerGateway
               },
               checkout: {
-                // Expiration 1 minutes for test purpose only
-                // Remove it when done
                 expirationMinutes,
                 monitoringMinutes,
                 redirectAutomatically: false,

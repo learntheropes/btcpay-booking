@@ -1,5 +1,5 @@
 <script setup>
-// Get invoiceId prop
+// Get invoice props
 const {
   invoiceId,
   invoice
@@ -110,6 +110,5 @@ $listen('invoiceBitcoinIsLoading', (value) => {
       :invoiceId="invoiceId"
       :invoice="invoice"
     />
-    <div v-else>Something went wrong</div>
   </div>
 </template>

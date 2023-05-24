@@ -1,2 +1,2 @@
-export const surcharge = 5
+export const surcharge = 7
 

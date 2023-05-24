@@ -6,10 +6,10 @@
 gateways:
   # Optional, default is true
   bitcoin: true
-  # If you enable at least one between altcoins and fiat, make sure that bitcoin onchain payments are enabled on your btcpay store
-  # for the lowest amount you expect to receive because they payout is onchain only (I pay the transaction fee).
+  # If you enable at least one between crypto and fiat, make sure that bitcoin onchain payments are enabled on your btcpay store
+  # for the lowest amount you expect to receive because they payout is onchain only.
   # Optional, default is false
-  altcoins: false
+  crypto: false
   # Optional, default is false
   fiat: true
 # Btcpay server settings 
@@ -17,16 +17,16 @@ gateways:
 # Or you can email me asking for a non custodial store on my Btcpay instance
 # with on-chain and Lightning Network payments enabled.
 # giovanni@learntheropes.xyz
-btcapay:
+btcpay:
   # Your btcpay server store id.
   # You can find it under the Store Settings.
   # Mandatory
-  storeid: 4hEu1jrrC9VKLpLjcVtdLYf1FZTb3bqgUoERboCnGbXE
+  storeid: GLykoKoMdnU75dqFDUDM4NbpSgjTxG2uzUVfibtphZdt
   # Your btcpay clearnet or Tor hidden service url.
   # Clearnet url is the same of your dashboard.
   # Tor onion service url is in the dashboard footer, under Copy Tor URL.
   # Mandatory
-  host: https://testnet.demo.btcpayserver.org
+  host: https://learntheropes.xyz
 # smtp settings to send email notifications to the buyer and to you.
 smtp:
   # The email that will send the notification.

@@ -43,6 +43,7 @@ export default defineNuxtConfig({
   },
 
   runtimeConfig: {
+    mnemonic: process.env.MNEMONIC,
     btcpayApikey: process.env.BTCPAY_APIKEY,
     pusherSecret: process.env.PUSHER_SECRET,
     smtpPassword: process.env.SMTP_PASSWORD,
@@ -53,6 +54,7 @@ export default defineNuxtConfig({
       pusherApikey: process.env.PUSHER_APIKEY,
       pusherCluster: process.env.PUSHER_CLUSTER,
       pusherAppId: process.env.PUSHER_APP_ID,
+      network: process.env.NETWORK
     }
   },
 

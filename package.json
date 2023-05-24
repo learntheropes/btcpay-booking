@@ -27,17 +27,23 @@
   "dependencies": {
     "@vee-validate/i18n": "^4.8.3",
     "@vee-validate/rules": "^4.8.4",
+    "bip32": "^4.0.0",
+    "bip39": "^3.1.0",
+    "bitcoinjs-lib": "^6.1.0",
+    "bitcoinjs-message": "^2.2.0",
     "dayjs": "^1.11.7",
+    "i18n-iso-countries": "^7.6.0",
     "lodash.find": "^4.6.0",
     "lodash.findindex": "^4.6.0",
     "lodash.flatten": "^4.4.0",
+    "lodash.sortby": "^4.7.0",
     "mitt": "^3.0.0",
     "nuxt-icons": "^3.2.1",
     "nuxt-umami": "^2.4.2",
     "pusher": "^5.1.2",
     "pusher-js": "^8.0.2",
     "qrcode": "^1.5.3",
+    "tiny-secp256k1": "^2.2.1",
     "vee-validate": "^4.8.4"
   }
 }
-

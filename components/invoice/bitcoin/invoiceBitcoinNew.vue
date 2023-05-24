@@ -49,12 +49,14 @@ const methods = [
   }
 ];
 
+const paymentMethodsCleaned = paymentMethods.filter(el => find(methods, { paymentMethod: el.paymentMethod }));
+
 // Get and set the initial payment method shown with default to 0
 const defaultPaymentMethod = invoice.checkout.defaultPaymentMethod;
 const selectedMethodIndex = ref((findIndex(methods, { paymentMethod: defaultPaymentMethod }) === -1) ? 0 : findIndex(methods, { paymentMethod: defaultPaymentMethod }));
 
 // Filter allowed payment methods based on btcpay response
-const allowedMethods = paymentMethods.map(el => find(methods, { paymentMethod: el.paymentMethod }));
+const allowedMethods = paymentMethodsCleaned.map(el => find(methods, { paymentMethod: el.paymentMethod }));
 
 // Set the detail as initially visible
 const isDetailsOpen = ref(true);
@@ -70,26 +72,26 @@ const generateQrCode = async (text) => {
 };
 
 // Set the initial qrcode
-const initialQrCode = await generateQrCode(paymentMethods[selectedMethodIndex.value].destination);
+const initialQrCode = await generateQrCode(paymentMethodsCleaned[selectedMethodIndex.value].destination);
 let qrCode = ref(initialQrCode);
 
 // Watch for changes to pass to the qrcode
 watch(async () => selectedMethodIndex.value, async () => {
-  const newQrCode = await generateQrCode(paymentMethods[selectedMethodIndex.value].destination);
+  const newQrCode = await generateQrCode(paymentMethodsCleaned[selectedMethodIndex.value].destination);
   qrCode.value = newQrCode;
 });
 
 // Functions to copy the address/invoice with notification
 const copyDestination = () => {
-  navigator.clipboard.writeText(paymentMethods[selectedMethodIndex.value].destination);
+  navigator.clipboard.writeText(paymentMethodsCleaned[selectedMethodIndex.value].destination);
   NotificationProgrammatic.open('Address copied');
 };
 
 // Render and copy btc or sat amount based on the payment method selected
-const renderAmount = computed(() => (selectedMethodIndex.value === 0) ? paymentMethods[selectedMethodIndex.value].due : parseInt(Number(paymentMethods[selectedMethodIndex.value].due) * 100000000));
+const renderAmount = computed(() => (selectedMethodIndex.value === 0) ? paymentMethodsCleaned[selectedMethodIndex.value].due : parseInt(Number(paymentMethodsCleaned[selectedMethodIndex.value].due) * 100000000));
 
 const copyAmount = () => {
-  navigator.clipboard.writeText((selectedMethodIndex.value === 0) ? paymentMethods[selectedMethodIndex.value].due : parseInt(Number(paymentMethods[selectedMethodIndex.value].due) * 100000000));
+  navigator.clipboard.writeText((selectedMethodIndex.value === 0) ? paymentMethodsCleaned[selectedMethodIndex.value].due : parseInt(Number(paymentMethodsCleaned[selectedMethodIndex.value].due) * 100000000));
   NotificationProgrammatic.open('Amount copied');
 };
 
@@ -161,11 +163,11 @@ $event('invoiceBitcoinIsLoading', false);
               <div v-if="selectedMethodIndex === 0">{{ $t('recommendedFee') }}</div>
             </div>
             <div class="column">
-              <div class="has-text-right">{{ (selectedMethodIndex === 0) ? Number.parseFloat(paymentMethods[selectedMethodIndex].amount).toFixed(8) : Number.parseFloat(paymentMethods[selectedMethodIndex].amount * 100000000).toFixed(0) }} {{ ((selectedMethodIndex === 0)) ? paymentMethods[selectedMethodIndex].cryptoCode : 'SATS' }}</div>
+              <div class="has-text-right">{{ (selectedMethodIndex === 0) ? Number.parseFloat(paymentMethodsCleaned[selectedMethodIndex].amount).toFixed(8) : Number.parseFloat(paymentMethodsCleaned[selectedMethodIndex].amount * 100000000).toFixed(0) }} {{ ((selectedMethodIndex === 0)) ? paymentMethodsCleaned[selectedMethodIndex].cryptoCode : 'SATS' }}</div>
               <div class="has-text-right">{{ Number.parseFloat(invoice.amount).toFixed(2) }} {{ invoice.currency }}</div>
-              <div class="has-text-right">{{ Number.parseFloat(paymentMethods[selectedMethodIndex].rate).toFixed(2) }} {{ paymentMethods[selectedMethodIndex].cryptoCode }}/{{ invoice.currency }}</div>
-              <div class="has-text-right">{{ (selectedMethodIndex === 0) ? Number.parseFloat(paymentMethods[selectedMethodIndex].due).toFixed(8) : Number.parseFloat(paymentMethods[selectedMethodIndex].due * 100000000).toFixed(0) }} {{ ((selectedMethodIndex === 0)) ? paymentMethods[selectedMethodIndex].cryptoCode : 'SATS' }}</div>
-              <div v-if="selectedMethodIndex === 0" class="has-text-right">{{ paymentMethods[selectedMethodIndex].networkFee }} sat/byte</div>
+              <div class="has-text-right">{{ Number.parseFloat(paymentMethodsCleaned[selectedMethodIndex].rate).toFixed(2) }} {{ paymentMethodsCleaned[selectedMethodIndex].cryptoCode }}/{{ invoice.currency }}</div>
+              <div class="has-text-right">{{ (selectedMethodIndex === 0) ? Number.parseFloat(paymentMethodsCleaned[selectedMethodIndex].due).toFixed(8) : Number.parseFloat(paymentMethodsCleaned[selectedMethodIndex].due * 100000000).toFixed(0) }} {{ ((selectedMethodIndex === 0)) ? paymentMethodsCleaned[selectedMethodIndex].cryptoCode : 'SATS' }}</div>
+              <div v-if="selectedMethodIndex === 0" class="has-text-right">{{ paymentMethodsCleaned[selectedMethodIndex].networkFee }} sat/byte</div>
             </div>
           </div>
         </OCollapse>
@@ -204,7 +206,7 @@ $event('invoiceBitcoinIsLoading', false);
     <div class="card-content">
       <OField :label="$t(allowedMethods[selectedMethodIndex].destination)">
         <OInput
-          v-model="paymentMethods[selectedMethodIndex].destination"
+          v-model="paymentMethodsCleaned[selectedMethodIndex].destination"
           icon-right="content-copy"
           icon-right-clickable
           @icon-right-click="copyDestination"
@@ -224,7 +226,7 @@ $event('invoiceBitcoinIsLoading', false);
       </OField>
     </div>
     <footer class="card-footer">
-      <NuxtLink :to="paymentMethods[selectedMethodIndex].paymentLink" class="card-footer-item">{{ $t('payInWallet') }}</NuxtLink>
+      <NuxtLink :to="paymentMethodsCleaned[selectedMethodIndex].paymentLink" class="card-footer-item">{{ $t('payInWallet') }}</NuxtLink>
     </footer>
   </div>
 </template>

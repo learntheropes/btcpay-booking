@@ -16,6 +16,6 @@ export default defineEventHandler(async (event) => {
     value: type
   });
   
-  // Return ok to the Greenfield
+  // Return ok to the Greenfield api
   return 'ok';
 });
