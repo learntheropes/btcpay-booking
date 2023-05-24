@@ -153,10 +153,12 @@ $listen('setIsLoadingFreeSlots', (bool) => {
   isLoadingFreeSlots.value = bool;
 });
 
+// Reset times selections
 const clearTime = () => {
   form.value.buyerTime = [];
 };
 
+// Reset extras selections
 const clearExtras = () => {
   form.value.buyerExtras  = [];
 };
@@ -170,6 +172,7 @@ const enabledGateways = Object.keys(gateways).filter((i) => gateways[i]);
 // Define the decimal length based on the currency
 const decimal = $getDecimal(currency);
 
+// Set the choosen gateway at the same moment the form is submitted
 const setGateway = (gateway) => {
   form.value.buyerGateway = gateway;
 }
@@ -177,7 +180,9 @@ const setGateway = (gateway) => {
 const isLoadingPage = ref(false);
 
 const createInvoice = async (gateway) => {
+  // Handle page load on form submit
   isLoadingPage.value = true
+  // Create the invoice
   await $createInvoice(form.value);
 };
 
