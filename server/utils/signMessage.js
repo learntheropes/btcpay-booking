@@ -1,7 +1,9 @@
-import { getNetwork } from '../_libraries/bitcoin/network'
-import { generateAccount } from '../_libraries/bitcoin/account'
-import { generateKeypair } from '../_libraries/bitcoin/keypair'
-import { sign } from '../_libraries/bitcoin/sign'
+import { getNetwork } from '../libraries/bitcoin/network'
+import { generateSeedBuffer } from '../libraries/bitcoin/seed'
+import { generateAccount } from '../libraries/bitcoin/account'
+import { generateKeypair } from '../libraries/bitcoin/keypair'
+import { sign } from '../libraries/bitcoin/sign'
+const { mnemonic } = useRuntimeConfig();
 
 export const signMessage = async body => {
 
@@ -11,24 +13,21 @@ export const signMessage = async body => {
     addressIndex
   } = body;
 
-  console.log('message_to_sign', message_to_sign)
-  console.log('accountIndex', accountIndex)
-  console.log('addressIndex', addressIndex)
-
   const network = await getNetwork();
-  console.log('network', network)
+
+  const seedBuffer = generateSeedBuffer(mnemonic);
+
   const account = generateAccount({
+    seedBuffer,
     network,
     accountIndex
   });
-  console.log('account', account)
   
   const keypair = generateKeypair({
     network,
     account,
     addressIndex
   });
-  console.log('keypair', keypair)
 
   const signature = sign({
     message_to_sign,

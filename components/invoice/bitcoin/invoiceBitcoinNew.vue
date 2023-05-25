@@ -4,6 +4,7 @@ import find from 'lodash.find';
 import findIndex from 'lodash.findindex';
 import { NotificationProgrammatic } from "@oruga-ui/oruga-next";
 import { computed } from '@vue/reactivity';
+import { $fetch } from 'ofetch';
 
 // Get invoice props
 const {
@@ -103,6 +104,8 @@ const {
 // set the initial status of the invoiceBitcoin component to false
 // After that the invoice has been refreshed by the invoiceBitcoinExpired component
 $event('invoiceBitcoinIsLoading', false);
+
+const { fastestFee: suggestedFee } = await $fetch('https://mempool.space/api/v1/fees/recommended')
 </script>
 
 <template>
@@ -167,7 +170,7 @@ $event('invoiceBitcoinIsLoading', false);
               <div class="has-text-right">{{ Number.parseFloat(invoice.amount).toFixed(2) }} {{ invoice.currency }}</div>
               <div class="has-text-right">{{ Number.parseFloat(paymentMethodsCleaned[selectedMethodIndex].rate).toFixed(2) }} {{ paymentMethodsCleaned[selectedMethodIndex].cryptoCode }}/{{ invoice.currency }}</div>
               <div class="has-text-right">{{ (selectedMethodIndex === 0) ? Number.parseFloat(paymentMethodsCleaned[selectedMethodIndex].due).toFixed(8) : Number.parseFloat(paymentMethodsCleaned[selectedMethodIndex].due * 100000000).toFixed(0) }} {{ ((selectedMethodIndex === 0)) ? paymentMethodsCleaned[selectedMethodIndex].cryptoCode : 'SATS' }}</div>
-              <div v-if="selectedMethodIndex === 0" class="has-text-right">{{ paymentMethodsCleaned[selectedMethodIndex].networkFee }} sat/byte</div>
+              <div v-if="selectedMethodIndex === 0" class="has-text-right">{{ suggestedFee }} sat/vB</div>
             </div>
           </div>
         </OCollapse>
