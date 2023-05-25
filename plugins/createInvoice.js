@@ -1,6 +1,3 @@
-// Import the surcharge for shitcoins gateway 
-import { surcharge } from '../assets/js/mix';
-
 export default defineNuxtPlugin(nuxtApp => {
 
   return {
@@ -60,8 +57,7 @@ export default defineNuxtPlugin(nuxtApp => {
 
           const time = buyerTime.length * price;
           const extras = (buyerExtras.length) ? buyerExtras.reduce((sum, extra) => sum + extra.price, 0) : 0;
-          const moltiplicator = (buyerGateway === 'bitcoin') ? 1 : (1 + (surcharge / 100));
-          return ((time + extras) * moltiplicator).toFixed(decimal);
+          return (time + extras).toFixed(decimal);
         };
 
         // Workaround to avoid posting a duplicate invoice with 0 value

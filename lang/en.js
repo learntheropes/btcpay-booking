@@ -23,7 +23,7 @@ export default {
   // components/invoice/invoiceProfile.vue
   invoice: "Invoice",
   booking: "Booking",
-  surcharge: "Due to payment processor fee, we are forced to charge a {surcharge}% surcharge on shitcoins payment ({gateways}).",
+  surcharge: "Due to the payment processors, a fee will be charged on shitcoins payments ({gateways}).",
   and: "and",
   notProvided: "Not provided",
   // components/invoice/bitcoin/invoiceBitcoinNew.vue
@@ -56,7 +56,7 @@ export default {
   // components/invoice/fiat/invoiceFiatSelector.vue
   selectPaymentMethod: 'Choose a payment method',
   // components/invoice/fiat/invoiceFiatSepa.vue
-  buyerLegalName: 'First name and last name',
+  buyerLegalName: 'First and last name',
   buyerLegalAddress: 'Address',
   buyerLegalCity: 'City',
   buyerLegalZip: 'ZIP Code',

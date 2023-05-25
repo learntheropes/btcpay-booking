@@ -1,5 +1,8 @@
 // Import the surcharge for shitcoins gateway 
-import { surcharge } from '../assets/js/mix';
+import {
+  shitcoinsToBtcpaySurcharge,
+  bitySurcharge
+} from '../assets/js/surcharges';
 
 export default defineNuxtPlugin(nuxtApp => {
 

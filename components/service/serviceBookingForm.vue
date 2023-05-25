@@ -1,9 +1,6 @@
 <script setup>
 import { ref, watch } from 'vue';
 
-// Import the surcharge for shitcoins gateway 
-import { surcharge } from '../../assets/js/mix';
-
 // Get props from [service].vue page
 const {
   locale,
@@ -435,12 +432,12 @@ const createInvoice = async (gateway) => {
           @click="setGateway(gateway)"
           native-type="submit"
         >
-        {{ `${$t('payWith')} ${gateway} ${(gateway === 'bitcoin') ? amount.toFixed(decimal) : (amount * (1 + (surcharge / 100))).toFixed(decimal)} ${currency}` }}
+        {{ `${$t('payWith')} ${gateway} ${(gateway === 'bitcoin') ? amount.toFixed(decimal) + ' ' + currency : ''}` }}
         </OButton>
       </OField>
       <p class="help">{{ $t('surcharge', {
-        surcharge,
-        gateways: Object.keys(gateways).filter((g) => gateways[g] && g !== 'bitcoin' ).join(` ${$t('and')} `)
+        gateways: Object.keys(gateways).filter((g) => gateways[g] && g !== 'bitcoin' ).join(` ${$t('and')
+      }`)
       }) }}</p>
     </VForm>
   </div>

@@ -23,7 +23,7 @@ export default {
   // components/invoice/invoiceProfile.vue
   invoice: "Factura",
   booking: "Reserva",
-  surcharge: "Debido a la tarifa del procesador de pagos, nos vemos obligados a cobrar un recargo de {surcharge}% en el pago de shitcoins ({gateways}).",
+  surcharge: "Debido a los procesadores de pagos, se cobre un recargo en los pagos en shitcoins ({gateways}).",
   and: "y",
   notProvided: "No proporcionado",
   // components/invoice/bitcoin/invoiceBitcoinNew.vue

@@ -23,7 +23,7 @@ export default {
   // components/invoice/invoiceProfile.vue
   invoice: "Fattura",
   booking: "Prenotazione",
-  surcharge: "A causa della commissione dell'elaboratore di pagamenti, siamo costretti ad addebitare un supplemento del {surcharge}% sul pagamento in shitcoin ({gateways}).",
+  surcharge: "A causa degli elaboratori di pagamenti, sarà addebitata una commissione sui pagamenti in shitcoin ({gateways}).",
   and: "e",
   notProvided: "Non fornito",
   // components/invoice/bitcoin/invoiceBitcoinNew.vue
