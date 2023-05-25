@@ -5,11 +5,11 @@ import { bityOrderGet } from '../_libraries/bity/order/get'
 export default defineEventHandler(async event => {
 
   // Get the needed properties from the request body
-  const { 
+  const {
+    accountIndex,
+    addressIndex,
+    crypto_address,
     amount,
-    currency,
-    metadata,
-    chechout,
     buyerLegalName,
     buyerLegalAddress,
     buyerLegalCity,
@@ -19,31 +19,12 @@ export default defineEventHandler(async event => {
     buyerIban
   } = await readBody(event);
 
-  // Create btcpay invoice with greenfield api
-  await greenfieldApi(`/invoices`, {
-    method: 'POST',
-    body: {
-      amount,
-      currency,
-      metadata,
-      chechout
-    }
-  });
-
-  // Get the account and address indexes of the next available address
-  const { keyPath, address: crypto_address } = await btcpayKeypathGet();
-  const [ accountIndex, addressIndex ] = keyPath.split('/');
-
-  // Release the just fetched next available address
-  await btcpayReleaseAddress();
-
   // Create the order on Bity
   const {
     order_uuid,
     message_to_sign
   } = await bityOrderCreate({
     amount,
-    currency,
     name: buyerLegalName,
     address: buyerLegalAddress,
     city: buyerLegalCity,
@@ -55,11 +36,14 @@ export default defineEventHandler(async event => {
   });
 
   // Sign the message provided by bity
-  const { signature } = await signMessage({
+  const { signature, address } = await signMessage({
     message_to_sign,
     accountIndex,
     addressIndex: addressIndex - 1
   });
+
+  console.log('address from bitcoinjs-lib', address)
+  console.log('is the same', crypto_address === address)
 
   // Send the signed message to bity
   await bitySignOwnership({

@@ -31,25 +31,6 @@ export default defineNuxtPlugin(nuxtApp => {
           }
         } = await queryContent(`/settings`).findOne();
 
-
-        // Set the expiration and monitoring in minutes for shitcoins based on the gateway selected
-        // Leave the btcpay store default for bitcoin
-        let expirationMinutes, monitoringMinutes;
-        switch(buyerGateway) {
-          case 'crypto':
-            expirationMinutes = 60;
-            monitoringMinutes = 60 * 24;
-            break;
-          // Set longer perios waiting for the SEPA to arrive 
-          case 'fiat':
-            expirationMinutes = 60 * 24 * 2;
-            monitoringMinutes = 60 * 24 * 7;
-            break;
-          default:
-            expirationMinutes = null;
-            monitoringMinutes = null;
-        }
-
         const getAmount = () => {
 
           // Define the decimal length based on the currency
@@ -91,8 +72,6 @@ export default defineNuxtPlugin(nuxtApp => {
                 buyerGateway
               },
               checkout: {
-                expirationMinutes,
-                monitoringMinutes,
                 redirectAutomatically: false,
                 requiresRefundEmail: email === 'required'
               }

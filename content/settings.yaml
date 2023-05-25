@@ -21,7 +21,7 @@ btcpay:
   # Your btcpay server store id.
   # You can find it under the Store Settings.
   # Mandatory
-  storeid: GLykoKoMdnU75dqFDUDM4NbpSgjTxG2uzUVfibtphZdt
+  storeid: FXpHszyuWAYdP362KaGzwkvtJDP1PdSB6oXGNRYqPp6v
   # Your btcpay clearnet or Tor hidden service url.
   # Clearnet url is the same of your dashboard.
   # Tor onion service url is in the dashboard footer, under Copy Tor URL.

@@ -69,7 +69,7 @@
   <VForm
     name="sepa"
     :validation-schema="validationSchema"
-    @submit.prevent="getSepaPaymentInfo"
+    @submit="getSepaPaymentInfo"
   >
     <VField
       name="buyerLegalName"
