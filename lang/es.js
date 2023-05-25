@@ -71,6 +71,8 @@ export default {
   // plugins/validateCustomRules.js
   customRules: {
     arrayLengthBetween: "Puede reservar entre 0:{min} y 1:{max} espacios para cada día",
+    validateIban: "Formato IBAN no válido",
+    validateBic: "BIC del banco no válido",
     _isOnServer: "No encontramos una clave pública en el servidor\nkeys.openpgp.org\nasociado con la huella digital proporcionada",
     _isAssociatedWithEmail: "La clave pública con huella digital propociondada\nno está asociada con el correo electrónico {target}"
   }

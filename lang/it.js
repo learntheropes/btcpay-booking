@@ -71,6 +71,8 @@ export default {
   // plugins/validateCustomRules.js
   customRules: {
     arrayLengthBetween: "Puoi prenotare tra i 0:{min} e i 1:{max} slot per ogni giornata",
+    validateIban: "Formato IBAN non valido",
+    validateBic: "BIC della banca non valido",
     _isOnServer: "Non abbiamo trovato una chiave pubblica sul server\nkeys.openpgp.org\nassociata alla impronta digitale fornita",
     _isAssociatedWithEmail: "La chiave pubblica con impronta digitale forinita\nnon è associata con la email {target}"
   }

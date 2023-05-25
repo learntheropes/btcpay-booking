@@ -202,7 +202,7 @@ const createInvoice = async (gateway) => {
         spin
       />
     </OLoading>
-    <!-- working examples oforuga with vee-validate:
+    <!-- working examples ooruga with vee-validate:
     https://github.com/logaretm/vee-validate/issues/3575
     https://codesandbox.io/s/itp29?file=/src/App.vue -->
     <VForm

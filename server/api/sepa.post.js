@@ -8,15 +8,15 @@ export default defineEventHandler(async event => {
   const { 
     amount,
     currency,
-    name,
-    address,
-    city,
-    zip,
-    country,
-    bic,
-    iban,
     metadata,
-    chechout
+    chechout,
+    buyerLegalName,
+    buyerLegalAddress,
+    buyerLegalCity,
+    buyerLegalZip,
+    buyerLegalCountry,
+    buyerBic,
+    buyerIban
   } = await readBody(event);
 
   // Create btcpay invoice with greenfield api
@@ -44,13 +44,13 @@ export default defineEventHandler(async event => {
   } = await bityOrderCreate({
     amount,
     currency,
-    name,
-    address,
-    city,
-    zip,
-    country,
-    bic,
-    iban,
+    name: buyerLegalName,
+    address: buyerLegalAddress,
+    city: buyerLegalCity,
+    zip: buyerLegalZip,
+    country: buyerLegalCountry,
+    bic: buyerBic,
+    iban: buyerIban,
     crypto_address     
   });
 

@@ -71,6 +71,8 @@ export default {
   // plugins/validateCustomRules.js
   customRules: {
     arrayLengthBetween: "You can book between 0:{min} and 1:{max} slots per day",
+    validateIban: "Invalid IBAN format",
+    validateBic: "Invalid bank BIC",
     _isOnServer: "We did not find a public key on the keys.openpgp.org server\nassociated with the fingerprint provided",
     _isAssociatedWithEmail: "The public key with fingerprint provided\nis not associated with the email {target}"
   }

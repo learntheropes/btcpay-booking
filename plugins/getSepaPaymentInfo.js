@@ -6,18 +6,36 @@ export default defineNuxtPlugin(nuxtApp => {
   return {
     provide: {
       getSepaPaymentInfo: async ({
+        amount,
         currency,
-        amount
+        metadata,
+        chechout,
       }, {
         buyerLegalName,
         buyerLegalAddress,
         buyerLegalCity,
         buyerLegalZip,
+        buyerLegalCountry,
         buyerBic,
         buyerIban
       }) => {
-        console.log('currency', currency)
-        console.log('buyerIban', buyerIban)
+
+        return await $fetch('/api/sepa', {
+          method: 'POST',
+          body: {
+            amount,
+            currency,
+            metadata,
+            chechout,
+            buyerLegalName,
+            buyerLegalAddress,
+            buyerLegalCity,
+            buyerLegalZip,
+            buyerLegalCountry,
+            buyerBic,
+            buyerIban: buyerIban.replaceAll(' ', '').toUpperCase()
+          }
+        })
       }
     }
   }

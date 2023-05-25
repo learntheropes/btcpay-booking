@@ -42,10 +42,12 @@
       required: true
     },
     buyerBic: {
-      required: true
+      required: true,
+      validateBic: true
     },
     buyerIban: {
-      required: true
+      required: true,
+      validateIban: true
     }
   };
 
