@@ -15,12 +15,13 @@
   });
   // Define the form reactive properties and the initial empty fields
   const initialForm = {
-    buyerLegalName: '',
-    buyerLegalAddress: '',
-    buyerLegalCity: '',
-    buyerLegalZip: '',
-    buyerBic: '',
-    buyerIban: ''
+    buyerLegalName: 'Satoshi Nakamoto',
+    buyerLegalAddress: 'Foo Bar 17',
+    buyerLegalCity: 'Lugano',
+    buyerLegalZip: '00100',
+    buyerLegalCountry: 'CH',
+    buyerBic: 'XXXXCHXXXXX',
+    buyerIban: 'NL83INGB2786219639'
   }
   const form = ref(initialForm);
 
@@ -53,19 +54,30 @@
 
   // Get the needed plugins
   const {
+    // Function to get the translated list of countries for the select field
     $getCountriesList,
+    // Function to place the order on bity
+    $placeSepaOrder,
+    // Function to sign the bity message and get the order payment info
     $getSepaPaymentInfo
   } = useNuxtApp();
 
-  const getSepaPaymentInfo = async values => {
-    await $getSepaPaymentInfo(invoice, values)
-  }
-
   // Get the transalted list of countries for the form select field
   const countries = $getCountriesList();
+
+  // Place the order and get the payment info
+  let isLoading = ref(false)
+  let orderDetails = ref(null);
+  const getSepaPaymentInfo = async values => {
+    isLoading.value = true;
+    const order = await $placeSepaOrder(invoice, values);
+    orderDetails.value = await $getSepaPaymentInfo(values, order);
+    isLoading.value = false;
+  }
 </script>
 
 <template>
+<div v-if="!orderDetails && !isLoading">
   <VForm
     name="sepa"
     :validation-schema="validationSchema"
@@ -227,7 +239,25 @@
     <OField>
       <OButton
         native-type="submit"
-      >{{ $t('pay') }}</OButton>
+      >{{ $t('getPaymentDetails') }}</OButton>
     </OField>
   </VForm>
+</div>
+<div v-else-if="!orderDetails && isLoading">
+  <OLoading
+    :full-page="false"
+    v-model:active="isLoading"
+    :can-cancel="false"
+  >
+    <OIcon
+      pack="mdi"
+      icon="loading"
+      size="large"
+      spin
+    />
+  </OLoading>
+</div>
+<div v-else>
+  {{ orderDetails }}
+</div>
 </template>

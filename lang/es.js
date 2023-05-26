@@ -63,6 +63,7 @@ export default {
   buyerLegalCountry: 'País',
   buyerBic: 'BIC del banco',
   buyerIban: 'IBAN',
+  getPaymentDetails: 'Obtener detalles de pago',
   // error.vue
   pageNotFound: "Esta página no se pudo encontrar",
   unauthorized: "No autorizado",

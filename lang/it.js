@@ -63,6 +63,7 @@ export default {
   buyerLegalCountry: 'Paese',
   buyerBic: 'BIC della banca',
   buyerIban: 'IBAN',
+  getPaymentDetails: 'Ricevi gli estremi del pagamento',
   // errorv.ue
   pageNotFound: "Pagina non trovata",
   unauthorized: "Non autorizzato",

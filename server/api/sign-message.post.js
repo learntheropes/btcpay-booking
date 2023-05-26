@@ -1,17 +1,18 @@
+import { readBody } from 'h3';
 import { getNetwork } from '../libraries/bitcoin/network'
 import { generateSeedBuffer } from '../libraries/bitcoin/seed'
 import { generateAccount } from '../libraries/bitcoin/account'
 import { generateKeypair } from '../libraries/bitcoin/keypair'
-import { sign } from '../libraries/bitcoin/sign'
+import { getSignature } from '../libraries/bitcoin/sign'
 const { mnemonic } = useRuntimeConfig();
 
-export const signMessage = async body => {
-
+export default defineEventHandler(async event => {
+  
   const { 
     message_to_sign,
     accountIndex,
     addressIndex
-  } = body;
+  } = await readBody(event);
 
   const network = await getNetwork();
 
@@ -29,7 +30,7 @@ export const signMessage = async body => {
     addressIndex
   });
 
-  const signature = sign({
+  const signature = getSignature({
     message_to_sign,
     keypair
   });
@@ -39,4 +40,4 @@ export const signMessage = async body => {
     signature,
     address: keypair.address
   };
-};
+});
