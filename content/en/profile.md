@@ -8,10 +8,10 @@ title: Giovanni Learntheropes
 description: My consultancies booking website powered by Btcpay and Nuxt
 # Your profile picture name that you need to put in the public folder.
 image: me.jpg
-# List of image to show on the page
-# Save the file in the ./public foder and list the file name here
+# List of images to show on the page
+# Save the files in the ./public foder and list the files name here
 # I don't have a gallery in this case.
-# Check the paraguay-redincy file for an example
+# Check the paraguay-residency file for an example
 gallery:
 # Your twitter handle.
 twitter: learntheropes_
@@ -33,4 +33,4 @@ websites:
 My name is Giovanni. I'm italian living between Paraguay and Argentina.  
 In the pre bitcoin era I was a sailor and boatbuilder.  
 Since I discovered Bitcoin in 2014 I left my previous life to work online as disputes analyist at Localbitcoins Oy.  
-I'm a self made nodejs and nuxt developer that likes Btcpay Server and bitcoinjs-lib a lot.  
+I'm a self made Nodejs and Nuxt developer that likes Btcpay Server and Bitcoinjs-lib a lot.  
