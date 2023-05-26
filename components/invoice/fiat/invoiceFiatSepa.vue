@@ -15,13 +15,13 @@
   });
   // Define the form reactive properties and the initial empty fields
   const initialForm = {
-    buyerLegalName: 'Satoshi Nakamoto',
-    buyerLegalAddress: 'Foo Bar 17',
-    buyerLegalCity: 'Lugano',
-    buyerLegalZip: '00100',
-    buyerLegalCountry: 'CH',
-    buyerBic: 'XXXXCHXXXXX',
-    buyerIban: 'NL83INGB2786219639'
+    buyerLegalName: '',
+    buyerLegalAddress: '',
+    buyerLegalCity: '',
+    buyerLegalZip: '',
+    buyerLegalCountry: '',
+    buyerBic: '',
+    buyerIban: ''
   }
   const form = ref(initialForm);
 
