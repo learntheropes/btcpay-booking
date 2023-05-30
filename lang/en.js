@@ -45,6 +45,8 @@ export default {
   invoice: "Invoice",
   amount: "Amount",
   payInWallet: "Pay in wallet",
+  destinationCopied: 'Destination copied',
+  amountCopied: 'Amount copied',
   // components/invoice/bitcoin/invoiceBitcoinExpired.vue
   invoiceExpired: "Invoice expired",
   invoiceValidity: "A bitcoin invoice is only valid for {minutes} minutes",
@@ -55,7 +57,7 @@ export default {
   printReceipt: "Print receipt",
   // components/invoice/fiat/invoiceFiatSelector.vue
   selectPaymentMethod: 'Choose a payment method',
-  // components/invoice/fiat/invoiceFiatSepa.vue
+  // components/invoice/fiat/invoiceFiatSepaForm.vue
   buyerLegalName: 'First and last name',
   buyerLegalAddress: 'Address',
   buyerLegalCity: 'City',
@@ -64,6 +66,15 @@ export default {
   buyerBic: 'Bank BIC',
   buyerIban: 'IBAN',
   getPaymentDetails: 'Get payment details',
+  // components/invoice/fiat/invoiceFiatSepaDetails.vue
+  amount: 'Amount',
+  currency: 'Currency',
+  iban: 'IBAN',
+  bic: 'Bank BIC',
+  reference: 'Reference',
+  recipient: 'Recipient',
+  recipientAddress: 'Recipient address',
+  copied: 'Copied',
   // error.vue
   pageNotFound: "This page could not be found",
   unauthorized: "Unauthorized",

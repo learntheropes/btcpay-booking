@@ -82,10 +82,13 @@ watch(async () => selectedMethodIndex.value, async () => {
   qrCode.value = newQrCode;
 });
 
+// Get the function for translations
+const { t } = useI18n();
+
 // Functions to copy the address/invoice with notification
 const copyDestination = () => {
   navigator.clipboard.writeText(paymentMethodsCleaned[selectedMethodIndex.value].destination);
-  NotificationProgrammatic.open('Address copied');
+  NotificationProgrammatic.open(t('destinationCopied'));
 };
 
 // Render and copy btc or sat amount based on the payment method selected
@@ -93,7 +96,7 @@ const renderAmount = computed(() => (selectedMethodIndex.value === 0) ? paymentM
 
 const copyAmount = () => {
   navigator.clipboard.writeText((selectedMethodIndex.value === 0) ? paymentMethodsCleaned[selectedMethodIndex.value].due : parseInt(Number(paymentMethodsCleaned[selectedMethodIndex.value].due) * 100000000));
-  NotificationProgrammatic.open('Amount copied');
+  NotificationProgrammatic.open(t('amountCopied'));
 };
 
 // Get needed functions from plugins
@@ -158,7 +161,7 @@ const { fastestFee: suggestedFee } = await $fetch('https://mempool.space/api/v1/
             </div>
           </template>
           <div class="columns is-mobile">
-            <div class="column os-narrow has-text-warning">
+            <div class="column is-narrow has-text-warning">
               <div>{{ $t('totalPrice') }}</div>
               <div>{{ $t('totalFiat') }}</div>
               <div>{{ $t('exchangeRate') }}</div>

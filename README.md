@@ -2,7 +2,7 @@
 Booking system for any type of service that requires a calendar, from an online class to a room reservation.  
 For bitcoiners, KYC free, self custodial.  
 The client can pay in bitcoin, crypto and fiat and the merchant always receives bitcoin.  
-Without KYC requiremenets fof the merchant and the client.  
+Without KYC requiremenets for the merchant and the client.  
 
 ## Features
 - Self custodial solution with btcpay server integration.  

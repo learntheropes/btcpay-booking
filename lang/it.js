@@ -45,6 +45,8 @@ export default {
   invoice: "Fattura",
   amount: "Quantità",
   payInWallet: "Paga col portafoglio",
+  destinationCopied: 'Destinatiozione copiata',
+  amountCopied: 'Valore copiato',
   // components/invoice/bitcoin/invoiceBitcoinExpired.vue
   invoiceExpired: "Fattura scaduta",
   invoiceValidity: "Una fattura in bitcoin è valida solo per {minutes} minuti",
@@ -55,7 +57,7 @@ export default {
   printReceipt: "Stampa la ricevuta",
   // components/invoice/fiat/invoiceFiatSelector.vue
   selectPaymentMethod: 'Seleziona un metodo di pagamento',
-  // components/invoice/fiat/invoiceFiatSepa.vue
+  // components/invoice/fiat/invoiceFiatSepaForm.vue
   buyerLegalName: 'Nome e cognome',
   buyerLegalAddress: 'Indirizzo',
   buyerLegalCity: 'Città',
@@ -64,6 +66,15 @@ export default {
   buyerBic: 'BIC della banca',
   buyerIban: 'IBAN',
   getPaymentDetails: 'Ricevi gli estremi del pagamento',
+  // components/invoice/fiat/invoiceFiatSepaDetails.vue
+  amount: 'Valore',
+  currency: 'Valuta',
+  iban: 'IBAN',
+  bic: 'BIC',
+  reference: 'Motivo dell\'invio',
+  recipient: 'Destinatario',
+  recipientAddress: 'Indirizzo del destinatario',
+  copied: 'Copiato',
   // errorv.ue
   pageNotFound: "Pagina non trovata",
   unauthorized: "Non autorizzato",
