@@ -190,8 +190,8 @@ const copy = (value) => {
             <img :src="qrCode" height="366" width="366" />
           </figure>
           <div class="is-overlay ltr-is-center-center">
-            <figure class="image is-48by48 ltr-is-48by48">
-              <NuxtIcon name="sepa" class="ltr-is-48by48" filled />
+            <figure class="image is-80by80 ltr-is-80by80">
+              <NuxtIcon name="sepa" class="ltr-is-80by80" filled />
             </figure>
           </div>
         </div>
@@ -296,5 +296,12 @@ const copy = (value) => {
 <style scoped>
 .level {
   margin-bottom: 0rem
+}
+</style>
+
+<style>
+.ltr-is-80by80 svg {
+  min-height: 80px;
+  min-width: 80px;
 }
 </style>
