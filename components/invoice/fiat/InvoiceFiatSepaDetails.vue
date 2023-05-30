@@ -210,7 +210,7 @@ const copy = (value) => {
       </OField>
       <OField :label="$t('currency')">
         <OInput
-          v-model="amount"
+          v-model="currency"
           icon-right="content-copy"
           icon-right-clickable
           @icon-right-click="copy(currency)"
