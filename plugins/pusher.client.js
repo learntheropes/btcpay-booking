@@ -4,6 +4,7 @@ export default defineNuxtPlugin(() => {
 
   const {
     public: {
+      isDeployed,
       pusherApikey,
       pusherCluster
     }
@@ -11,7 +12,7 @@ export default defineNuxtPlugin(() => {
   
   const pusher = new Pusher(pusherApikey, {
     cluster: pusherCluster,
-    useTLS: false,
+    useTLS: (isDeployed) ? true: false,
   });
 
   return {
