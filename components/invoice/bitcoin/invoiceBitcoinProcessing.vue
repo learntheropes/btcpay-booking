@@ -72,18 +72,38 @@ const selectedMethodIndex = ref(0);
             </OButton>
             </div>
           </template>
-          <div class="columns is-mobile">
-            <div class="column is-narrow has-text-warning">
-              <div>{{ $t('totalPrice') }}</div>
-              <div>{{ $t('totalFiat') }}</div>
-              <div>{{ $t('exchangeRate') }}</div>
-              <div>{{ $t('amountDue') }}</div>
+          <div>
+            <div class="level is-mobile">
+              <div class="level-left">
+                <div class="level-item has-text-warning">{{ $t('totalPrice') }}</div>
+              </div>
+              <div class="level-rigth">
+                <div class="level-item">{{ Number.parseFloat(paymentMethods[selectedMethodIndex].amount).toFixed(8) }} {{ paymentMethods[selectedMethodIndex].cryptoCode}}</div>
+              </div>
             </div>
-            <div class="column">
-              <div class="has-text-right">{{ Number.parseFloat(paymentMethods[selectedMethodIndex].amount).toFixed(8) }} {{ paymentMethods[selectedMethodIndex].cryptoCode}}</div>
-              <div class="has-text-right">{{ Number.parseFloat(invoice.amount).toFixed(2) }} {{ invoice.currency }}</div>
-              <div class="has-text-right">{{ Number.parseFloat(paymentMethods[selectedMethodIndex].rate).toFixed(2) }} {{ paymentMethods[selectedMethodIndex].cryptoCode}}/{{ invoice.currency }}</div>
-              <div class="has-text-right">{{ Number.parseFloat(paymentMethods[selectedMethodIndex].due).toFixed(8) }} {{ paymentMethods[selectedMethodIndex].cryptoCode}}</div>
+            <div class="level is-mobile">
+              <div class="level-left">
+                <div class="level-item has-text-warning">{{ $t('totalFiat') }}</div>
+              </div>
+              <div class="level-rigth">
+                <div class="level-item">{{ Number.parseFloat(invoice.amount).toFixed(2) }} {{ invoice.currency }}</div>
+              </div>
+            </div>
+            <div class="level is-mobile">
+              <div class="level-left">
+                <div class="level-item has-text-warning">{{ $t('exchangeRate') }}</div>
+              </div>
+              <div class="level-rigth">
+                <div class="level-item">{{ Number.parseFloat(paymentMethods[selectedMethodIndex].rate).toFixed(2) }} {{ paymentMethods[selectedMethodIndex].cryptoCode}}/{{ invoice.currency }}</div>
+              </div>
+            </div>
+            <div class="level is-mobile">
+              <div class="level-left">
+                <div class="level-item has-text-warning">{{ $t('amountDue') }}</div>
+              </div>
+              <div class="level-rigth">
+                <div class="level-item">{{ Number.parseFloat(paymentMethods[selectedMethodIndex].due).toFixed(8) }} {{ paymentMethods[selectedMethodIndex].cryptoCode}}</div>
+              </div>
             </div>
           </div>
         </OCollapse>
@@ -92,6 +112,12 @@ const selectedMethodIndex = ref(0);
     </div>
   </div>
 </template>
+
+<style scoped>
+.level {
+  margin-bottom: 0rem
+}
+</style>
 
 <style>
 .ltr-is-48by48-grey svg {
