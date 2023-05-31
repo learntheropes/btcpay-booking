@@ -45,14 +45,6 @@ const isNew = ref(initialIsNew);
 let refreshIntervalId;
 onMounted(()=> {
 
-  // Update the status of the invoice using pusher
-  const channel = $pusher.subscribe('webhook');
-
-  channel.bind(invoiceId, (newStatus) => {
-
-    status.value = newStatus.value;
-  });
-
   const checkConfirmations = () => {
     expiresIn.value = parseInt(invoice.expirationTime - new Date().getTime() / 1000);
     expiresInString.value = $dayjs(expiresIn.value * 1000).format('mm[m]:ss[s]');
@@ -60,8 +52,17 @@ onMounted(()=> {
     if (!isNew.value) clearInterval(refreshIntervalId);
   }
   refreshIntervalId = setInterval(checkConfirmations, 1000);
+
+  // Update the status of the invoice using pusher
+  const channel = $pusher.subscribe('webhook');
+
+  channel.bind(invoiceId, (newStatus) => {
+
+    status.value = newStatus.value;
+  });
 });
 
+// Stop the countdown on page closure
 onBeforeUnmount(() => {
   clearInterval(refreshIntervalId);
 });
