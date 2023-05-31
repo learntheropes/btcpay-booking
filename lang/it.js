@@ -67,7 +67,7 @@ export default {
   buyerIban: 'IBAN',
   getPaymentDetails: 'Ricevi gli estremi del pagamento',
   // components/invoice/fiat/invoiceFiatSepaDetails.vue
-  amount: 'Valore',
+  amount: 'Importo',
   currency: 'Valuta',
   iban: 'IBAN',
   bic: 'BIC',

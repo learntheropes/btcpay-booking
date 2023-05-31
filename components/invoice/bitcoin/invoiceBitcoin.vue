@@ -32,13 +32,6 @@ const paymentMethods = await $fetch(`/api/invoices/${invoiceId}/payment-methods`
 // Receive updated with pusher from Greenfield webooks about the status of the invoice
 let status = ref(invoice.status);
 
-// Update the status of the invoice using pusher
-const channel = $pusher.subscribe('webhook');
-
-channel.bind(invoiceId, (newStatus) => {
-
-  status.value = newStatus.value;
-});
 
 // Set the reactive expiration values
 const initialExpiresIn = (parseInt(invoice.expirationTime - new Date().getTime() / 1000) > 0) ? invoice.checkout.expirationMinutes * 60 : 0;
@@ -51,6 +44,15 @@ const isNew = ref(initialIsNew);
 // Update the timer of the invoice expiration time evey second and stop when it reaches 0 or when the page is closed
 let refreshIntervalId;
 onMounted(()=> {
+
+  // Update the status of the invoice using pusher
+  const channel = $pusher.subscribe('webhook');
+
+  channel.bind(invoiceId, (newStatus) => {
+
+    status.value = newStatus.value;
+  });
+
   const checkConfirmations = () => {
     expiresIn.value = parseInt(invoice.expirationTime - new Date().getTime() / 1000);
     expiresInString.value = $dayjs(expiresIn.value * 1000).format('mm[m]:ss[s]');

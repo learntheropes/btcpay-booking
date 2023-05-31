@@ -160,20 +160,46 @@ const { fastestFee: suggestedFee } = await $fetch('https://mempool.space/api/v1/
               </OButton>
             </div>
           </template>
-          <div class="columns is-mobile">
-            <div class="column is-narrow has-text-warning">
-              <div>{{ $t('totalPrice') }}</div>
-              <div>{{ $t('totalFiat') }}</div>
-              <div>{{ $t('exchangeRate') }}</div>
-              <div>{{ $t('amountDue') }}</div>
-              <div v-if="selectedMethodIndex === 0">{{ $t('recommendedFee') }}</div>
+          <div>
+            <div class="level is-mobile">
+              <div class="level-left">
+                <div class="level-item has-text-warning">{{ $t('totalPrice') }}</div>
+              </div>
+              <div class="level-rigth">
+                <div class="level-item">{{ (selectedMethodIndex === 0) ? Number.parseFloat(paymentMethodsCleaned[selectedMethodIndex].amount).toFixed(8) : Number.parseFloat(paymentMethodsCleaned[selectedMethodIndex].amount * 100000000).toFixed(0) }} {{ ((selectedMethodIndex === 0)) ? paymentMethodsCleaned[selectedMethodIndex].cryptoCode : 'SATS' }}</div>
+              </div>
             </div>
-            <div class="column">
-              <div class="has-text-right">{{ (selectedMethodIndex === 0) ? Number.parseFloat(paymentMethodsCleaned[selectedMethodIndex].amount).toFixed(8) : Number.parseFloat(paymentMethodsCleaned[selectedMethodIndex].amount * 100000000).toFixed(0) }} {{ ((selectedMethodIndex === 0)) ? paymentMethodsCleaned[selectedMethodIndex].cryptoCode : 'SATS' }}</div>
-              <div class="has-text-right">{{ Number.parseFloat(invoice.amount).toFixed(2) }} {{ invoice.currency }}</div>
-              <div class="has-text-right">{{ Number.parseFloat(paymentMethodsCleaned[selectedMethodIndex].rate).toFixed(2) }} {{ paymentMethodsCleaned[selectedMethodIndex].cryptoCode }}/{{ invoice.currency }}</div>
-              <div class="has-text-right">{{ (selectedMethodIndex === 0) ? Number.parseFloat(paymentMethodsCleaned[selectedMethodIndex].due).toFixed(8) : Number.parseFloat(paymentMethodsCleaned[selectedMethodIndex].due * 100000000).toFixed(0) }} {{ ((selectedMethodIndex === 0)) ? paymentMethodsCleaned[selectedMethodIndex].cryptoCode : 'SATS' }}</div>
-              <div v-if="selectedMethodIndex === 0" class="has-text-right">{{ suggestedFee }} sat/vB</div>
+            <div class="level is-mobile">
+              <div class="level-left">
+                <div class="level-item has-text-warning">{{ $t('totalFiat') }}</div>
+              </div>
+              <div class="level-rigth">
+                <div class="level-item">{{ Number.parseFloat(invoice.amount).toFixed(2) }} {{ invoice.currency }}</div>
+              </div>
+            </div>
+            <div class="level is-mobile">
+              <div class="level-left">
+                <div class="level-item has-text-warning">{{ $t('exchangeRate') }}</div>
+              </div>
+              <div class="level-rigth">
+                <div class="level-item">{{ Number.parseFloat(paymentMethodsCleaned[selectedMethodIndex].rate).toFixed(2) }} {{ paymentMethodsCleaned[selectedMethodIndex].cryptoCode }}/{{ invoice.currency }}</div>
+              </div>
+            </div>
+            <div class="level is-mobile">
+              <div class="level-left">
+                <div class="level-item has-text-warning">{{ $t('amountDue') }}</div>
+              </div>
+              <div class="level-rigth">
+                <div class="level-item">{{ (selectedMethodIndex === 0) ? Number.parseFloat(paymentMethodsCleaned[selectedMethodIndex].due).toFixed(8) : Number.parseFloat(paymentMethodsCleaned[selectedMethodIndex].due * 100000000).toFixed(0) }} {{ ((selectedMethodIndex === 0)) ? paymentMethodsCleaned[selectedMethodIndex].cryptoCode : 'SATS' }}</div>
+              </div>
+            </div>
+            <div v-if="selectedMethodIndex === 0" class="level is-mobile">
+              <div class="level-left">
+                <div class="level-item has-text-warning">{{ $t('recommendedFee') }}</div>
+              </div>
+              <div class="level-rigth">
+                <div class="level-item">{{ suggestedFee }} sat/vB</div>
+              </div>
             </div>
           </div>
         </OCollapse>
@@ -236,6 +262,12 @@ const { fastestFee: suggestedFee } = await $fetch('https://mempool.space/api/v1/
     </footer>
   </div>
 </template>
+
+<style scoped>
+.level {
+  margin-bottom: 0rem
+}
+</style>
 
 <style>
 .ltr-is-48by48 svg {
