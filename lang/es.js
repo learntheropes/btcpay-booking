@@ -58,6 +58,7 @@ export default {
   // components/invoice/fiat/invoiceFiatSelector.vue
   selectPaymentMethod: 'Seleccionar un método de pago',
   // components/invoice/fiat/invoiceFiatSepaForm.vue
+  notSharedWithMerchant: 'La información del pagador no se comparte con el comerciante',
   buyerLegalName: 'Nombre y appellido',
   buyerLegalAddress: 'Dirección',
   buyerLegalCity: 'Ciudad',

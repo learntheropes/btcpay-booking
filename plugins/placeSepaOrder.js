@@ -34,6 +34,8 @@ export default defineNuxtPlugin(nuxtApp => {
           method: 'DELETE'
         });
 
+        console.log('btcAmount', btcAmount)
+
         // Place the order
         const order = await $fetch.raw('https://exchange.api.bity.com/v2/orders', {
           method: 'POST',

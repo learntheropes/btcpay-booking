@@ -75,168 +75,171 @@
 </script>
 
 <template>
-  <VForm
-    name="sepa"
-    :validation-schema="validationSchema"
-    @submit="emitOrderDetails"
-  >
-    <VField
-      name="buyerLegalName"
-      :label="$t('buyerLegalName')"
-      v-slot="{ handleChange, handleBlur, value, errors }"
-      v-model="form.buyerLegalName"
+  <div>
+    <div class="block">{{ $t('notSharedWithMerchant') }}</div>
+    <VForm
+      name="sepa"
+      :validation-schema="validationSchema"
+      @submit="emitOrderDetails"
     >
-      <OField
+      <VField
+        name="buyerLegalName"
         :label="$t('buyerLegalName')"
-        :variant="errors[0] ? 'danger' : null"
-        :message="errors[0] ? errors[0] : ''"
+        v-slot="{ handleChange, handleBlur, value, errors }"
+        v-model="form.buyerLegalName"
       >
-        <OInput
+        <OField
           :label="$t('buyerLegalName')"
-          :model-value="value"
-          @update:modelValue="handleChange"
-          @change="handleChange"
-          @blur="handleBlur"
-        />
-      </OField>
-    </VField>
-
-    <VField
-      name="buyerLegalAddress"
-      :label="$t('buyerLegalAddress')"
-      v-slot="{ handleChange, handleBlur, value, errors }"
-      v-model="form.buyerLegalAddress"
-    >
-      <OField
-        :label="$t('buyerLegalAddress')"
-        :variant="errors[0] ? 'danger' : null"
-        :message="errors[0] ? errors[0] : ''"
-      >
-        <OInput
-          :label="$t('buyerLegalAddress')"
-          :model-value="value"
-          @update:modelValue="handleChange"
-          @change="handleChange"
-          @blur="handleBlur"
-        />
-      </OField>
-    </VField>
-
-    <VField
-      name="buyerLegalCity"
-      :label="$t('buyerLegalCity')"
-      v-slot="{ handleChange, handleBlur, value, errors }"
-      v-model="form.buyerLegalCity"
-    >
-      <OField
-        :label="$t('buyerLegalCity')"
-        :variant="errors[0] ? 'danger' : null"
-        :message="errors[0] ? errors[0] : ''"
-      >
-        <OInput
-          :label="$t('buyerLegalCity')"
-          :model-value="value"
-          @update:modelValue="handleChange"
-          @change="handleChange"
-          @blur="handleBlur"
-        />
-      </OField>
-    </VField>
-
-    <VField
-      name="buyerLegalZip"
-      :label="$t('buyerLegalZip')"
-      v-slot="{ handleChange, handleBlur, value, errors }"
-      v-model="form.buyerLegalZip"
-    >
-      <OField
-        :label="$t('buyerLegalZip')"
-        :variant="errors[0] ? 'danger' : null"
-        :message="errors[0] ? errors[0] : ''"
-      >
-        <OInput
-          :label="$t('buyerLegalZip')"
-          :model-value="value"
-          @update:modelValue="handleChange"
-          @change="handleChange"
-          @blur="handleBlur"
-        />
-      </OField>
-    </VField>
-
-    <VField
-      name="buyerLegalCountry"
-      :label="$t('buyerLegalCountry')"
-      v-slot="{ handleChange, handleBlur, value, errors }"
-      v-model="form.buyerLegalCountry"
-    >
-      <OField
-      :label="$t('buyerLegalCountry')"
-        :variant="errors[0] ? 'danger' : null"
-        :message="errors[0] ? errors[0] : ''"
-      >
-        <OSelect
-          :label="$t('buyerLegalCountry')"
-          :model-value="value"
-          @update:modelValue="handleChange"
-          @change="handleChange"
-          @blur="handleBlur"
-          expanded
+          :variant="errors[0] ? 'danger' : null"
+          :message="errors[0] ? errors[0] : ''"
         >
-          <option
-            v-for="country in countries"
-            :value="country.code"
-          >{{ country.name }}</option>
-        </OSelect>
-      </OField>
-    </VField>
+          <OInput
+            :label="$t('buyerLegalName')"
+            :model-value="value"
+            @update:modelValue="handleChange"
+            @change="handleChange"
+            @blur="handleBlur"
+          />
+        </OField>
+      </VField>
 
-    <VField
-      name="buyerBic"
-      :label="$t('buyerBic')"
-      v-slot="{ handleChange, handleBlur, value, errors }"
-      v-model="form.buyerBic"
-    >
-      <OField
+      <VField
+        name="buyerLegalAddress"
+        :label="$t('buyerLegalAddress')"
+        v-slot="{ handleChange, handleBlur, value, errors }"
+        v-model="form.buyerLegalAddress"
+      >
+        <OField
+          :label="$t('buyerLegalAddress')"
+          :variant="errors[0] ? 'danger' : null"
+          :message="errors[0] ? errors[0] : ''"
+        >
+          <OInput
+            :label="$t('buyerLegalAddress')"
+            :model-value="value"
+            @update:modelValue="handleChange"
+            @change="handleChange"
+            @blur="handleBlur"
+          />
+        </OField>
+      </VField>
+
+      <VField
+        name="buyerLegalCity"
+        :label="$t('buyerLegalCity')"
+        v-slot="{ handleChange, handleBlur, value, errors }"
+        v-model="form.buyerLegalCity"
+      >
+        <OField
+          :label="$t('buyerLegalCity')"
+          :variant="errors[0] ? 'danger' : null"
+          :message="errors[0] ? errors[0] : ''"
+        >
+          <OInput
+            :label="$t('buyerLegalCity')"
+            :model-value="value"
+            @update:modelValue="handleChange"
+            @change="handleChange"
+            @blur="handleBlur"
+          />
+        </OField>
+      </VField>
+
+      <VField
+        name="buyerLegalZip"
+        :label="$t('buyerLegalZip')"
+        v-slot="{ handleChange, handleBlur, value, errors }"
+        v-model="form.buyerLegalZip"
+      >
+        <OField
+          :label="$t('buyerLegalZip')"
+          :variant="errors[0] ? 'danger' : null"
+          :message="errors[0] ? errors[0] : ''"
+        >
+          <OInput
+            :label="$t('buyerLegalZip')"
+            :model-value="value"
+            @update:modelValue="handleChange"
+            @change="handleChange"
+            @blur="handleBlur"
+          />
+        </OField>
+      </VField>
+
+      <VField
+        name="buyerLegalCountry"
+        :label="$t('buyerLegalCountry')"
+        v-slot="{ handleChange, handleBlur, value, errors }"
+        v-model="form.buyerLegalCountry"
+      >
+        <OField
+        :label="$t('buyerLegalCountry')"
+          :variant="errors[0] ? 'danger' : null"
+          :message="errors[0] ? errors[0] : ''"
+        >
+          <OSelect
+            :label="$t('buyerLegalCountry')"
+            :model-value="value"
+            @update:modelValue="handleChange"
+            @change="handleChange"
+            @blur="handleBlur"
+            expanded
+          >
+            <option
+              v-for="country in countries"
+              :value="country.code"
+            >{{ country.name }}</option>
+          </OSelect>
+        </OField>
+      </VField>
+
+      <VField
+        name="buyerBic"
         :label="$t('buyerBic')"
-        :variant="errors[0] ? 'danger' : null"
-        :message="errors[0] ? errors[0] : ''"
+        v-slot="{ handleChange, handleBlur, value, errors }"
+        v-model="form.buyerBic"
       >
-        <OInput
+        <OField
           :label="$t('buyerBic')"
-          :model-value="value"
-          @update:modelValue="handleChange"
-          @change="handleChange"
-          @blur="handleBlur"
-        />
-      </OField>
-    </VField>
+          :variant="errors[0] ? 'danger' : null"
+          :message="errors[0] ? errors[0] : ''"
+        >
+          <OInput
+            :label="$t('buyerBic')"
+            :model-value="value"
+            @update:modelValue="handleChange"
+            @change="handleChange"
+            @blur="handleBlur"
+          />
+        </OField>
+      </VField>
 
-    <VField
-      name="buyerIban"
-      :label="$t('buyerIban')"
-      v-slot="{ handleChange, handleBlur, value, errors }"
-      v-model="form.buyerIban"
-    >
-      <OField
+      <VField
+        name="buyerIban"
         :label="$t('buyerIban')"
-        :variant="errors[0] ? 'danger' : null"
-        :message="errors[0] ? errors[0] : ''"
+        v-slot="{ handleChange, handleBlur, value, errors }"
+        v-model="form.buyerIban"
       >
-        <OInput
+        <OField
           :label="$t('buyerIban')"
-          :model-value="value"
-          @update:modelValue="handleChange"
-          @change="handleChange"
-          @blur="handleBlur"
-        />
-      </OField>
-    </VField>
+          :variant="errors[0] ? 'danger' : null"
+          :message="errors[0] ? errors[0] : ''"
+        >
+          <OInput
+            :label="$t('buyerIban')"
+            :model-value="value"
+            @update:modelValue="handleChange"
+            @change="handleChange"
+            @blur="handleBlur"
+          />
+        </OField>
+      </VField>
 
-    <OField>
-      <OButton
-        native-type="submit"
-      >{{ $t('getPaymentDetails') }}</OButton>
-    </OField>
-  </VForm>
+      <OField>
+        <OButton
+          native-type="submit"
+        >{{ $t('getPaymentDetails') }}</OButton>
+      </OField>
+    </VForm>
+  </div>
 </template>

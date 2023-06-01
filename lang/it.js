@@ -58,6 +58,7 @@ export default {
   // components/invoice/fiat/invoiceFiatSelector.vue
   selectPaymentMethod: 'Seleziona un metodo di pagamento',
   // components/invoice/fiat/invoiceFiatSepaForm.vue
+  notSharedWithMerchant: 'Le informazioni del pagante non sono condivise col prestatore del servizio',
   buyerLegalName: 'Nome e cognome',
   buyerLegalAddress: 'Indirizzo',
   buyerLegalCity: 'Città',
@@ -71,7 +72,7 @@ export default {
   currency: 'Valuta',
   iban: 'IBAN',
   bic: 'BIC',
-  reference: 'Motivo dell\'invio',
+  reference: 'Causale',
   recipient: 'Destinatario',
   recipientAddress: 'Indirizzo del destinatario',
   copied: 'Copiato',
