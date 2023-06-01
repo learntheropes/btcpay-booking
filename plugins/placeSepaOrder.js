@@ -4,7 +4,12 @@ export default defineNuxtPlugin(nuxtApp => {
     provide: {
       placeSepaOrder: async (
         {
-          id: invoiceId
+          id: invoiceId,
+          metadata: {
+            buyerGateway: {
+              gatewayCurrency
+            }
+          }
         },
         {
           buyerLegalName,
@@ -16,9 +21,6 @@ export default defineNuxtPlugin(nuxtApp => {
           buyerIban
         }
       ) => {
-
-        console.log('invoiceId', invoiceId)
-
         // Get the amount of the invoice in btc from btcpay and the destination bitcoin address
         const [{
           amount: btcAmount,
@@ -34,14 +36,12 @@ export default defineNuxtPlugin(nuxtApp => {
           method: 'DELETE'
         });
 
-        console.log('btcAmount', btcAmount)
-
         // Place the order
         const order = await $fetch.raw('https://exchange.api.bity.com/v2/orders', {
           method: 'POST',
-          body : {
+          body: {
             input: {
-              currency: 'CHF',
+              currency: gatewayCurrency,
               bic_swift: buyerBic,
               iban: buyerIban,
               owner: {

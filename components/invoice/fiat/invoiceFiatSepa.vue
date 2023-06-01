@@ -16,11 +16,14 @@
   } = useNuxtApp();
 
   // Place the order and get the payment info
-  let isLoading = ref(false)
+  let isLoading = ref(false);
   let orderDetails = ref(null);
 
   // Get the payment details from the btcpay invoice metadata
-  const { metadata: { buyerSepa }} = invoice
+  const {
+    metadata: {
+      buyerSepa
+  }} = invoice
 
   // If they exists, pass them to the sepa details component
   // Else, show the form to the buyer

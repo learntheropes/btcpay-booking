@@ -1,4 +1,5 @@
 <script setup>
+import flatten from 'lodash.flatten'
 import { ref, watch } from 'vue';
 
 // Get props from [service].vue page
@@ -78,7 +79,7 @@ const initialForm = {
   buyerPGP: '',
   buyerDetails: '',
   buyerService: service,
-  buyerGateway: null
+  buyerGateway: {}
 }
 const form = ref(initialForm);
 
@@ -160,23 +161,58 @@ const clearExtras = () => {
   form.value.buyerExtras  = [];
 };
 
+// Define the supported gateways
+const supportedGateways = {
+  bitcoin: [
+    {
+      gatewayName: 'bitcoin',
+      gatewayMethod: 'bitcoin',
+      gatewayCurrency: 'BTC'
+    }
+  ],
+  fiat: [
+    {
+      gatewayName: 'fiat',
+      gatewayMethod: 'SEPA',
+      gatewayCurrency: 'EUR'
+    },
+    {
+      gatewayName: 'fiat',
+      gatewayMethod: 'SEPA',
+      gatewayCurrency: 'CHF'
+    },
+  ],
+  crypto: [
+    {
+      gatewayName: 'crypto',
+      gatewayMethod: 'crypto',
+      gatewayCurrency: 'USDT'        
+    }
+  ],
+};
+
 // Filter merchant enabled gateways
 const {
   gateways,
 } = await queryContent(`/settings`).findOne();
-const enabledGateways = Object.keys(gateways).filter((i) => gateways[i]);
+
+const enabledGateways = flatten(Object.keys(gateways).filter(gateway => gateways[gateway]).map(gateway => supportedGateways[gateway]));
 
 // Define the decimal length based on the currency
 const decimal = $getDecimal(currency);
 
 // Set the choosen gateway at the same moment the form is submitted
-const setGateway = (gateway) => {
-  form.value.buyerGateway = gateway;
+const setGateway = (gatewayName, gatewayMethod, gatewayCurrency) => {
+  form.value.buyerGateway = {
+    gatewayName,
+    gatewayMethod,
+    gatewayCurrency
+  };
 }
 
 const isLoadingPage = ref(false);
 
-const createInvoice = async (gateway) => {
+const createInvoice = async () => {
   // Handle page load on form submit
   isLoadingPage.value = true
   // Create the invoice
@@ -425,14 +461,14 @@ const createInvoice = async (gateway) => {
         group-multiline
       >
         <OButton
-          v-for="gateway in enabledGateways"
-          :key="gateway"
+          v-for="({ gatewayName, gatewayMethod, gatewayCurrency }, index) in enabledGateways"
+          :key="index"
           variant="primary"
-          :outlined="gateway !== 'bitcoin'"
-          @click="setGateway(gateway)"
+          :outlined="gatewayName !== 'bitcoin'"
+          @click="setGateway(gatewayName, gatewayMethod, gatewayCurrency)"
           native-type="submit"
         >
-        {{ `${$t('payWith')} ${gateway} ${(gateway === 'bitcoin') ? amount.toFixed(decimal) + ' ' + currency : ''}` }}
+        {{ `${$t('payWith')} ${gatewayMethod} ${(gatewayMethod === 'bitcoin') ? amount.toFixed(decimal) + ' ' + currency : $t('in') + ' ' + gatewayCurrency }` }}
         </OButton>
       </OField>
       <p class="help">{{ $t('surcharge', {

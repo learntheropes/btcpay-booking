@@ -9,9 +9,9 @@ gateways:
   # If you enable at least one between crypto and fiat, make sure that bitcoin onchain payments are enabled on your btcpay store
   # for the lowest amount you expect to receive because they payout is onchain only.
   # Optional, default is false
-  crypto: false
-  # Optional, default is false
   fiat: true
+  # Optional, default is false
+  crypto: true
 # Btcpay server settings 
 # You can provide your own btcpay instance details
 # Or you can email me asking for a non custodial store on my Btcpay instance

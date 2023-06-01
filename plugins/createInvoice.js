@@ -11,7 +11,10 @@ export default defineNuxtPlugin(nuxtApp => {
         buyerPGP,
         buyerDetails,
         buyerService,
-        buyerGateway
+        buyerGateway,
+        buyerGateway: {
+          gatewayName
+        }
       }) => {
 
         // Get buyer locale
@@ -48,7 +51,7 @@ export default defineNuxtPlugin(nuxtApp => {
           // Set expirationMinutes and monitoringMinutes based on the gateway
           // For bitcoin, leave the btcpay store settings.
           let expirationMinutes, monitoringMinutes
-          switch(buyerGateway) {
+          switch(gatewayName) {
             case 'fiat':
               expirationMinutes = 60 * 24 * 2;
               monitoringMinutes = 60 * 24 * 7;

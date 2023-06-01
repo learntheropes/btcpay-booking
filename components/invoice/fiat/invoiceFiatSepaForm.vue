@@ -17,7 +17,7 @@
     buyerLegalZip: '00100',
     buyerLegalCountry: 'CH',
     buyerBic: 'XXXXCHXXXXX',
-    buyerIban: 'NL83INGB2786219639'
+    buyerIban: 'LT854473443582866234'
   }
   const form = ref(initialForm);
 
