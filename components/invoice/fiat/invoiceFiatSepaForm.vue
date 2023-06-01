@@ -1,13 +1,8 @@
 <script setup>
   // Get invoice props
   const {
-    invoiceId,
     invoice
   } = defineProps({
-    invoiceId: {
-      type: String,
-      required: true
-    },
     invoice: {
       type: Object,
       required: true

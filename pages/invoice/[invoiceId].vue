@@ -80,13 +80,11 @@
         </section>
         <section v-else-if="buyerGateway === 'fiat'" class="section">
           <invoiceFiat
-            :invoiceId="invoiceId"
             :invoice="invoice"
             :status="status"
             class="is-hidden-mobile"
           />
           <invoiceFiat
-            :invoiceId="invoiceId"
             :invoice="invoice"
             :status="status"
             class="is-hidden-tablet"

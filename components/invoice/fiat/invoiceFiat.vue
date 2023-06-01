@@ -3,14 +3,8 @@
 
   // Get invoice props
   const {
-    invoiceId,
     invoice,
-    buyerSepa
   } = defineProps({
-    invoiceId: {
-      type: String,
-      required: true
-    },
     invoice: {
       type: Object,
       required: true
@@ -34,7 +28,6 @@
   />
   <InvoiceFiatSepa
     v-else-if="method === 'SEPA'"
-    :invoiceId="invoiceId"
     :invoice="invoice"
   />
 </template>

@@ -1,13 +1,8 @@
 <script setup>
   // Get invoice props
   const {
-    invoiceId,
     invoice
   } = defineProps({
-    invoiceId: {
-      type: String,
-      required: true
-    },
     invoice: {
       type: Object,
       required: true
@@ -45,7 +40,6 @@
 <template>
   <div>
     <InvoiceFiatSepaForm v-if="!orderDetails"
-      :invoiceId="invoiceId"
       :invoice="invoice"
     />
     <InvoiceFiatSepaDetails v-else
