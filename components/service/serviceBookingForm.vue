@@ -472,8 +472,7 @@ const createInvoice = async () => {
         </OButton>
       </OField>
       <p class="help">{{ $t('surcharge', {
-        gateways: Object.keys(gateways).filter((g) => gateways[g] && g !== 'bitcoin' ).join(` ${$t('and')
-      }`)
+        gateways: Object.keys(gateways).filter((g) => gateways[g] && g !== 'bitcoin' ).join(` ${$t('and')} `)
       }) }}</p>
     </VForm>
   </div>
