@@ -16,13 +16,13 @@
 
   // Define the form reactive properties and the initial empty fields
   const initialForm = {
-    buyerLegalName: '',
-    buyerLegalAddress: '',
-    buyerLegalCity: '',
-    buyerLegalZip: '',
-    buyerLegalCountry: '',
-    buyerBic: '',
-    buyerIban: ''
+    buyerLegalName: 'Satoshi Nakamoto',
+    buyerLegalAddress: 'Foo Bar 17',
+    buyerLegalCity: 'Lugano',
+    buyerLegalZip: '00100',
+    buyerLegalCountry: 'CH',
+    buyerBic: 'XXXXCHXXXXX',
+    buyerIban: 'NL83INGB2786219639'
   }
   const form = ref(initialForm);
 
@@ -73,7 +73,7 @@
   const emitOrderDetails = async values => {
     $event('sepaIsLoading', true);
     const order = await $placeSepaOrder(invoice, values);
-    const orderDetails = await $getSepaPaymentInfo(values, order);
+    const orderDetails = await $getSepaPaymentInfo(invoice, values, order);
     $event('emitOrderDetails', orderDetails);
     $event('sepaIsLoading', false);
   }

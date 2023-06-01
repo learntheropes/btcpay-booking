@@ -4,7 +4,8 @@
   // Get invoice props
   const {
     invoiceId,
-    invoice
+    invoice,
+    buyerSepa
   } = defineProps({
     invoiceId: {
       type: String,

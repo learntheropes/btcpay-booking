@@ -45,6 +45,24 @@ export default defineNuxtPlugin(nuxtApp => {
         // Apparently is not due to server client. Needs better investigation
         if (Number(getAmount()) !== 0) {
 
+          // Set expirationMinutes and monitoringMinutes based on the gateway
+          // For bitcoin, leave the btcpay store settings.
+          let expirationMinutes, monitoringMinutes
+          switch(buyerGateway) {
+            case 'fiat':
+              expirationMinutes = 60 * 24 * 2;
+              monitoringMinutes = 60 * 24 * 7;
+              break;
+            case 'crypto':
+              expirationMinutes = 60;
+              monitoringMinutes = 60 * 5;
+              break;
+            default:
+              expirationMinutes = null;
+              monitoringMinutes = null;  
+          }
+          
+          
           // Create the invoice on btcpay Greenfield api
           // And get the invoiceId page
           const { id: invoiceId } = await $fetch('/api/invoices', {
@@ -72,6 +90,8 @@ export default defineNuxtPlugin(nuxtApp => {
                 buyerGateway
               },
               checkout: {
+                expirationMinutes,
+                monitoringMinutes,
                 redirectAutomatically: false,
                 requiresRefundEmail: email === 'required'
               }

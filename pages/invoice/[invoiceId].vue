@@ -1,9 +1,17 @@
 <script setup>
-  // Get the invoiceId parameter
-  const { params: { invoiceId }} = useRoute();
+  // Get the invoiceId page parameter
+  const {
+    params: {
+      invoiceId
+    }
+  } = useRoute();
 
-  // Get the buyer leanguage
-  const { locale: { value: locale }} = useI18n();
+  // Get the buyer language
+  const {
+    locale: {
+      value: locale
+    }
+  } = useI18n();
 
   // Get the profile name for the breadcrumb
   const {
@@ -11,9 +19,7 @@
   } = await queryContent(`/profile`).locale(locale).findOne();
 
   // Get invoice from BTCPay Greenfield API
-  const invoice = await $fetch(`/api/invoices/${invoiceId}`, {
-    method: 'GET'
-  });
+  const invoice = await $fetch(`/api/invoices/${invoiceId}`);
 
   const {
     status,

@@ -65,10 +65,10 @@ const copy = (value) => {
       </div>
     </header>
     <div class="card-content">
-      <div class="block has-text-centered">
+      <!-- <div class="block has-text-centered">
         {{ expiresInString }}
         <progress class="progress is-primary is-small" :value="expiresIn" :max="initialExpiresIn">{{expiresIn/initialExpiresIn*100 }}%</progress>
-      </div>
+      </div> -->
       <div class="block">
         <OCollapse
           position="bottom"

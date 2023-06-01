@@ -2,15 +2,21 @@ export default defineNuxtPlugin(nuxtApp => {
 
   return {
     provide: {
-      getSepaPaymentInfo: async ({
-        buyerLegalName,
-        buyerIban
-      }, {
-        order_uuid,
-        crypto_address,
-        accountIndex,
-        addressIndex
-      }) => {
+      getSepaPaymentInfo: async (
+        {
+          id: invoiceId,
+          metadata
+        },
+        {
+          buyerLegalName,
+          buyerIban
+        }, {
+          order_uuid,
+          crypto_address,
+          accountIndex,
+          addressIndex
+        }
+      ) => {
         // Create the message to sign
         const message_to_sign = `This message is part of the process of placing an exchange order on bity.com. To proceed, Bity is required to verify that you own the destination crypto address. By signing this message with your wallet, you are confirming 1) that you are the sole owner of the crypto address below and 2) that you will be sending your own funds to Bity. If you did not initiate this process yourself, do not sign this message.
 
@@ -41,9 +47,22 @@ Your crypto address type: BTC
         });
 
         // Get the payment details
-        return await $fetch(`https://exchange.api.bity.com/v2/orders/${order_uuid}`, {
+        const details = await $fetch(`https://exchange.api.bity.com/v2/orders/${order_uuid}`, {
           credentials: 'include'
         });
+
+        // Store the bity payment details in the btcpay invoice metadata
+        await $fetch(`/api/invoices/${invoiceId}`, {
+          method: 'PUT',
+          body: {
+            metadata: {
+              ...metadata,
+              buyerSepa: details
+            }
+          }
+        });
+
+        return details;
       }
     }
   }

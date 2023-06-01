@@ -1,45 +1,25 @@
-// Import the surcharge for shitcoins gateway 
-import { cloudFee } from '../assets/js/fees';
-
 export default defineNuxtPlugin(nuxtApp => {
 
   return {
     provide: {
-      placeSepaOrder: async ({
-        amount,
-        currency,
-        metadata,
-      }, {
-        buyerLegalName,
-        buyerLegalAddress,
-        buyerLegalCity,
-        buyerLegalZip,
-        buyerLegalCountry,
-        buyerBic,
-        buyerIban
-      }) => {
+      placeSepaOrder: async (
+        {
+          id: invoiceId
+        },
+        {
+          buyerLegalName,
+          buyerLegalAddress,
+          buyerLegalCity,
+          buyerLegalZip,
+          buyerLegalCountry,
+          buyerBic,
+          buyerIban
+        }
+      ) => {
 
-        // Add the cloud fee to the invoice amount
-        // There is no fee for self hosted installations
-        amount = (Number(amount) + (Number(amount) * (Number(cloudFee) / 100)));
+        console.log('invoiceId', invoiceId)
 
-        // Create btcpay invoice with greenfield api
-        const { id: invoiceId } = await $fetch(`/api/invoices`, {
-          method: 'POST',
-          body: {
-            amount,
-            currency,
-            metadata,
-            checkout: {
-              expirationMinutes: 60 * 24 * 2,
-              monitoringMinutes: 60 * 24 * 7,
-              redirectAutomatically: false,
-              requiresRefundEmail: false
-            }
-          }
-        });
-
-        // Get the amount of the invoice in btc from btcpay
+        // Get the amount of the invoice in btc from btcpay and the destination bitcoin address
         const [{
           amount: btcAmount,
           destination: crypto_address
