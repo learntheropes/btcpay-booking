@@ -102,13 +102,10 @@ export default defineNuxtPlugin(nuxtApp => {
           });
 
           // Create the webhhok for notification about the invoice
-          // With the same id of the invoiceId
-          // The secret and url are added serverside
+          // The id and url are added serverside depending by the enviroment
+          // The secret is also added serverside for security
           await $fetch('/api/webhooks', {
-            method: 'POST',
-            body: {
-              id: invoiceId,
-            }
+            method: 'POST'
           });
 
           // Navigate to the invoice page

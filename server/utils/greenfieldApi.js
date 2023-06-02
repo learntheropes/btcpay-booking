@@ -9,7 +9,7 @@ const {
   }
 } = useRuntimeConfig();
 
-// Wtapper for the greenfield Api fetch 
+// Wrapper for the greenfield Api fetch 
 export const greenfieldApi = async (endpoint, event) => {
 
   const [{

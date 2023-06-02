@@ -1,5 +1,5 @@
-import { readBody } from 'h3';
 import ngrok from 'ngrok';
+import { readBody } from 'h3';
 
 const {
   btcpayApikey,
@@ -13,42 +13,61 @@ const {
 export default defineEventHandler(async (event) => {
 
   // For local development, create a ngrok tunnel and set is as webhook domain
-  // Otherwise use the deplyment domain
-    let webhookDomain;
+  // Otherwise use the deployment domain
+  let webhookDomain;
 
-    if (isDeployed) {
+  if (isDeployed) {
 
-      webhookDomain = deploymentDomain
+    webhookDomain = deploymentDomain
+  }
+  else {
+
+    const apiUrl = ngrok.getUrl();
+
+    if (apiUrl) {
+
+      const api = ngrok.getApi();
+      const tunnels = await api.listTunnels();
+
+      webhookDomain = tunnels.tunnels[0].public_url;
     }
     else {
+      const ngrokUrl = await ngrok.connect({
+        addr: 3000, region: pusherCluster
+      });
 
-      const apiUrl = ngrok.getUrl();
-
-      if (apiUrl) {
-
-        const api = ngrok.getApi();
-        const tunnels = await api.listTunnels();
-
-        webhookDomain = tunnels.tunnels[0].public_url;
-      }
-      else {
-        const ngrokUrl = await ngrok.connect({
-          addr: 3000, region: pusherCluster
-        });
-
-        webhookDomain = ngrokUrl;
-      }
+      webhookDomain = ngrokUrl;
     }
+  }
 
-  const body = await readBody(event);
+  // Define the webhook id based on the enviroment
+  const webhookId = (isDeployed) ? 'production' : 'development';
 
-  body.url = `${webhookDomain}/api/socket`;
+  event.node.req.body = JSON.stringify({
+    // Set the webhookId
+    id: webhookId,
+    // Set the webhook url
+    url: `${webhookDomain}/api/socket`,
+    // Don't redeliver
+    automaticRedelivery: false,
+    // Set the webhook secret, same as btcpay api key
+    secret: btcpayApikey
+  });
 
-  body.automaticRedelivery = false;
+  try {
+    event.node.req.method = 'GET'
+    await greenfieldApi(`/webhooks/${webhookId}`, event);
 
-  // Set the webhook secret
-  body.secret = btcpayApikey;
-  event.body = body;
+    if (isDeployed) return
 
-  return await greenfieldApi(`/webhooks`, event);
+    else {
+
+      event.node.req.method = 'PUT'
+      return await greenfieldApi(`/webhooks/${webhookId}`, event);
+    }
+  } catch (error) {
+    
+    event.node.req.method = 'POST'
+    return await greenfieldApi(`/webhooks`, event);
+  }
 });
