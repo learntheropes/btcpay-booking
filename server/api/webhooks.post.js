@@ -1,5 +1,4 @@
 import ngrok from 'ngrok';
-import { readBody } from 'h3';
 
 const {
   btcpayApikey,
@@ -55,18 +54,22 @@ export default defineEventHandler(async (event) => {
   });
 
   try {
+    // Fetch the existing webhook
     event.node.req.method = 'GET'
     await greenfieldApi(`/webhooks/${webhookId}`, event);
 
+    // If it exists and we are in production, just return
     if (isDeployed) return
 
     else {
 
+      // If it exists and we are in development, update it with the active ngrok url
       event.node.req.method = 'PUT'
       return await greenfieldApi(`/webhooks/${webhookId}`, event);
     }
   } catch (error) {
     
+    // If it doesn´t exist (status code 404 returned), create it both for dev and prod.
     event.node.req.method = 'POST'
     return await greenfieldApi(`/webhooks`, event);
   }
