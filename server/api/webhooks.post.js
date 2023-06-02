@@ -1,4 +1,5 @@
 import ngrok from 'ngrok';
+import find from 'lodash.find';
 
 const {
   btcpayApikey,
@@ -39,12 +40,7 @@ export default defineEventHandler(async (event) => {
     }
   }
 
-  // Define the webhook id based on the enviroment
-  const webhookId = (isDeployed) ? 'production' : 'development';
-
   event.node.req.body = JSON.stringify({
-    // Set the webhookId
-    id: webhookId,
     // Set the webhook url
     url: `${webhookDomain}/api/socket`,
     // Don't redeliver
@@ -53,26 +49,26 @@ export default defineEventHandler(async (event) => {
     secret: btcpayApikey
   });
 
-  try {
+  // Get all the existing webhooks and find the one matching the enviroment
+  event.node.req.method = 'GET';
+  const existingsWebhooks = await greenfieldApi(`/webhooks`, event);
+  const partialUrl = (isDeployed) ? deploymentDomain : 'ngrok-free.app';
+  const exists = find(existingsWebhooks, wh => wh.url.includes(partialUrl));
 
-    // Fetch the existing webhook
-    event.node.req.method = 'GET'
-    await greenfieldApi(`/webhooks/${webhookId}`, event);
+  // If it exists and we are in production, just return
+  if (exists && isDeployed) return
 
-    // If it exists and we are in production, just return
-    if (isDeployed) return
+  // If it exists and we are in development, update it with the active ngrok url
+  else if (exists && !isDeployed) {
 
-    // If it exists and we are in development, update it with the active ngrok url
-    else {
+    event.node.req.method = 'PUT'
+    return await greenfieldApi(`/webhooks/${exists.id}`, event);
+  }
 
-      event.node.req.method = 'PUT'
-      return await greenfieldApi(`/webhooks/${webhookId}`, event);
-    }
+  // If it doesn´t exist (exists is undefined) create it both for dev and prod.
+  else {
 
-  // If it doesn´t exist (status code 404 returned), create it both for dev and prod.
-  } catch (error) {
-    
     event.node.req.method = 'POST'
     return await greenfieldApi(`/webhooks`, event);
-  }
+  };
 });
