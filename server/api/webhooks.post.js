@@ -57,7 +57,7 @@ export default defineEventHandler(async (event) => {
   console.log('exists', exists)
   console.log('isDeployed', isDeployed)
   // If it exists and we are in production, just return
-  if (exists && isDeployed) return
+  if (exists && isDeployed) return 'ok'
 
   // If it exists and we are in development, update it with the active ngrok url
   else if (exists && !isDeployed) {
