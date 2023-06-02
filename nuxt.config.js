@@ -14,7 +14,7 @@ export default defineNuxtConfig({
   // Settings specific for production
   $production: {
 
-    // static routes and cors
+    // Static routes and cors
     routeRules,
 
     // Use umami analytics
@@ -129,7 +129,7 @@ export default defineNuxtConfig({
   },
 
   appConfig: {
-    
+
     // id and host provided as env variables on production
     umami: {
       version: 2,
