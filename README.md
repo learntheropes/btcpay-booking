@@ -21,4 +21,6 @@ Without KYC requiremenets for the merchant and the client.
 5. Set the enviroment variables as in the `./.env.example` file.  
 6. Set a custom color in the first line of `./assets/scss/custom.scss`.  
 7. Optionally add or remove languages support by adding, removing translations in `./lang` folder and settings in `./assets/js/locale.js` `locales` json object. 
-8. Star ⭐ this repo and deploy your booking system with Btcpay Server!   
+8. Star ⭐ this repo and deploy your booking system with Btcpay Server!  
+
+[![DigitalOcean Referral Badge](https://web-platforms.sfo2.digitaloceanspaces.com/WWW/Badge%202.svg)](https://www.digitalocean.com/?refcode=1930033771d7&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge)
