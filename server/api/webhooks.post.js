@@ -54,6 +54,7 @@ export default defineEventHandler(async (event) => {
   });
 
   try {
+
     // Fetch the existing webhook
     event.node.req.method = 'GET'
     await greenfieldApi(`/webhooks/${webhookId}`, event);
@@ -61,15 +62,16 @@ export default defineEventHandler(async (event) => {
     // If it exists and we are in production, just return
     if (isDeployed) return
 
+    // If it exists and we are in development, update it with the active ngrok url
     else {
 
-      // If it exists and we are in development, update it with the active ngrok url
       event.node.req.method = 'PUT'
       return await greenfieldApi(`/webhooks/${webhookId}`, event);
     }
+
+  // If it doesn´t exist (status code 404 returned), create it both for dev and prod.
   } catch (error) {
     
-    // If it doesn´t exist (status code 404 returned), create it both for dev and prod.
     event.node.req.method = 'POST'
     return await greenfieldApi(`/webhooks`, event);
   }
