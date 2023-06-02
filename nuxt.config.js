@@ -5,8 +5,6 @@ import {
   routeRules
 } from './assets/js/locales'
 
-// import startSocketServer from './server/sockets/index.js'
-
 const isDev = process.env.NODE_ENV !== 'production'
 const isDeployed = (process.env.DEPLOYMENT_DOMAIN) ? true : false
 const deploymentDomain = (isDeployed) ? `https://${process.env.DEPLOYMENT_DOMAIN}` : 'http://localhost:3000'
