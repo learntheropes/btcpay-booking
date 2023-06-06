@@ -1,9 +1,11 @@
 export default defineEventHandler(async (event) => {
 
-  const [{ accountKeyPath }] = await greenfieldApi(`payment-methods/OnChain`, event);
-  const [ _fingerprint, purpose, coinType ] = accountKeyPath.split('/')
+  const [[{ accountKeyPath }], { keyPath }] = await Promise.all([
+    greenfieldApi(`payment-methods/OnChain`, event),
+    greenfieldApi(`/payment-methods/onchain/BTC/wallet/address`, event)
+  ]);
 
-  const { keyPath } = await greenfieldApi(`/payment-methods/onchain/BTC/wallet/address`, event);
+  const [ _fingerprint, purpose, coinType ] = accountKeyPath.split('/');
   const [ accountIndex, addressIndex ] = keyPath.split('/');
 
   return {
