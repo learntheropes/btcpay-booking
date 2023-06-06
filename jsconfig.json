@@ -1,7 +1,5 @@
 {
   "compilerOptions": {
-    "allowJs": true,
-    "module": "ES2020",
-    "moduleResolution": "node",
+    "allowJs": true
   }
 }
