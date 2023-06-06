@@ -43,7 +43,7 @@
     "pusher": "^5.1.2",
     "pusher-js": "^8.0.2",
     "qrcode": "^1.5.3",
-    "tiny-secp256k1": "^2.2.1",
+    "tiny-secp256k1": "^2.2.2",
     "vee-validate": "^4.8.4"
   }
 }
