@@ -3,14 +3,10 @@ import BIP32Factory from 'bip32';
 import * as ecc from 'tiny-secp256k1';
 const bip32 = BIP32Factory.default(ecc);
 
-export const generateAccount = ({ seedBuffer, network, accountIndex }) => {
-
-  // https://github.com/bitcoin/bips/blob/master/bip-0087.mediawiki#coin-type
-  // https://github.com/satoshilabs/slips/blob/master/slip-0044.md
-  const coinType = (network === networks.bitcoin) ? 0 : 1
+export const generateAccount = ({ network, seedBuffer, purpose, coinType, accountIndex }) => {
 
   // m / purpose' / coin_type' / account'
-  const accountDerivationPath = `m/49'/${coinType}'/${accountIndex}'`
+  const accountDerivationPath = `m/${purpose}/${coinType}/${accountIndex}'`
 
   const root = bip32.fromSeed(seedBuffer, networks[network]);
     

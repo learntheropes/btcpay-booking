@@ -28,8 +28,12 @@ export default defineNuxtPlugin(nuxtApp => {
         }] = await $fetch(`/api/invoices/${invoiceId}/payment-methods`);
 
         // Get next available account and address indexes
-        const { keyPath } = await $fetch('/api/address');
-        const [ accountIndex, addressIndex ] = keyPath.split('/');
+        const {
+          purpose,
+          coinType,
+          accountIndex,
+          addressIndex
+        } = await $fetch('/api/address');
 
         // Release the just fetched next available address
         await await $fetch('/api/address', {
@@ -72,6 +76,8 @@ export default defineNuxtPlugin(nuxtApp => {
         return {
           order_uuid,
           crypto_address,
+          purpose,
+          coinType,
           accountIndex,
           addressIndex
         }

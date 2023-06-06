@@ -13,6 +13,8 @@ export default defineNuxtPlugin(nuxtApp => {
         }, {
           order_uuid,
           crypto_address,
+          purpose,
+          coinType,
           accountIndex,
           addressIndex
         }
@@ -31,6 +33,8 @@ Your crypto address type: BTC
           method: 'POST',
           body: {
             message_to_sign,
+            purpose,
+            coinType,
             accountIndex,
             addressIndex: addressIndex - 1 
           }

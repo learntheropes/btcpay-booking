@@ -10,6 +10,8 @@ export default defineEventHandler(async event => {
   
   const { 
     message_to_sign,
+    purpose,
+    coinType,
     accountIndex,
     addressIndex
   } = await readBody(event);
@@ -19,8 +21,10 @@ export default defineEventHandler(async event => {
   const seedBuffer = generateSeedBuffer(mnemonic);
 
   const account = generateAccount({
-    seedBuffer,
     network,
+    seedBuffer,
+    purpose,
+    coinType,
     accountIndex
   });
   
