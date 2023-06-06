@@ -1,5 +1,5 @@
 import { initEccLib, payments } from 'bitcoinjs-lib';
-import * as ecc from 'tiny-secp256k1';
+import ecc from '@bitcoinerlab/secp256k1';
 initEccLib(ecc);
 
 export const generateKeypair = ({ network, account, addressIndex }) => {

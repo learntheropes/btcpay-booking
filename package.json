@@ -25,6 +25,7 @@
     "sass-loader": "^10.2.1"
   },
   "dependencies": {
+    "@bitcoinerlab/secp256k1": "^1.0.2",
     "@vee-validate/i18n": "^4.8.3",
     "@vee-validate/rules": "^4.8.4",
     "bip32": "^4.0.0",
@@ -43,7 +44,6 @@
     "pusher": "^5.1.2",
     "pusher-js": "^8.0.2",
     "qrcode": "^1.5.3",
-    "tiny-secp256k1": "^2.2.2",
     "vee-validate": "^4.8.4"
   }
 }
