@@ -1,6 +1,9 @@
 import bitcoinMessage from 'bitcoinjs-message';
 
-export const getSignature = ({ message_to_sign, keypair }) => {
+export const getSignature = ({ 
+  message_to_sign, 
+  keypair 
+}) => {
 
   const privateKeyBuffer = Buffer.from(keypair.privateKeyHex, "hex");
   const publicKeyBuffer = Buffer.from(keypair.publicKeyHex, "hex");
