@@ -16,7 +16,7 @@
     "@mdi/font": "^7.2.96",
     "@nuxt/content": "^2.5.2",
     "@nuxt/image": "rc",
-    "@nuxtjs/i18n": "npm:@nuxtjs/i18n-edge",
+    "@nuxtjs/i18n": "^8.0.0-beta.12",
     "@oruga-ui/oruga-next": "^0.5.10",
     "@oruga-ui/theme-bulma": "^0.2.9",
     "ngrok": "^4.3.3",
