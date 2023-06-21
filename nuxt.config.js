@@ -50,6 +50,7 @@ export default defineNuxtConfig({
     pusherSecret: process.env.PUSHER_SECRET,
     smtpPassword: process.env.SMTP_PASSWORD,
     public: {
+      defaultService: process.env.DEFAULT_SERVICE,
       isDev,
       isDeployed,
       deploymentDomain,
