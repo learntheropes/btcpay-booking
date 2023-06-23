@@ -19,8 +19,10 @@ Under active development,
 ## Setup
 1. Clone the repo.  
 2. Edit the repo configuration in `./content/settings.yaml` accordingly to your needs. The file is commented to explain each setting meaning. 
-3. Create a `profile.md` file inside each `./content` folder and the language subfolder. This is optional. If you want to skip the profile and offer just one service, you can set the `DEFAULT_SERVICE` env variable to the service file name.
-4. Create one file for each service inside each `./content` folder and the language subfolder. Optionally, if you want to show the services in a specific order, add the order number at the beginning of the name followed by a dot.  
+3. Create a `profile.md` file inside each `./content` folder and the language subfolder. Check [this](https://github.com/learntheropes/btcpay-booking/blob/main/content/en/profile.md?plain=1) file comments for available settings.
+This is optional. If you want to skip the profile and offer just one service, you can set the `DEFAULT_SERVICE` env variable to the service file name.
+4. Create one file for each service inside each `./content` folder and the language subfolder. Check [this](https://github.com/learntheropes/btcpay-booking/blob/main/content/en/services/1.paraguay-residency.md?plain=1) file comments for available settings.
+Optionally, if you want to show the services in a specific order, add the order number at the beginning of the name followed by a dot, eg `1.my-service.md` 
 5. Deploy on Digital Ocean or Vercel with default `./package.json` settings or adapt them to deploy on any other provider.  
 6. Set the enviroment variables as in the `./.env.example` file.  
 7. Set a custom color in the first line of `./assets/scss/custom.scss`.  
