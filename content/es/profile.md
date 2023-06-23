@@ -15,4 +15,4 @@ websites:
 Mi nombre es Giovanni. Soy italiano y vivo entre Paraguay y Argentina.  
 En la era pre bitcoin fuy marinero y constructor de barcos.  
 Desde que descubrí Bitcoin, en 2014, dejé mi vida anterior para trabajar online como analista de disputas en Localbitcoins Oy.  
-Soy un desarrollador en Nodejs y Nuxt al que le gusta mucho Btcpay Server y Bitcoinjs-lib.
+Hoy en dia soy un maximalista Bitcoin y un aspirante desarrollador web en Nodejs, Nuxtjs, Btcpay Server y Bitcoinjs.

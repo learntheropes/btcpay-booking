@@ -14,5 +14,6 @@ websites:
 ---
 Mi chiamo Giovanni. Sono italiano e vivo tra Paraguay e Argentina  
 Nell'era pre bitcoin ero un marinaio e un costruttore di barche.  
-Da quando ho scoperto Bitcoin, nel 2014, ho lasciato la mia vita precedente per lavorare online come analizzatore delle controversie presso Localbitcoins Oy.  
+Da quando ho scoperto Bitcoin, nel 2014, ho lasciato la mia vita precedente ed ho lavorato online come analizzatore delle controversie presso Localbitcoins Oy.  
 Sono un sviluppatore self-made con Nodejs e Nuxt, a cui piacciono molto Btcpay Server e Bitcoinjs-lib.
+Oggi sono una massimalista Bitcoin e aspirante full stack web developer, lavorando con Nodejs, Nuxtjs, Btcpay Server e Bitcoinjs.  
