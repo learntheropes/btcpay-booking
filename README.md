@@ -16,6 +16,13 @@ Under active development,
 - Static generate pages without cookies.   
 - Multilingual: English, Spanish and Italian out of the box with the easy option to add additional translations.   
 
+## Payment methods, fees and development status
+- Bitcoin: onchain and lightning network, no fee. Fully implemented.  
+- Crypto: all the currencies supported by [SideShift](https://sideshift.ai/eth/btc), unclear fee, probably between 0.5% and 1% paid by the buyer. Not implemented yet but planned.  
+- Fiat: I will support only fiat methods not requiring KYC and with the merchant personal info not visible to buyers (proxy services):   
+  - SEPA (EU) in EUR and CHF, fee about 1.5% paid by the buyer. Implemented.  
+  - PIX (Brazil) in BRL. Fee unknown yet, paid by the buyer. Planned with backed under development.  
+
 ## Setup
 1. Clone the repo.  
 2. Edit the repo configuration in `./content/settings.yaml` accordingly to your needs. The file is commented to explain each setting meaning. 
