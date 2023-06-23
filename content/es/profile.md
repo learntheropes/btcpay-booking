@@ -8,7 +8,7 @@ nostr: giovanni@learntheropes.xyz
 instagram: null
 websites:
   - title: blog
-    url: https://giovanni.learntheropes.xyz/en/
+    url: https://giovanni.learntheropes.xyz/es/
   - title: btcpay
     url: https://learntheropes.xyz
 ---
