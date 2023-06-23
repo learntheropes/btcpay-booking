@@ -25,13 +25,13 @@ This is optional. If you want to skip the profile and offer just one service, yo
 Optionally, if you want to show the services in a specific order, add the order number at the beginning of the name followed by a dot, eg `1.my-service.md` 
 5. Deploy on Digital Ocean or Vercel with default `./package.json` settings or adapt them to deploy on any other provider.  
 6. Set the enviroment variables as in the `./.env.example` file.  
-7. Set a custom color in the first line of `./assets/scss/custom.scss`.  
-8. Optionally add or remove languages support by adding, removing translations in `./lang` folder and settings in `./assets/js/locale.js` `locales` json object. 
+7. Optionally set a custom color in the [first line](https://github.com/learntheropes/btcpay-booking/blob/de5be9f24fe72c59a8f10557451a8af0afbdd601/assets/scss/custom.scss#L1) of `./assets/scss/custom.scss`.  
+8. Optionally add or remove languages support by adding/removing translations in `./lang` folder and settings in `./assets/js/locale.js` `locales` [json object](https://github.com/learntheropes/btcpay-booking/blob/de5be9f24fe72c59a8f10557451a8af0afbdd601/assets/js/locales.js#L3C5-L26C3). 
 9. Deploy your booking system with Btcpay Server!  
 
 ## BTCPay instance
-If you don't have a btcpay instance, feel free to [email](mailto:giovanni@learntheropes.xyz) me optionally with [PGP](https://keys.openpgp.org/vks/v1/by-fingerprint/5BA78A510CDA44132BDC51FA58C798100FF8A743) and I will create an account/store on my btcpay server for you.
+If you don't have a btcpay instance, feel free to [email](mailto:giovanni@learntheropes.xyz) me optionally with [PGP](https://keys.openpgp.org/vks/v1/by-fingerprint/5BA78A510CDA44132BDC51FA58C798100FF8A743) and I will invite you to create an account/store on my btcpay server.
 
 [![DigitalOcean Referral Badge](https://web-platforms.sfo2.digitaloceanspaces.com/WWW/Badge%202.svg)](https://www.digitalocean.com/?refcode=1930033771d7&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge)
 
-Inspired by **BitPagos** and **LNCal**
+Inspired by [**BitPagos**](https://web.archive.org/web/20141225131358/https://www.bitpagos.com/es/) and [**LNCal**](https://lncal.com/).
