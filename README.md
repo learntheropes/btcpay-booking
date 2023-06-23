@@ -1,8 +1,10 @@
-## Under active development
 Booking system for any type of service that requires a calendar, from an online class to a room reservation.  
 For bitcoiners, KYC free, self custodial.  
 The client can pay in bitcoin, crypto and fiat and the merchant always receives bitcoin.  
 Without KYC requiremenets for the merchant and the client. Merchant personal information are never shared, not even to receive fiat payments like SEPA
+
+## Status
+Under active development,
 
 ## Features
 - Self custodial solution with btcpay server integration.  
@@ -25,7 +27,7 @@ Without KYC requiremenets for the merchant and the client. Merchant personal inf
 9. Deploy your booking system with Btcpay Server!  
 
 ## BTCPay instance
-If you don't want to deploy your own btcpay instance, feel free to email me at giovanni@learntheropes.xyz and I will create an account/store for you on my btcpay server.
+If you don't have a btcpay instance, feel free to [email](mailto:giovanni@learntheropes.xyz) me optionally with [PGP](https://keys.openpgp.org/vks/v1/by-fingerprint/5BA78A510CDA44132BDC51FA58C798100FF8A743) and I will create an account/store on my btcpay server for you.
 
 [![DigitalOcean Referral Badge](https://web-platforms.sfo2.digitaloceanspaces.com/WWW/Badge%202.svg)](https://www.digitalocean.com/?refcode=1930033771d7&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge)
 
