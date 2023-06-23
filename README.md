@@ -22,6 +22,7 @@ Under active development.
 - Fiat: I will support only fiat methods not requiring KYC and with the merchant personal info not visible to buyers (proxy services):   
   - SEPA (EU) in EUR and CHF, fee about 1.5% paid by the buyer. Implemented.  
   - PIX (Brazil) in BRL. Fee unknown yet, paid by the buyer. Planned with proxy under development.  
+  - Credit/debit cards (worldwide). Evaluating available services. Uncertain implementation.
 
 ## Setup
 1. Clone the repo.  
