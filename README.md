@@ -20,9 +20,10 @@ Under active development.
 - Bitcoin: onchain and lightning network, no fee. Fully implemented.  
 - Crypto: all the currencies supported by [SideShift](https://sideshift.ai/eth/btc), unclear fee, probably between 0.5% and 1% paid by the buyer. Not implemented yet but planned.  
 - Fiat: I will support only fiat methods not requiring KYC and with the merchant personal info not visible to buyers (proxy services):   
-  - SEPA (EU) in EUR and CHF, fee about 1.5% paid by the buyer. Implemented.  
+  - SEPA (EU) in EUR and CHF, fee about 1.5% paid by the buyer. Fully implemented.  
   - PIX (Brazil) in BRL. Fee unknown yet, paid by the buyer. Planned with proxy under development.  
-  - Credit/debit cards (worldwide). Evaluating available services. Uncertain implementation.
+  - Credit/debit cards (worldwide) in multiple currencies. Evaluating available proxies. Uncertain implementation, limits will be low for sure.
+  - Apple Pay and Google Pay. Same as credit/debit cards.
 
 ## Setup
 1. Clone the repo.  

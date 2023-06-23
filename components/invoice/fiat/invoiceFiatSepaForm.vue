@@ -11,13 +11,13 @@
 
   // Define the form reactive properties and the initial empty fields
   const initialForm = {
-    buyerLegalName: 'Satoshi Nakamoto',
-    buyerLegalAddress: 'Foo Bar 17',
-    buyerLegalCity: 'Lugano',
-    buyerLegalZip: '00100',
-    buyerLegalCountry: 'CH',
-    buyerBic: 'XXXXCHXXXXX',
-    buyerIban: 'LT854473443582866234'
+    buyerLegalName: '', // 'Satoshi Nakamoto',
+    buyerLegalAddress: '', // 'Foo Bar 17',
+    buyerLegalCity: '', // 'Lugano',
+    buyerLegalZip: '', // '00100',
+    buyerLegalCountry: '', // 'CH',
+    buyerBic: '', // 'XXXXCHXXXXX',
+    buyerIban: '' // 'LT854473443582866234'
   }
   const form = ref(initialForm);
 
