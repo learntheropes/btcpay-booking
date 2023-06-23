@@ -16,13 +16,14 @@ Under active development.
 - Static generate pages without cookies.   
 - Multilingual: English, Spanish and Italian out of the box with the easy option to add additional translations.   
 
-## Payment methods, fees and development status
+## Payment methods, fees, limit per payment, development status
 - Bitcoin: onchain and lightning network, no fee. Fully implemented.  
 - Crypto: all the currencies supported by [SideShift](https://sideshift.ai/eth/btc), unclear fee, probably between 0.5% and 1% paid by the buyer. Not implemented yet but planned.  
 - Fiat: I will support only fiat methods not requiring KYC and with the merchant personal info not visible to buyers (proxy services):   
-  - SEPA (EU) in EUR and CHF, fee about 1.5% paid by the buyer. Fully implemented.  
-  - PIX (Brazil) in BRL. Fee unknown yet, paid by the buyer. Planned with proxy under development.  
-  - Credit/debit cards (worldwide) in multiple currencies. Evaluating available proxies. Uncertain implementation, limits will be low for sure.
+  - SEPA (EU) in EUR and CHF, fee about 1.5% paid by the buyer. 1000 CHF/EUR limit. Fully implemented.  
+  - PIX (Brazil) in BRL. Fee unknown yet, paid by the buyer. 9000 BRL (1800 USD) limit. Planned with proxy under development.
+  - Vietnam Bank Transfer (Vietnam) in VND. 1% fee paid by the buyer. 5000000 VND (200 USD) limit. Under development.
+  - Credit/debit cards (worldwide) in multiple currencies. Evaluating available proxies. Uncertain implementation, limits will be low, like 100 USD.
   - Apple Pay and Google Pay. Same as credit/debit cards.
 
 ## Setup
