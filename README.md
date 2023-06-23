@@ -5,7 +5,7 @@ Without KYC requiremenets for the merchant and the client. Merchant personal inf
 [Demo](booking.learntheropes.xyz)
 
 ## Status
-Under active development,
+Under active development.
 
 ## Features
 - Self custodial solution with btcpay server integration.  
