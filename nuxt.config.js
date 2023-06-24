@@ -76,6 +76,7 @@ export default defineNuxtConfig({
   }],
 
   modules: [
+    '@nuxt/devtools',
     '@nuxt/content',
     '@nuxtjs/i18n',
     '@nuxt/image',
