@@ -61,8 +61,6 @@ export default defineNuxtConfig({
     }
   },
 
-  pages: true,
-
   css: [
     '~/assets/scss/main.scss',
     '~/assets/scss/mdi.scss',
