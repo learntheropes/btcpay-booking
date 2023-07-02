@@ -4,7 +4,6 @@ import find from 'lodash.find';
 import findIndex from 'lodash.findindex';
 import { NotificationProgrammatic } from "@oruga-ui/oruga-next";
 import { computed } from '@vue/reactivity';
-import { $fetch } from 'ofetch';
 
 // Get invoice props
 const {
