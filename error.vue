@@ -39,7 +39,6 @@ const handleError = () => clearError({ redirect: `/${locale}` });
     <div class="hero-body">
       <div class="container has-text-centered">
         <p class="title">{{ translatedErrorMessage }}</p>
-        <DevOnly>foo bar</DevOnly>
         <DevOnly>
           <div class="block content">
             <div>{{ error.statusMessage || error.message }}</div>
