@@ -83,6 +83,9 @@ export default {
   somethingWentWrong: 'Something went wrong',
   backToTheHomePage: 'Back to the home page',
   // plugins/validateCustomRules.js
+  // Custom rules which name starts with an underscore
+  // are not automatically imported in vee validate generateMessage
+  // but returned directly within the custom rule function
   customRules: {
     arrayLengthBetween: 'You can book between 0:{min} and 1:{max} slots per day',
     validateIban: 'Invalid IBAN format',
