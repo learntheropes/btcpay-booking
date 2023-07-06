@@ -16,6 +16,11 @@
 
   // Set title and description page
   useContentHead({ title, description });
+
+  // redirect to locale only on the homepage
+  // because i18n settings do not work
+  const { fullPath } = useRoute();
+  if (fullPath === '/') navigateTo(`/${locale}`);
 </script>
 
 <template>
