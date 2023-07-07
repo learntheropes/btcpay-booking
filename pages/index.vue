@@ -6,6 +6,7 @@
   const {
     title,
     description,
+    head,
     image,
     twitter,
     nostr,
@@ -15,7 +16,11 @@
   } = await queryContent(`/profile`).locale(locale).findOne();
 
   // Set title and description page
-  useContentHead({ title, description });
+  useContentHead({
+    title, 
+    description, 
+    head 
+  });
 
   // redirect to locale only on the homepage
   // because i18n settings do not work

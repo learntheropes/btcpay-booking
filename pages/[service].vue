@@ -14,6 +14,7 @@
   const  {
     title,
     description,
+    head,
     image,
     extras,
     body,
@@ -31,8 +32,12 @@
   $listen('setGateway', (_gateway) => {
     isLoading.value = true;
    });
-  // Set title and description page
-  useContentHead({ title, description });
+  // Set title, description page and head seo tags
+  useContentHead({
+    title, 
+    description, 
+    head 
+  });
 </script>
 
 <template>
