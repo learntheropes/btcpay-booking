@@ -1,4 +1,4 @@
-Copyright (c) 2023 Giovanni La Perna
+Copyright (c) 2023 Learntheropes https://github.com/learntheropes
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
