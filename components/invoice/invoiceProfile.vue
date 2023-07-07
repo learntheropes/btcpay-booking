@@ -42,18 +42,13 @@ const {
   }
 } = invoice;
 
-  // Get the service name for the breadcrumb
-  const {
-    title: buyerServiceTitle
-  } = await queryContent(`/services/${buyerService}`).locale(buyerLanguage).only([ 'title' ]).findOne();
-
-// Function to generate the qrcode from a string
-const generateQrCode = async (text) => {
-  return await QRCode.toDataURL(text);
-};
+// Get the service name for the breadcrumb
+const {
+  title: buyerServiceTitle
+} = await queryContent(`/services/${buyerService}`).locale(buyerLanguage).only([ 'title' ]).findOne();
 
 // Generate the qrcode for the invoice URL
-const qrCode = await generateQrCode(`${deploymentDomain}/invoice/${invoiceId}`);
+const qrCode = await QRCode.toDataURL(`${deploymentDomain}/invoice/${invoiceId}`);
 
 const {
   // function to display the time of the booking
