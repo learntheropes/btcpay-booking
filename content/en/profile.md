@@ -4,14 +4,16 @@
 # Name that will show in the buyer browser tab
 title: Giovanni Learntheropes
 # Description that with be set as html head tag.
-# Useful for search engines.
+# Useful for search enginesGiovanni Learntheropes.
 description: My consultancies booking website powered by Btcpay and Nuxt
 # To populate the card when shared on social network
 head:
   meta:
-    - name: og:title
+    - id: og:title
+      property: og:title
       content: Giovanni Learntheropes
-    - name: og:description
+    - id: og:description
+      property: og:description
       content: My consultancies booking website powered by Btcpay and Nuxt
 # Your profile picture name that you need to put in the public folder.
 image: me.jpg

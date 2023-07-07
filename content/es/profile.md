@@ -3,9 +3,11 @@ title: Giovanni Learntheropes
 description: Mi sitio web de reservas de consultorías creado con Btcpay y Nuxt
 head:
   meta:
-    - name: og:title
+    - id: og:title
+      property: og:title
       content: Giovanni Learntheropes
-    - name: og:description
+    - id: og:description
+      property: og:description
       content: Mi sitio web de reservas de consultorías creado con Btcpay y Nuxt
 image: me.jpg
 gallery:

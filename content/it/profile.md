@@ -3,9 +3,11 @@ title: Giovanni Learntheropes
 description: Il mio sito di prenotazione di consulenze sviluppato con Btcpay e Nuxt
 head:
   meta:
-    - name: og:title
+    - id: og:title
+      property: og:title
       content: Giovanni Learntheropes
-    - name: og:description
+    - id: og:description
+      property: og:description
       content: Il mio sito di prenotazione di consulenze sviluppato con Btcpay e Nuxt
 image: me.jpg
 gallery:
