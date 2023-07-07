@@ -15,6 +15,9 @@ head:
     - id: og:description
       name: og:description
       content: My consultancies booking website powered by Btcpay and Nuxt
+    - id: og:image
+      name: og:image
+      content: me.jpg
 # Your profile picture name that you need to put in the public folder.
 image: me.jpg
 # List of images to show on the page

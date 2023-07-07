@@ -9,6 +9,9 @@ head:
     - id: og:description
       name: og:description
       content: Mi sitio web de reservas de consultorías creado con Btcpay y Nuxt
+    - id: og:image
+      name: og:image
+      content: me.jpg
 image: me.jpg
 gallery:
 twitter: learntheropes_

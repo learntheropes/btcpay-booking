@@ -9,6 +9,9 @@ head:
     - id: og:description
       name: og:description
       content: Il mio sito di prenotazione di consulenze sviluppato con Btcpay e Nuxt
+    - id: og:image
+      name: og:image
+      content: me.jpg
 image: me.jpg
 gallery:
 twitter: learntheropes_
