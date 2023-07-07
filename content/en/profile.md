@@ -10,10 +10,10 @@ description: My consultancies booking website powered by Btcpay and Nuxt
 head:
   meta:
     - id: og:title
-      property: og:title
+      name: og:title
       content: Giovanni Learntheropes
     - id: og:description
-      property: og:description
+      name: og:description
       content: My consultancies booking website powered by Btcpay and Nuxt
 # Your profile picture name that you need to put in the public folder.
 image: me.jpg

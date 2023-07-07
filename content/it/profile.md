@@ -4,10 +4,10 @@ description: Il mio sito di prenotazione di consulenze sviluppato con Btcpay e N
 head:
   meta:
     - id: og:title
-      property: og:title
+      name: og:title
       content: Giovanni Learntheropes
     - id: og:description
-      property: og:description
+      name: og:description
       content: Il mio sito di prenotazione di consulenze sviluppato con Btcpay e Nuxt
 image: me.jpg
 gallery:

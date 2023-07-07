@@ -40,22 +40,22 @@ export default defineNuxtConfig({
         },
         {
           id: 'og:type',
-          property: 'og:type',
+          name: 'og:type',
           content: 'website'
         },
         {
           id: 'og:url',
-          property: 'og:url',
+          name: 'og:url',
           content: deploymentDomain
         },
         {
           id: 'og:site_name',
-          property: 'og:site_name',
+          name: 'og:site_name',
           content: 'btcpay-booking'
         },
         {
           id: 'twitter:card',
-          property: 'twitter:card',
+          name: 'twitter:card',
           content: 'summary'
         },
       ],
