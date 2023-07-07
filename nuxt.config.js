@@ -56,12 +56,17 @@ export default defineNuxtConfig({
         {
           id: 'og:image',
           name: 'og:image',
-          content: '/favicon/favicon.png'
+          content: `${deploymentDomain}/favicon/favicon.png`
         },
         {
           id: 'twitter:card',
           name: 'twitter:card',
           content: 'summary'
+        },
+        {
+          id: 'twitter:image',
+          name: 'twitter:image',
+          content: `${deploymentDomain}/favicon/favicon.png`
         },
       ],
       link: [
