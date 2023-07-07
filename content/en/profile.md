@@ -6,18 +6,6 @@ title: Giovanni Learntheropes
 # Description that with be set as html head tag.
 # Useful for search enginesGiovanni Learntheropes.
 description: My consultancies booking website powered by Btcpay and Nuxt
-# To populate the card when shared on social network
-head:
-  meta:
-    - id: og:title
-      name: og:title
-      content: Giovanni Learntheropes
-    - id: og:description
-      name: og:description
-      content: My consultancies booking website powered by Btcpay and Nuxt
-    - id: og:image
-      name: og:image
-      content: me.jpg
 # Your profile picture name that you need to put in the public folder.
 image: me.jpg
 # List of images to show on the page

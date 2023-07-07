@@ -6,7 +6,6 @@
   const {
     title,
     description,
-    head,
     image,
     twitter,
     nostr,
@@ -15,11 +14,40 @@
     body
   } = await queryContent(`/profile`).locale(locale).findOne();
 
-  // Set title and description page
+  const { 
+    public: {
+      deploymentDomain
+    }
+  } = useRuntimeConfig()
+
+  // Set title description and meta tags.
   useContentHead({
     title, 
     description, 
-    head 
+    head: {
+      meta: [
+        {
+          id: 'og:title',
+          name: 'og:title',
+          content: title
+        },
+        {
+          id: 'og:description',
+          name: 'og:description',
+          content: description
+        },
+        {
+          id: 'og:image',
+          name: 'og:image',
+          content: `${deploymentDomain}/${image}`
+        },  
+        {
+          id: 'og:image',
+          name: 'og:image',
+          content: `${deploymentDomain}/${image}`
+        }, 
+      ]        
+    }
   });
 
   // redirect to locale only on the homepage

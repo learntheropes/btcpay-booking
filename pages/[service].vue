@@ -14,7 +14,6 @@
   const  {
     title,
     description,
-    head,
     image,
     extras,
     body,
@@ -32,11 +31,41 @@
   $listen('setGateway', (_gateway) => {
     isLoading.value = true;
    });
-  // Set title, description page and head seo tags
+
+  const { 
+    public: {
+      deploymentDomain
+    }
+  } = useRuntimeConfig()
+
+  // Set title description and meta tags.
   useContentHead({
     title, 
     description, 
-    head 
+    head: {
+      meta: [
+        {
+          id: 'og:title',
+          name: 'og:title',
+          content: title
+        },
+        {
+          id: 'og:description',
+          name: 'og:description',
+          content: description
+        },
+        {
+          id: 'og:image',
+          name: 'og:image',
+          content: `${deploymentDomain}/${image}`
+        },  
+        {
+          id: 'og:image',
+          name: 'og:image',
+          content: `${deploymentDomain}/${image}`
+        }, 
+      ]        
+    }
   });
 </script>
 
