@@ -45,7 +45,7 @@ let qrCode = await QRCode.toDataURL(JSON.stringify({
   reference,
   recipient: recipient_name,
   address: recipient_postal_address
-}));
+}, null, 2));
 
 // Get the function for translations
 const { t } = useI18n();
