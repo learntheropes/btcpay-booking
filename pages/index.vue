@@ -18,36 +18,38 @@
     public: {
       deploymentDomain
     }
-  } = useRuntimeConfig()
+  } = useRuntimeConfig();
 
-  // Set title description and meta tags.
+  // Set head og: meta tags.
+  useHead({
+    meta: [
+      {
+        id: 'og:title',
+        name: 'og:title',
+        content: title
+      },
+      {
+        id: 'og:description',
+        name: 'og:description',
+        content: description
+      },
+      {
+        id: 'og:image',
+        name: 'og:image',
+        content: `${deploymentDomain}/${image}`
+      },  
+      {
+        id: 'twitter:image',
+        name: 'twitter:image',
+        content: `${deploymentDomain}/${image}`
+      }, 
+    ]
+  })
+
+  // Set head title description tags.
   useContentHead({
     title, 
-    description, 
-    head: {
-      meta: [
-        {
-          id: 'og:title',
-          name: 'og:title',
-          content: title
-        },
-        {
-          id: 'og:description',
-          name: 'og:description',
-          content: description
-        },
-        {
-          id: 'og:image',
-          name: 'og:image',
-          content: `${deploymentDomain}/${image}`
-        },  
-        {
-          id: 'og:image',
-          name: 'og:image',
-          content: `${deploymentDomain}/${image}`
-        }, 
-      ]        
-    }
+    description
   });
 
   // redirect to locale only on the homepage
