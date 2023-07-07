@@ -32,7 +32,32 @@ export default defineNuxtConfig({
         {
           name: "viewport",
           content: "width=device-width, initial-scale=1"
-        }
+        },
+        {
+          id: 'googlebot',
+          name: 'googlebot',
+          content: 'notranslate'
+        },
+        {
+          id: 'og:type',
+          property: 'og:type',
+          content: 'website'
+        },
+        {
+          id: 'og:url',
+          property: 'og:url',
+          content: deploymentDomain
+        },
+        {
+          id: 'og:site_name',
+          property: 'og:site_name',
+          content: 'btcpay-booking'
+        },
+        {
+          id: 'twitter:card',
+          property: 'twitter:card',
+          content: 'summary'
+        },
       ],
       link: [
         {
