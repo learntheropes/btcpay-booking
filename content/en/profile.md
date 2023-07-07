@@ -2,7 +2,7 @@
 # All settings are optional unless specified as mandatory
 
 # Name that will show in the buyer browser tab
-title: Giovanni Learntheropes
+title: Learntheropes
 # Description that with be set as html head tag.
 # Useful for search enginesGiovanni Learntheropes.
 description: My consultancies booking website powered by Btcpay and Nuxt

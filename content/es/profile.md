@@ -1,5 +1,5 @@
 ---
-title: Giovanni Learntheropes
+title: Learntheropes
 description: Mi sitio web de reservas de consultorías creado con Btcpay y Nuxt
 image: me.jpg
 gallery:

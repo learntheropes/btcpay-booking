@@ -1,5 +1,5 @@
 ---
-title: Giovanni Learntheropes
+title: Learntheropes
 description: Il mio sito di prenotazione di consulenze sviluppato con Btcpay e Nuxt
 image: me.jpg
 gallery:
