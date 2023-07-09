@@ -1,7 +1,7 @@
 ---
 title: Learntheropes
 description: Il mio sito di prenotazione di consulenze sviluppato con Btcpay e Nuxt
-image: me.jpg
+image: learntheropes.png
 gallery:
 twitter: learntheropes_
 nostr: giovanni@learntheropes.xyz

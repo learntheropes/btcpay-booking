@@ -7,7 +7,7 @@ title: Learntheropes
 # Useful for search enginesGiovanni Learntheropes.
 description: My consultancies booking website powered by Btcpay and Nuxt
 # Your profile picture name that you need to put in the public folder.
-image: me.jpg
+image: learntheropes.png
 # List of images to show on the page
 # Save the files in the ./public foder and list the files name here
 # I don't have a gallery in this case.
