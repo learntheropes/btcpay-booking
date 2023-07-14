@@ -9,9 +9,6 @@
     "prod": "nuxi generate && nuxi start",
     "kill": "sudo kill -9 `sudo lsof -t -i:3000`"
   },
-  "engines": {
-    "node": "16.x"
-  },
   "devDependencies": {
     "@mdi/font": "^7.2.96",
     "@nuxt/content": "^2.5.2",
@@ -46,5 +43,8 @@
     "pusher-js": "^8.0.2",
     "qrcode": "^1.5.3",
     "vee-validate": "^4.8.4"
+  },
+   "engines": {
+    "node": "16.x"
   }
 }
