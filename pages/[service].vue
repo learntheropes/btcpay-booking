@@ -20,6 +20,8 @@
     gallery
   } = await queryContent(`/services/${service}`).locale(locale).findOne();
 
+  if (!title && !body) throw createError({ statusCode: 404 })
+
   // Handle the loading page after submitting the form
   const isLoading = ref(false);
 
