@@ -5,19 +5,38 @@ import { locales } from '../assets/js/locales';
 
 export default defineNuxtPlugin(nuxtApp => {
 
-  // import in parallel all the needed localized messages
-  // https://vitejs.dev/guide/features.html#glob-import-as
-  const modules = import.meta.glob('../node_modules/@vee-validate/i18n/dist/locale/*.json',  {
-    import: 'default',
-    as: 'raw',
-    eager: true
-  });
-  
-  // build the localization object
   const localizeMessages = locales.reduce((obj, locale) => {
 
-    obj[locale.code] = JSON.parse(modules[`../node_modules/@vee-validate/i18n/dist/locale/${locale.validate}.json`])
-    return obj
+    switch(locale.code) {
+      case 'ms':
+        locale.code = 'ms_MY'
+        break;
+      case 'nb':
+        locale.code = 'nb_NO'
+        break;
+      case 'nb':
+        locale.code = 'nb_NO'
+        break;
+      case 'br':
+        locale.code = 'pt_BR'
+        break;
+      case 'pt':
+        locale.code = 'pt_PT'
+        break;
+      case 'sr':
+        locale.code = 'sr_Latin'
+        break;
+      case 'cn':
+        locale.code = 'zh_CN'
+        break;
+      case 'tw':
+        locale.code = 'zh_TW'
+        break;
+    }
+    const module = import(`../node_modules/@vee-validate/i18n/dist/locale/${locale.code}.json`)
+
+    obj[locale.code] = module;
+    return obj;
   }, {});
 
   // configure localized messages
