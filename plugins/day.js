@@ -8,12 +8,12 @@ export default defineNuxtPlugin(async nuxtApp => {
   dayjs.extend(localizedFormat);
 
   const { locale } = nuxtApp.$i18n;
-  import(`../node_modules/dayjs/${locale.code}.js`); 
+  import(`../node_modules/dayjs/locale/${locale.value}.js`); 
   dayjs.locale(locale.value); 
 
   nuxtApp.$i18n.onLanguageSwitched = (_oldLocale, newLocale) => {
 
-    import(`../node_modules/dayjs/${newLocale}.js`); 
+    import(`../node_modules/dayjs/locale/${newLocale}.js`); 
     dayjs.locale(newLocale);
   };
 
