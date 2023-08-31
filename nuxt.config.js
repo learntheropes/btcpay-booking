@@ -120,7 +120,7 @@ export default defineNuxtConfig({
 
   sitemap: {
     xsl: false,
-    credits: false,
+    // credits: false,
     autoI18n: false
   },
 
@@ -198,7 +198,6 @@ export default defineNuxtConfig({
       }
     },
   },
-
 
   delayHydration: {
     mode: 'init',
