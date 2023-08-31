@@ -2,8 +2,7 @@ import {
   locales,
   localeCodes,
   defaultLocale,
-  routeRules,
-  excludedRoutes
+  routeRules
 } from './assets/js/locales'
 
 const isDev = process.env.NODE_ENV !== 'production'
@@ -208,7 +207,7 @@ export default defineNuxtConfig({
 
   delayHydration: {
     mode: 'init',
-    exclude: excludedRoutes,
+    exclude: localeCodes.map(code => `/${code}/invoice/**`),
     debug: process.env.NODE_ENV === 'development'
   },
 

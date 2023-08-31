@@ -63,9 +63,7 @@
     <section class="section is-medium">
       <nav class="breadcrumb">
         <ul>
-          <li>
-            <NuxtLink>&nbsp;</NuxtLink>
-          </li>
+          <li>&nbsp;</li>
         </ul>
       </nav>
     </section>
