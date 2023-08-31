@@ -99,7 +99,7 @@ export default defineNuxtConfig({
   css: [
     '~/assets/scss/main.scss',
     '~/assets/scss/mdi.scss',
-    "@mdi/font/css/materialdesignicons.css"
+    // "@mdi/font/css/materialdesignicons.css"
   ],
 
   components: [{
@@ -115,6 +115,7 @@ export default defineNuxtConfig({
     '@nuxtjs/i18n',
     '@nuxt/image',
     'nuxt-icons',
+    // 'nuxt-speedkit',
     'nuxt-delay-hydration'
   ],
 
@@ -184,6 +185,47 @@ export default defineNuxtConfig({
     }
   },
 
+  // speedkit: {
+
+  //   detection: {
+  //     performance: true,
+  //     browserSupport: true
+  //   },
+
+  //   performanceMetrics: {
+  //     device: {
+  //       hardwareConcurrency: { min: 2, max: 48 },
+  //       deviceMemory: { min: 2 }
+  //     },
+  //     timing: {
+  //       fcp: 800,
+  //       dcl: 1200
+  //     }
+  //   },
+
+  //   targetFormats: ['webp', 'avif', 'jpg|jpeg|png|gif'],
+
+  //   componentAutoImport: false,
+  //   componentPrefix: undefined,
+
+  //   lazyOffset: {
+  //     component: '0%',
+  //     asset: '0%'
+  //   },
+
+  //   loader: {
+  //     dataUri: null,
+  //     size: '100px',
+  //     backgroundColor: 'grey'
+  //   }
+  // },
+
+  delayHydration: {
+    mode: 'init',
+    exclude: localeCodes.map(code => `/${code}/invoice/**`),
+    debug: process.env.NODE_ENV === 'development'
+  },
+
   nitro: {
     devStorage: {
       lang: {
@@ -205,11 +247,9 @@ export default defineNuxtConfig({
     },
   },
 
-  delayHydration: {
-    mode: 'init',
-    exclude: localeCodes.map(code => `/${code}/invoice/**`),
-    debug: process.env.NODE_ENV === 'development'
-  },
+  // build: {
+  //   transpile: ['consola']
+  // },
 
   appConfig: {
 
