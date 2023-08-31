@@ -32,34 +32,38 @@
   <div>
     <OModal v-model:active="isModalActive">
       <div class="ltr-is-center-left is-hidden-mobile">
-        <NuxtIcon
-          name="chevron-left"
-          class="ltr-is-48by48-white"
+        <OIcon
+          icon="chevron-left"
+          size="large"
+          variant="info"
           @click.native="navigatePrevious"
         />
       </div>
       <div class="ltr-is-bottom-left is-hidden-tablet">
-        <NuxtIcon
-          name="chevron-left"
-          class="ltr-is-48by48-white"
-          @click,native="navigatePrevious"
+        <OIcon
+          icon="chevron-left"
+          size="large"
+          variant="info"
+          @click.native="navigatePrevious"
         />
       </div>
       <figure class="image ltr-corner-rounded">
         <NuxtImg preset="modal" :src="modalImage" class="ltr-fit" />
       </figure>
       <div class="ltr-is-center-right is-hidden-mobile">
-        <NuxtIcon
-          name="chevron-right"
-          class="ltr-is-48by48-white"
-          @click.native="navigatePrevious"
+        <OIcon
+          icon="chevron-right" 
+          size="large" 
+          variant="info" 
+          @click.native="navigateNext"
         />
       </div>
       <div class="ltr-is-bottom-right is-hidden-tablet">
-        <NuxtIcon
-          name="chevron-right"
-          class="ltr-is-48by48-white"
-          @click.native="navigatePrevious"
+        <OIcon
+          icon="chevron-right" 
+          size="large" 
+          variant="info" 
+          @click.native="navigateNext"
         />
       </div>
     </OModal>
