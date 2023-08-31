@@ -15,6 +15,11 @@
     modalImage.value = gallery[index];
   });
 
+  const closeModal = () => {
+
+    isModalActive.value = false;
+  }
+
   const navigatePrevious = () => {
 
     modalIndex.value = (modalIndex.value - 1 < 0) ? modalGallery.value.length - 1 : modalIndex.value - 1; 
@@ -30,7 +35,7 @@
 
 <template>
   <div>
-    <OModal v-model:active="isModalActive">
+    <OModal v-model:active="isModalActive" :onCancel="closeModal" :canCancel="['escape', 'x']">
       <div class="ltr-is-center-left is-hidden-mobile">
         <OIcon
           icon="chevron-left"
@@ -71,9 +76,8 @@
 </template>
 
 <style>
-.ltr-is-48by48-white svg {
+.mdi-close {
   color: white;
-  min-width: 32px;
-  min-height: 32px;
 }
 </style>
+
