@@ -4,7 +4,7 @@ import localizedFormat from 'dayjs/plugin/localizedFormat';
 
 import 'dayjs/locale/en'
 import 'dayjs/locale/es'
-import 'dayjs/locale/pt'
+import 'dayjs/locale/it'
 
 export default defineNuxtPlugin(async nuxtApp => {
 
