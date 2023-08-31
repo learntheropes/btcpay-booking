@@ -3,15 +3,20 @@ import countryCodes from '~/assets/js/country-codes';
 import countries from 'i18n-iso-countries';
 import sortBy from 'lodash.sortby';
 
+// Import all the needed languages
+import * as en from 'i18n-iso-countries/langs/en';
+import * as es from 'i18n-iso-countries/langs/es';
+import * as it from 'i18n-iso-countries/langs/it';
+
+// Register the languages
+countries.registerLocale(en);
+countries.registerLocale(es);
+countries.registerLocale(it);
+
 export default defineNuxtPlugin(async nuxtApp => {
 
-  // Import all the required languages
-  for (const locale of locales) {
-    countries.registerLocale(await import(`../node_modules/i18n-iso-countries/langs/${locale.code}.json`));
-  };
-
   // Get buyer locale
-  const { locale: { value: locale }} = nuxtApp.$i18n;
+  const { locale } = nuxtApp.$i18n;
 
   return {
     provide: {
@@ -19,14 +24,14 @@ export default defineNuxtPlugin(async nuxtApp => {
         return sortBy(countryCodes.map(country => {
           return {
             code: country.code,
-            name: countries.getName(country.code, locale, {
+            name: countries.getName(country.code, locale.value, {
               select: "official"
             })
           };
         }), ['name']);
       },
       getOneCountry: (countryCode) => {
-        return countries.getName(countryCode, locale, {
+        return countries.getName(countryCode, locale.value, {
           select: "official"
         });
       }
