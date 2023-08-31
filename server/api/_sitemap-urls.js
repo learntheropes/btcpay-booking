@@ -3,12 +3,7 @@ import { defaultLocale, locales } from '~/assets/js/locales';
 export default defineEventHandler(async () => {
 
   const serviceFiles = await useStorage(`content:${defaultLocale}:services`).getKeys();
-  const serviceUrls = serviceFiles.map(service => (service.split('.').length === 3) ? `${service.split('.')[1]}` : `${service.split('.')[0]}`);
-
-  const endpoints = [
-    ...[''],
-    ...serviceUrls,
-  ];
+  const endpoints = serviceFiles.map(service => (service.split('.').length === 3) ? `${service.split('.')[1]}` : `${service.split('.')[0]}`);
 
   const getAlternatives = (endpoint) => [{
     hreflang: 'x-default',
