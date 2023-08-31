@@ -19,6 +19,7 @@
     "@oruga-ui/theme-bulma": "^0.2.9",
     "ngrok": "^4.3.3",
     "nuxt": "^3.3.1",
+    "nuxt-delay-hydration": "^1.2.1",
     "sass": "^1.52.1",
     "sass-loader": "^10.2.1"
   },
@@ -44,7 +45,7 @@
     "qrcode": "^1.5.3",
     "vee-validate": "^4.8.4"
   },
-   "engines": {
+  "engines": {
     "node": "16.x"
   }
 }

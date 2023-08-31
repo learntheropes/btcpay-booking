@@ -52,5 +52,12 @@ export const routeRules = locales.reduce((obj, locale) => {
   '/': {
     cors: true
   }
-})
+});
+
+export const excludedRoutes = localeCodes.reduce((arr, code) => {
+  ['invoice'].map(endpoint => {
+    arr.push(`/${code}/${endpoint}/**`);
+  });
+  return arr;
+}, []);
 

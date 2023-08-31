@@ -2,7 +2,8 @@ import {
   locales,
   localeCodes,
   defaultLocale,
-  routeRules
+  routeRules,
+  excludedRoutes
 } from './assets/js/locales'
 
 const isDev = process.env.NODE_ENV !== 'production'
@@ -113,7 +114,8 @@ export default defineNuxtConfig({
     '@nuxt/content',
     '@nuxtjs/i18n',
     '@nuxt/image',
-    'nuxt-icons'
+    'nuxt-icons',
+    'nuxt-delay-hydration'
   ],
 
   content: {
@@ -168,6 +170,12 @@ export default defineNuxtConfig({
         }
       }
     }
+  },
+
+  delayHydration: {
+    mode: 'init',
+    exclude: excludedRoutes,
+    debug: process.env.NODE_ENV === 'development'
   },
 
   appConfig: {
