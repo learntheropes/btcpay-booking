@@ -110,6 +110,7 @@ export default defineNuxtConfig({
   }],
 
   modules: [
+    'nuxt-simple-robots',
     'nuxt-simple-sitemap',
     '@nuxt/content',
     '@nuxtjs/i18n',
@@ -117,6 +118,12 @@ export default defineNuxtConfig({
     'nuxt-icons',
     'nuxt-delay-hydration'
   ],
+
+  robots: {
+    userAgents: ['*'],
+    disallow: ['/cdn-cgi', ...localeCodes.map(code => `/${code}/invoice`)],
+    sitemap: `${deploymentDomain}/sitemap.xml`
+  },
 
   sitemap: {
     xsl: false,
