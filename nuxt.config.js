@@ -110,12 +110,19 @@ export default defineNuxtConfig({
   }],
 
   modules: [
+    'nuxt-simple-sitemap',
     '@nuxt/content',
     '@nuxtjs/i18n',
     '@nuxt/image',
     'nuxt-icons',
     'nuxt-delay-hydration'
   ],
+
+  sitemap: {
+    xsl: false,
+    credits: false,
+    autoI18n: false
+  },
 
   content: {
     locales: localeCodes,
@@ -170,6 +177,28 @@ export default defineNuxtConfig({
       }
     }
   },
+
+  nitro: {
+    devStorage: {
+      lang: {
+        driver: 'fs',
+        base: './lang'
+      },
+      content: {
+        driver: 'fs',
+        base: './content'
+      }
+    },
+    storage: {
+      content: {
+        driver: 'github',
+        repo: process.env.GITHUB_REPO,
+        branch: 'main',
+        dir: '/content',
+      }
+    },
+  },
+
 
   delayHydration: {
     mode: 'init',
