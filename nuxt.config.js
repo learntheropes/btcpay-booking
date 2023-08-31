@@ -100,7 +100,7 @@ export default defineNuxtConfig({
   css: [
     '~/assets/scss/main.scss',
     '~/assets/scss/mdi.scss',
-    // "@mdi/font/css/materialdesignicons.css"
+    "@mdi/font/css/materialdesignicons.css"
   ],
 
   components: [{
@@ -110,7 +110,6 @@ export default defineNuxtConfig({
   }],
 
   modules: [
-    '@nuxt/devtools',
     '@nuxt/content',
     '@nuxtjs/i18n',
     '@nuxt/image',

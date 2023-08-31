@@ -124,11 +124,13 @@ export default defineNuxtPlugin(nuxtApp => {
   const localizedStringsObject = locales.reduce((translationsObject, locale) => {
 
     const customRulesJson = files[`../lang/${locale.code}.js`].customRules;
-    const customRulesProps = Object.keys(customRulesJson);
 
-    const messages = customRulesProps.reduce((stringsObject, prop) => {
+    const messages = Object.keys(customRulesJson).reduce((stringsObject, prop) => {
 
       if (!prop.startsWith('_')) {
+
+        // stringsObject[prop] = customRulesJson[prop].loc.source;
+
         stringsObject[prop] = customRulesJson[prop]({
           normalize: (arr) => arr.map((_e, i) => arr[i]).join(''),
           interpolate: (str) => `{${str}}`,
