@@ -247,11 +247,13 @@ const createInvoice = async () => {
         v-model="form.buyerDate"
       >
         <OField
-        :label="$t('buyerDate')"
+          :label="$t('buyerDate')"
           :variant="errors[0] ? 'danger' : null"
           :message="errors[0] ? errors[0] : ''"
         >
           <ODatepicker
+            :label="$t('buyerDate')"
+            :aria-label="$t('buyerDate')"
             :model-value="value"
             @update:modelValue="handleChange"
             @change="handleChange"
@@ -289,6 +291,8 @@ const createInvoice = async () => {
             <OIcon pack="mdi" icon="loading" size="small" spin class="is-hidden-tablet" />
           </OLoading>
           <OSelect
+            :label="$t('buyerTime')"
+            :aria-label="$t('buyerTime')"
             :model-value="value"
             @update:modelValue="handleChange"
             @change="handleChange"
@@ -333,6 +337,8 @@ const createInvoice = async () => {
           :message="errors[0] ? errors[0] : ''"
         >
           <OSelect
+            :label="$t('buyerExtras')"
+            :aria-label="$t('buyerExtras')"
             :model-value="value"
             @update:modelValue="handleChange"
             @change="handleChange"
@@ -372,6 +378,7 @@ const createInvoice = async () => {
         >
           <OInput
             :label="$t('buyerName')"
+            :aria-label="$t('buyerName')"
             :model-value="value"
             @update:modelValue="handleChange"
             @change="handleChange"
@@ -394,6 +401,7 @@ const createInvoice = async () => {
         >
           <OInput
             :label="$t('buyerEmail')"
+            :aria-label="$t('buyerEmail')"
             type="email"
             :model-value="value"
             @update:modelValue="handleChange"
@@ -419,6 +427,7 @@ const createInvoice = async () => {
           <!-- https://github.com/logaretm/vee-validate/issues/3575#issuecomment-1516900983 -->
           <OInput
             :label="$t('buyerFingerprint')"
+            :aria-label="$t('buyerFingerprint')"
             :model-value="value"
             @change="handleChange"
             @blur="handleBlur"
@@ -441,6 +450,7 @@ const createInvoice = async () => {
         >
           <OInput
             :label="$t('buyerDetails')"
+            :aria-label="$t('buyerDetails')"
             type="textarea"
             :model-value="value"
             @update:modelValue="handleChange"
