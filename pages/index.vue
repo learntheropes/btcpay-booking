@@ -69,7 +69,7 @@
     </section>
     <div class="columns">
       <div class="column">
-        <!-- <MerchantProfile
+        <MerchantProfile
           :title="title"
           :description="description"
           :image="image"
@@ -78,16 +78,11 @@
           :instagram="instagram"
           :websites="websites"
           :body="body"
-        /> -->
+        />
       </div>
       <div class="column is-narrow">
         <section class="section">
-          <MerchantServiceSelector
-            class="is-hidden-mobile"
-          />
-          <MerchantServiceSelector
-            class="is-hidden-tablet"
-          />
+          <MerchantServiceSelector id="side" />
         </section>
       </div>
     </div>
@@ -95,8 +90,9 @@
 </template>
 
 <style scoped>
-  .is-hidden-mobile {
-    min-width: 366px;
-    max-width: 366px;
+  @media screen and (min-width: 768px) {
+    #side {
+    width: 366px;
   }
+}
 </style>

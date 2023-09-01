@@ -7,16 +7,12 @@
   } = useRoute();
 
   // Get the buyer language
-  const {
-    locale: {
-      value: locale
-    }
-  } = useI18n();
+  const { locale } = useI18n();
 
   // Get the profile name for the breadcrumb
   const {
     title: profile,
-  } = await queryContent(`/profile`).locale(locale).findOne();
+  } = await queryContent(`/profile`).locale(locale.value).findOne();
 
   // Get invoice from BTCPay Greenfield API
   const invoice = await $fetch(`/api/invoices/${invoiceId}`);

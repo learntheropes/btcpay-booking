@@ -3,12 +3,12 @@
   const { params: { service }} = useRoute();
 
   // Get the buyer leanguage
-  const { locale: { value: locale }} = useI18n();
+  const { locale } = useI18n();
 
   // Get the profile name for the breadcrumb
   const {
     title: profile,
-  } = await queryContent(`/profile`).locale(locale).findOne();
+  } = await queryContent(`/profile`).locale(locale.value).findOne();
 
   // Get the service specific settings from md file
   const  {
@@ -18,7 +18,7 @@
     extras,
     body,
     gallery
-  } = await queryContent(`/services/${service}`).locale(locale).findOne();
+  } = await queryContent(`/services/${service}`).locale(locale.value).findOne();
 
   if (!title && !body) throw createError({ statusCode: 404 })
 
@@ -113,14 +113,8 @@
       <div class="column is-narrow">
         <section class="section">
           <ServiceBookingForm
-            :locale="locale"
             :service="service"
-            class="is-hidden-mobile"
-          />
-          <ServiceBookingForm
-            :locale="locale"
-            :service="service"
-            class="is-hidden-tablet"
+            id="side"
           />
         </section>
       </div>
@@ -129,8 +123,9 @@
 </template>
 
 <style scoped>
-  .is-hidden-mobile {
-    min-width: 366px;
-    max-width: 366px;
+  @media screen and (min-width: 768px) {
+    #side {
+    width: 366px;
   }
+}
 </style>

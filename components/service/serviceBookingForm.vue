@@ -1,21 +1,18 @@
 <script setup>
 import flatten from 'lodash.flatten'
-import { ref, watch } from 'vue';
 
 // Get props from [service].vue page
 const {
-  locale,
   service,
 } = defineProps({
-  locale: {
-    type: String,
-    required: true
-  },
   service: {
     type: String,
     required: true
   }
 });
+
+// Get the buyer leanguage
+const { locale } = useI18n();
 
 // Get the service specific settings from md file
 const  {
@@ -23,7 +20,7 @@ const  {
   currency,
   price,
   extras
-} = await queryContent(`/services/${service}`).locale(locale).findOne();
+} = await queryContent(`/services/${service}`).locale(locale.value).findOne();
 
 // Get needed functions from plugins
 const {
@@ -261,7 +258,7 @@ const createInvoice = async () => {
             @blur="handleBlur"
             @change-month="onChangeMonth"
             @change-year="onChangeYear"
-            :locale="locale"
+            :locale="locale.value"
             :showWeekNumber="showWeekNumber"
             :firstDayOfWeek="firstDayOfWeek"
             :unselectableDaysOfWeek="unselectableDaysOfWeek"
