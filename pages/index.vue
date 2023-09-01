@@ -1,6 +1,6 @@
 <script setup>
   // Get the buyer leanguage
-  const { locale: { value: locale }} = useI18n();
+  const { locale } = useI18n();
   
   // Get language specific profile settings
   const {
@@ -12,7 +12,7 @@
     instagram,
     websites,
     body
-  } = await queryContent(`/profile`).locale(locale).findOne();
+  } = await queryContent(`/profile`).locale(locale.value).findOne();
 
   const { 
     public: {
@@ -55,7 +55,7 @@
   // redirect to locale only on the homepage
   // because i18n settings do not work
   const { fullPath } = useRoute();
-  if (fullPath === '/') navigateTo(`/${locale}`);
+  if (fullPath === '/') navigateTo(`/${locale.value}`);
 </script>
 
 <template>
@@ -69,7 +69,7 @@
     </section>
     <div class="columns">
       <div class="column">
-        <MerchantProfile
+        <!-- <MerchantProfile
           :title="title"
           :description="description"
           :image="image"
@@ -78,16 +78,14 @@
           :instagram="instagram"
           :websites="websites"
           :body="body"
-        />
+        /> -->
       </div>
       <div class="column is-narrow">
         <section class="section">
           <MerchantServiceSelector
-            :locale="locale"
             class="is-hidden-mobile"
           />
           <MerchantServiceSelector
-            :locale="locale"
             class="is-hidden-tablet"
           />
         </section>

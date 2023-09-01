@@ -1,14 +1,8 @@
 <script setup>
-const {
-  locale
-} = defineProps({
-  locale: {
-    type: String,
-    required: true
-  }
-})
+// Get the buyer leanguage
+const { locale } = useI18n();
 
-const services = await queryContent('/services').locale(locale).only([ '_path', 'title' ]).find(); // 
+const services = await queryContent('/services').locale(locale.value).only([ '_path', 'title' ]).find(); // 
 services.forEach(service => service.slug = `/${service._path.split('/')[2]}`)
 </script>
 
