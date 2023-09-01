@@ -116,7 +116,7 @@ export default defineNuxtConfig({
     '@nuxt/image',
     'nuxt-icons',
     // 'nuxt-speedkit',
-    'nuxt-delay-hydration'
+    // 'nuxt-delay-hydration'
   ],
 
   robots: {
@@ -220,11 +220,11 @@ export default defineNuxtConfig({
   //   }
   // },
 
-  delayHydration: {
-    mode: 'init',
-    exclude: localeCodes.map(code => `/${code}/invoice/**`),
-    debug: process.env.NODE_ENV === 'development'
-  },
+  // delayHydration: {
+  //   mode: 'init',
+  //   exclude: localeCodes.map(code => `/${code}/invoice/**`),
+  //   debug: process.env.NODE_ENV === 'development'
+  // },
 
   nitro: {
     devStorage: {
