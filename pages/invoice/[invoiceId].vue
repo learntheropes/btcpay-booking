@@ -47,7 +47,7 @@
           <NuxtLink to="/">{{ profile }}</NuxtLink>
         </li>
         <li>
-          <NuxtLink :to="'/'+locale+'/'+buyerService">{{ buyerServiceTitle }}</NuxtLink>
+          <NuxtLink :to="'/' + locale + '/' + buyerService">{{ buyerServiceTitle }}</NuxtLink>
         </li>
         <li class="is-active">
           <NuxtLink>{{ `${t('invoice')} ${invoiceId}` }}</NuxtLink>
@@ -80,12 +80,7 @@
           <invoiceFiat
             :invoice="invoice"
             :status="status"
-            class="is-hidden-mobile"
-          />
-          <invoiceFiat
-            :invoice="invoice"
-            :status="status"
-            class="is-hidden-tablet"
+            id="side"
           />
         </section>
       </div>
@@ -94,8 +89,9 @@
 </template>
 
 <style scoped>
-  .is-hidden-mobile {
-    min-width: 366px;
-    max-width: 366px;
+  @media screen and (min-width: 768px) {
+    #side {
+    width: 366px;
   }
+}
 </style>
