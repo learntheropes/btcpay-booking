@@ -122,12 +122,13 @@ export default defineNuxtConfig({
   robots: {
     userAgents: ['*'],
     disallow: ['/cdn-cgi', ...localeCodes.map(code => `/${code}/invoice`)],
-    sitemap: `${deploymentDomain}/sitemap.xml`
+    sitemap: `${deploymentDomain}/index-sitemap.xml`
   },
 
   sitemap: {
     xsl: false,
-    autoI18n: false
+    autoI18n: false,
+    sitemapName: `index-sitemap.xml`
   },
 
   content: {
