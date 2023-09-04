@@ -2,7 +2,7 @@ export default defineNuxtPlugin(nuxtApp => {
 
   return {
     provide: {
-      getSepaPaymentInfo: async (
+      getPeachPaymentInfo: async (
         {
           id: invoiceId,
           metadata
