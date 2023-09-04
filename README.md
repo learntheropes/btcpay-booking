@@ -22,6 +22,7 @@ Under active development.
 - Fiat: I will support only fiat methods not requiring KYC and with the merchant personal info not visible to buyers (proxy services):   
   - SEPA (EU) in EUR and CHF, fee about 1.5% paid by the buyer. 1000 CHF/EUR limit. Fully implemented.  
   - PIX (Brazil) in BRL. Fee unknown yet, paid by the buyer. 9000 BRL (1800 USD) limit. Planned with proxy under development.
+  - Cash and debit card (Canada) in CAD. Fee around 1%, paid by the buyer. No limit. Will be implemented as soon as bullbitcoin release the API (they are working on it).
   - Vietnam Bank Transfer (Vietnam) in VND. 1% fee paid by the buyer. 5000000 VND (200 USD) limit. Under development.
   - Credit/debit cards (worldwide) in multiple currencies. Evaluating available proxies. Uncertain implementation, limits will be low, like 100 USD.
   - Apple Pay and Google Pay. Same as credit/debit cards.
