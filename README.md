@@ -2,7 +2,7 @@ Booking system for any type of service that requires a calendar, from an online 
 For bitcoiners, KYC free, self custodial.  
 The client can pay in bitcoin, crypto and fiat and the merchant always receives bitcoin.  
 Without KYC requiremenets for the merchant and the client. Merchant personal information are never shared, not even to receive fiat payments like SEPA or Pix.  
-[Demo](booking.learntheropes.xyz)
+[Demo](https://booking.learntheropes.xyz)
 
 ## Status
 Under active development.
