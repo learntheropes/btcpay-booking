@@ -27,7 +27,6 @@ export default defineEventHandler(async () => {
 
       arr.push({
         loc: `/${locale.code}/${endpoint}`,
-        lastMod: new Date(),
         alternatives,
       })
     }
