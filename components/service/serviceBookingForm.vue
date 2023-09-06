@@ -1,5 +1,7 @@
 <script setup>
 import flatten from 'lodash.flatten'
+import countryToCurrency from 'country-to-currency';
+import kebabCase from 'lodash.kebabcase';
 
 // Get props from [service].vue page
 const {
@@ -21,6 +23,25 @@ const  {
   price,
   extras
 } = await queryContent(`/services/${service}`).locale(locale.value).findOne();
+
+// Get the buyer currency based on the IP location
+const { data: { value: { country: buyerCountry }}} = await useFetch('https://api.country.is/');
+const buyerCurrency = countryToCurrency[buyerCountry];
+
+// Get available fiat methods for the buyer currency
+const { data: { value: { paymentMethods: peachPaymentMethods }}} = await useFetch('https://corsproxy.io/?https://api.peachbitcoin.com/v1/info');
+const buyerPaymentMethods = peachPaymentMethods
+  .filter(method => method.currencies.includes(buyerCurrency) && !method.anonymous)
+  .map(method => {
+    return {
+      id: method.id,
+      name: kebabCase(method.id).replace('-', ' ')
+    }
+  });
+
+// Get Yadio and Peach exchange rates
+const { data: { value: { BTC: yadioRate }}} = await useFetch(`https://api.yadio.io/exrates/${currency}`);
+const { data: { value: { price: peachRate }}} = await useFetch(`https://corsproxy.io/?https://api.peachbitcoin.com/v1/market/price/BTC${currency}`);
 
 // Get needed functions from plugins
 const {
@@ -158,42 +179,11 @@ const clearExtras = () => {
   form.value.buyerExtras  = [];
 };
 
-// Define the supported gateways
-const supportedGateways = {
-  bitcoin: [
-    {
-      gatewayName: 'bitcoin',
-      gatewayMethod: 'bitcoin',
-      gatewayCurrency: 'BTC'
-    }
-  ],
-  fiat: [
-    {
-      gatewayName: 'fiat',
-      gatewayMethod: 'SEPA',
-      gatewayCurrency: 'EUR'
-    },
-    {
-      gatewayName: 'fiat',
-      gatewayMethod: 'SEPA',
-      gatewayCurrency: 'CHF'
-    },
-  ],
-  crypto: [
-    {
-      gatewayName: 'crypto',
-      gatewayMethod: 'crypto',
-      gatewayCurrency: 'USDT'        
-    }
-  ],
-};
-
 // Filter merchant enabled gateways
 const {
   gateways,
+  premium
 } = await queryContent(`/settings`).findOne();
-
-const enabledGateways = flatten(Object.keys(gateways).filter(gateway => gateways[gateway]).map(gateway => supportedGateways[gateway]));
 
 // Define the decimal length based on the currency
 const decimal = $getDecimal(currency);
@@ -468,19 +458,22 @@ const createInvoice = async () => {
         group-multiline
       >
         <OButton
-          v-for="({ gatewayName, gatewayMethod, gatewayCurrency }, index) in enabledGateways"
-          :key="index"
           variant="primary"
-          :outlined="gatewayName !== 'bitcoin'"
-          @click="setGateway(gatewayName, gatewayMethod, gatewayCurrency)"
+          @click="setGateway('bitcoin', 'bitcoin', 'BTC')"
           native-type="submit"
-        >
-        {{ `${$t('payWith')} ${gatewayMethod} ${(gatewayMethod === 'bitcoin') ? amount.toFixed(decimal) + ' ' + currency : $t('in') + ' ' + gatewayCurrency }` }}
-        </OButton>
+        >{{ `${$t('payWith')} bitcoin ${(amount / yadioRate).toFixed(8)} BTC -${premium}%` }}</OButton>
+        <OButton
+          v-for="paymentMethod in buyerPaymentMethods"
+          :key="paymentMethod.id"
+          variant="primary"
+          outlined
+          @click="setGateway('fiat', paymentMethod.id, buyerCurrency)"
+          native-type="submit"
+        >{{ `${$t('payWith')} ${paymentMethod.name} ${(amount / yadioRate * peachRate * ((premium / 100) + 1)).toFixed(decimal)} ${buyerCurrency}` }}</OButton>
       </OField>
-      <p class="help">{{ $t('surcharge', {
+      <!-- <p class="help">{{ $t('surcharge', {
         gateways: Object.keys(gateways).filter((g) => gateways[g] && g !== 'bitcoin' ).join(` ${$t('and')} `)
-      }) }}</p>
+      }) }}</p> -->
     </VForm>
   </div>
 </template>
