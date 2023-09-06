@@ -475,7 +475,9 @@ const createInvoice = async () => {
           />
         </OField>
       </VField>
-      <p class="help">{{ $t('getDiscount', { premium }) }}</p>
+
+      <p class="help">{{ $t('getDiscount', { premium: premium + 2 }) }}</p>
+
       <OField
         grouped 
         group-multiline
@@ -494,9 +496,10 @@ const createInvoice = async () => {
           outlined
           @click="setGateway('fiat', paymentMethod.id, buyerCurrency)"
           native-type="submit"
-        >{{ `${$t('payWith')} ${paymentMethod.name} ${(amount / yadioRate * peachRate * ((premium / 100) + 1)).toFixed(decimal)} ${buyerCurrency}` }}</OButton>
+        >{{ `${$t('payWith')} ${paymentMethod.name} ${(amount / yadioRate * peachRate * (((premium + 2)/ 100) + 1)).toFixed(decimal)} ${buyerCurrency}` }}</OButton>
         <div v-else>{{ $t('fiatNotAvailable') }}</div>
       </OField>
+
       <OField
         :label="$t('changeCurrency')"
       >

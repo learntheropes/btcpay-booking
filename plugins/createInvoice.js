@@ -54,7 +54,7 @@ export default defineNuxtPlugin(nuxtApp => {
           switch(gatewayName) {
             case 'fiat':
               expirationMinutes = 60 * 24 * 2;
-              monitoringMinutes = 60 * 24 * 7;
+              monitoringMinutes = 60 * 24 * 3;
               break;
             case 'crypto':
               expirationMinutes = 60;
