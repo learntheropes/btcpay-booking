@@ -175,12 +175,6 @@ export default defineNuxtConfig({
           height: 192,
           quality: 70
         }
-      },
-      modal: {
-        modifiers: {
-          format: 'webp',
-          quality: 70
-        }
       }
     }
   },
