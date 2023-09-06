@@ -60,8 +60,11 @@ const onChangeYear = (year) => {
 
 // Get the buyer currency based on the IP location
 const { data: countryData } = await useFetch('https://api.country.is/');
-const buyerCountry = countryData.value
+const buyerCountry = (countryData.value) ? countryData.value.country : null;
 const buyerCurrency = countryToCurrency[buyerCountry];
+
+// Define the decimal length based on the currency
+const decimal = $getDecimal(currency);
 
 // Get available fiat methods for the buyer currency
 const { data: paymentMethodsData } = await useFetch('https://corsproxy.io/?https://api.peachbitcoin.com/v1/info');
@@ -75,14 +78,15 @@ const buyerPaymentMethods = ref(peachPaymentMethods
     }
   }));
 
+
 // Get all the currencies available on peach
 const { data: peachAvailableCurrenciesData } = await useFetch('https://corsproxy.io/?https://api.peachbitcoin.com/v1/market/prices')
-const peachAvailableCurrencies = Object.keys(peachAvailableCurrenciesData.value || []).filter(currency => currency !== 'SATS').sort()
+const peachAvailableCurrencies = Object.keys(peachAvailableCurrenciesData.value || []).filter(currency => currency !== 'SAT' && currency !== 'USDT').sort()
 
 // Get Yadio and Peach exchange rates
 const { data: { value: { BTC: yadioRate }}} = await useFetch(`https://api.yadio.io/exrates/${currency}`);
 const { data: peachRateData } = await useFetch(`https://corsproxy.io/?https://api.peachbitcoin.com/v1/market/price/BTC${currency}`);
-const peachRate = peachRateData.value
+const peachRate = (peachRateData.value) ? peachRateData.value.price : null;
 // Get merchant fields settings
 const {
   fields: {
@@ -105,7 +109,9 @@ const initialForm = {
   buyerDetails: '',
   buyerService: service,
   buyerGateway: {},
-  BuyerFiatCurrency: buyerCurrency
+  BuyerFiatCurrency: buyerCurrency,
+  BuyerFiatRate: peachRate,
+  buyerFiatDecimal: decimal
 }
 const form = ref(initialForm);
 
@@ -179,6 +185,9 @@ watch(async () => form.value.BuyerFiatCurrency, async () => {
       name: $capitalize(kebabCase(method.id).replace('-', ' '))
     }
   });
+  const { data: peachRateData } = await useFetch(`https://corsproxy.io/?https://api.peachbitcoin.com/v1/market/price/BTC${form.value.BuyerFiatCurrency}`);
+  form.value.BuyerFiatRate = peachRateData.value.price;
+  form.value.buyerFiatDecimal = $getDecimal(form.value.BuyerFiatCurrency)
 });
 
 const amount = computed(() => {
@@ -207,9 +216,6 @@ const {
   gateways,
   premium
 } = await queryContent(`/settings`).findOne();
-
-// Define the decimal length based on the currency
-const decimal = $getDecimal(currency);
 
 // Set the choosen gateway at the same moment the form is submitted
 const setGateway = (gatewayType, gatewayMethod, gatewayCurrency) => {
@@ -496,30 +502,37 @@ const createInvoice = async () => {
           outlined
           @click="setGateway('fiat', paymentMethod.id, buyerCurrency)"
           native-type="submit"
-        >{{ `${$t('payWith')} ${paymentMethod.name} ${(amount / yadioRate * peachRate * (((premium + 2)/ 100) + 1)).toFixed(decimal)} ${buyerCurrency}` }}</OButton>
+        >{{ `${$t('payWith')} ${paymentMethod.name} ${(amount / yadioRate * form.BuyerFiatRate * (((premium + 2)/ 100) + 1)).toFixed(form.buyerFiatDecimal)} ${form.BuyerFiatCurrency}` }}</OButton>
         <div v-else>{{ $t('fiatNotAvailable') }}</div>
       </OField>
 
-      <OField
+      <VField
+        v-if="peachAvailableCurrencies.length"
+        name="changeCurrency"
         :label="$t('changeCurrency')"
+        v-slot="{ handleChange, handleBlur, value, errors }"
+        v-model="form.BuyerFiatCurrency"
       >
-        <OSelect
-          v-if="peachAvailableCurrencies.length"
+        <OField
           :label="$t('changeCurrency')"
-          :aria-label="$t('changeCurrency')"
-          :v-model="form.BuyerFiatCurrency"
-          expanded
         >
-          <option
-            v-for="currency of peachAvailableCurrencies"
-            :key="currency"
-            :value="currency"
-          >{{ currency }}</option>
-        </OSelect>
-      </OField>
-      <!-- <p class="help">{{ $t('surcharge', {
-        gateways: Object.keys(gateways).filter((g) => gateways[g] && g !== 'bitcoin' ).join(` ${$t('and')} `)
-      }) }}</p> -->
+          <OSelect
+            :label="$t('changeCurrency')"
+            :aria-label="$t('changeCurrency')"
+            :model-value="value"
+            @update:modelValue="handleChange"
+            @change="handleChange"
+            @blur="handleBlur"
+            expanded
+          >
+            <option
+              v-for="currency of peachAvailableCurrencies"
+              :key="currency"
+              :value="currency"
+            >{{ currency }}</option>
+          </OSelect>
+        </OField>
+      </VField>
     </VForm>
   </div>
 </template>
