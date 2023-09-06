@@ -197,6 +197,12 @@ export default defineNuxtConfig({
       }
     },
     storage: {
+      lang: {
+        driver: 'github',
+        repo: process.env.GITHUB_REPO,
+        branch: 'main',
+        dir: '/lang',
+      },
       content: {
         driver: 'github',
         repo: process.env.GITHUB_REPO,
