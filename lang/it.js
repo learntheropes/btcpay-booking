@@ -21,6 +21,7 @@ export default {
   bookEvent: 'Prenota',
   clearSelection: 'Rimuovi selezione',
   in: 'in',
+  getDiscount: 'Ottieni un {premium}% di sconto pagando in bitcoin',
   // components/invoice/invoiceProfile.vue
   invoice: 'Fattura',
   booking: 'Prenotazione',

@@ -1,5 +1,4 @@
 <script setup>
-import flatten from 'lodash.flatten'
 import countryToCurrency from 'country-to-currency';
 import kebabCase from 'lodash.kebabcase';
 
@@ -189,9 +188,9 @@ const {
 const decimal = $getDecimal(currency);
 
 // Set the choosen gateway at the same moment the form is submitted
-const setGateway = (gatewayName, gatewayMethod, gatewayCurrency) => {
+const setGateway = (gatewayType, gatewayMethod, gatewayCurrency) => {
   form.value.buyerGateway = {
-    gatewayName,
+    gatewayType,
     gatewayMethod,
     gatewayCurrency
   };
@@ -452,7 +451,7 @@ const createInvoice = async () => {
           />
         </OField>
       </VField>
-
+      <p class="help">{{ $t('getDiscount', { premium }) }}</p>
       <OField
         grouped 
         group-multiline
@@ -461,8 +460,10 @@ const createInvoice = async () => {
           variant="primary"
           @click="setGateway('bitcoin', 'bitcoin', 'BTC')"
           native-type="submit"
-        >{{ `${$t('payWith')} bitcoin ${(amount / yadioRate).toFixed(8)} BTC -${premium}%` }}</OButton>
+          icon-right="sale"
+        >{{ `${$t('payWith')} bitcoin ${(amount / yadioRate).toFixed(8)} BTC` }}</OButton>
         <OButton
+          v-if="gateways.fiat"
           v-for="paymentMethod in buyerPaymentMethods"
           :key="paymentMethod.id"
           variant="primary"

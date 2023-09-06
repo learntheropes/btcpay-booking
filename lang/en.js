@@ -21,6 +21,7 @@ export default {
   bookEvent: 'Book',
   clearSelection: 'Clear selection',
   in: 'in',
+  getDiscount: 'Get a {premium}% discount paying in bitcoin',
   // components/invoice/invoiceProfile.vue
   invoice: 'Invoice',
   booking: 'Booking',
