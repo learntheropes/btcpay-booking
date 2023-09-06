@@ -17,9 +17,9 @@ Under active development.
 - Multilingual: English, Spanish and Italian out of the box with the easy option to add additional translations.   
 
 ## Payment methods, fees, limit per payment, development status
-- Bitcoin: onchain and lightning network, no fee. Fully implemented.  
-- Crypto: all the currencies supported by [SideShift](https://sideshift.ai/eth/btc), unclear fee, probably between 0.5% and 1% paid by the buyer. Not implemented yet but planned.  
-- Fiat: All the currencies and local payment methods supported by [Peach Bitcoin](https://peachbitcoin.com) as listed [here](https://api.peachbitcoin.com/v1/info), the fee is set by the merchant and paid by the buyer. Realisticly, to find a match it should be between 2 and 5%, plus 2% Peach fee. Under current implementation.  
+- Bitcoin: onchain and lightning network, no fee. No limit. Fully implemented.  
+- Crypto: all the currencies supported by [SideShift](https://sideshift.ai/eth/btc), unclear fee, probably between 0.5% and 1% paid by the buyer. No limit. Not implemented yet but planned.  
+- Fiat: All the currencies and local payment methods supported by [Peach Bitcoin](https://peachbitcoin.com) as listed [here](https://api.peachbitcoin.com/v1/info), the fee is set by the merchant and paid by the buyer. realistically, to find a match it should be between 2 and 5%, plus 2% Peach fee. 1000 CHF (or equivalent in other currency) limit for each payment and 100.000 CHF yearly from the same buyer. Under current implementation.  
 
 ## Setup
 1. Clone the repo.  
