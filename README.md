@@ -1,7 +1,7 @@
 Booking system for any type of service that requires a calendar, from an online class to a room reservation.  
 For bitcoiners, KYC free, self custodial.  
 The client can pay in bitcoin, crypto and fiat and the merchant always receives bitcoin.  
-Without KYC requiremenets for the merchant and the client. Merchant personal information are never shared, not even to receive fiat payments like SEPA or Pix.  
+Without KYC requiremenets for the merchant and the client. Merchant and buyer personal information are never shared with the counterparty.  
 [Demo](https://booking.learntheropes.xyz)
 
 ## Status
@@ -19,13 +19,7 @@ Under active development.
 ## Payment methods, fees, limit per payment, development status
 - Bitcoin: onchain and lightning network, no fee. Fully implemented.  
 - Crypto: all the currencies supported by [SideShift](https://sideshift.ai/eth/btc), unclear fee, probably between 0.5% and 1% paid by the buyer. Not implemented yet but planned.  
-- Fiat: I will support only fiat methods not requiring KYC and with the merchant personal info not visible to buyers (proxy services):   
-  - SEPA (EU) in EUR and CHF, fee about 1.5% paid by the buyer. 1000 CHF/EUR limit. Fully implemented.  
-  - PIX (Brazil) in BRL. Fee unknown yet, paid by the buyer. 9000 BRL (1800 USD) limit. Planned with proxy under development.
-  - Cash and debit card (Canada) in CAD. Fee around 1%, paid by the buyer. No limit. Will be implemented as soon as bullbitcoin release the API (they are working on it).
-  - Vietnam Bank Transfer (Vietnam) in VND. 1% fee paid by the buyer. 5000000 VND (200 USD) limit. Under development.
-  - Credit/debit cards (worldwide) in multiple currencies. Evaluating available proxies. Uncertain implementation, limits will be low, like 100 USD.
-  - Apple Pay and Google Pay. Same as credit/debit cards.
+- Fiat: All the currencies and local payment methods supported by [Peach Bitcoin](https://peachbitcoin.com) as listed [here](https://api.peachbitcoin.com/v1/info), the fee is set by the merchant and paid by the buyer. Realisticly, to find a match it should be between 2 and 5%, plus 2% Peach fee. Under current implementation.  
 
 ## Setup
 1. Clone the repo.  
