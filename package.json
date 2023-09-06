@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "@bitcoinerlab/secp256k1": "^1.0.2",
+    "@nuxtjs/device": "^3.1.0",
     "@vee-validate/i18n": "^4.8.3",
     "@vee-validate/rules": "^4.8.4",
     "bip32": "^4.0.0",
@@ -41,7 +42,6 @@
     "lodash.sortby": "^4.7.0",
     "mitt": "^3.0.0",
     "nuxt-icons": "^3.2.1",
-    "nuxt-speedkit": "^2.2.3",
     "nuxt-umami": "^2.4.2",
     "pusher": "^5.1.2",
     "pusher-js": "^8.0.2",

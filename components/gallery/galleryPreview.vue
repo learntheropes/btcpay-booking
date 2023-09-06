@@ -8,6 +8,39 @@ const {
   }
 });
 
+const imageExtensions = [
+  "jpg",
+  "jpeg",
+  "png",
+  "gif",
+  "bmp",
+  "tiff",
+  "tif",
+  "webp",
+  "svg",
+  "ico",
+];
+
+const videoExtensions = [
+  "mp4",
+  "avi",
+  "mkv",
+  "mov",
+  "wmv",
+  "flv",
+  "webm",
+  "mpg",
+  "mpeg",
+  "rm",
+  "rmvb",
+  "3gp",
+  "ts",
+  "vob",
+  "m2ts",
+  "ogv",
+  "mts"
+];
+
 const { $event } = useNuxtApp();
 
 const openModal = (gallery, index) => {
@@ -29,9 +62,18 @@ const openModal = (gallery, index) => {
         class="image is-128x128 ltr-corner-rounded"
       >
         <NuxtImg
+          v-if="imageExtensions.includes(image.split('.')[1])"
           preset="preview"
-          :src="'/'+image"
+          :src="'/' + image"
           :alt="image"
+          height="128"
+          width="128"
+        />
+        <NuxtImg
+          v-if="videoExtensions.includes(image.split('.')[1])"
+          preset="preview"
+          :src="'/' + image.split('.')[0] + '.png'"
+          :alt="image"          
           height="128"
           width="128"
         />
@@ -50,9 +92,18 @@ const openModal = (gallery, index) => {
         class="image is-128x128 ltr-corner-rounded"
       >
         <NuxtImg
+          v-if="imageExtensions.includes(image.split('.')[1])"
           preset="preview"
-          :src="'/'+image"
+          :src="'/' + image"
           :alt="image"
+          height="128"
+          width="128"
+        />
+        <NuxtImg
+          v-if="videoExtensions.includes(image.split('.')[1])"
+          preset="preview"
+          :src="'/' + image.split('.')[0] + '.png'"
+          :alt="image"          
           height="128"
           width="128"
         />

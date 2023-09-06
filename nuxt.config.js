@@ -115,7 +115,7 @@ export default defineNuxtConfig({
     '@nuxtjs/i18n',
     '@nuxt/image',
     'nuxt-icons',
-    // 'nuxt-speedkit',
+    '@nuxtjs/device',
     'nuxt-delay-hydration'
   ],
 

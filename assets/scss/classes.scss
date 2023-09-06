@@ -11,6 +11,21 @@
   max-height: 85vh;
 }
 
+// Fit modal on the screen
+.ltr-fit-mobile {
+  max-height: 80vh !important;
+  width: 95% !important;
+  object-fit: contain !important;
+  margin: auto !important;
+}
+
+.ltr-fit-tablet {
+  height: 82vh !important;
+  max-width: 95% !important;
+  object-fit: contain !important;
+  margin: auto !important;
+}
+
 // Overlays
 .ltr-is-center-center {
   align-items: center;
