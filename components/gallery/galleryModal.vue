@@ -107,6 +107,7 @@
           />
         </video>
         <OIcon
+          v-if="isLoading"
           pack="mdi"
           icon="loading"
           size="large"

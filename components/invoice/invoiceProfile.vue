@@ -35,7 +35,7 @@ const {
     buyerLanguage,
     buyerService,
     buyerGateway: {
-      gatewayName,
+      gatewayType,
       gatewayMethod,
       gatewayCurrency
     }
@@ -107,7 +107,7 @@ const {
     </div>
     <div class=block>
       <div class="has-text-weight-semibold">{{ $t('buyerGateway') }}</div>
-      <div class="is-capitalized">{{ gatewayName }} - {{ gatewayMethod }} - {{ gatewayCurrency }}</div>
+      <div class="is-capitalized">{{ gatewayType }} - {{ gatewayMethod }} - {{ gatewayCurrency }}</div>
     </div>
     <div class=block>
       <div class="has-text-weight-semibold">{{ $t('buyerLanguage') }}</div>

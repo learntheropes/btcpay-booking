@@ -24,7 +24,7 @@
       buyerLanguage,
       buyerService,
       buyerGateway: {
-        gatewayName
+        gatewayType
       }
     }
   } = invoice;
@@ -63,7 +63,7 @@
         />
       </div>
       <div class="column is-narrow">
-        <section v-if="gatewayName === 'bitcoin'" class="section">
+        <section v-if="gatewayType === 'bitcoin'" class="section">
           <invoiceBitcoin
             :invoiceId="invoiceId"
             :invoice="invoice"
@@ -77,7 +77,7 @@
             class="is-hidden-tablet"
           />
         </section>
-        <section v-else-if="gatewayName === 'fiat'" class="section">
+        <section v-else-if="gatewayType === 'fiat'" class="section">
           <invoiceFiat
             :invoice="invoice"
             :status="status"

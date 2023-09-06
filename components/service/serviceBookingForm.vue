@@ -74,7 +74,7 @@ const buyerPaymentMethods = ref(peachPaymentMethods
   .map(method => {
     return {
       id: method.id,
-      name: $capitalize(kebabCase(method.id).replace('-', ' '))
+      name: $capitalize(kebabCase(method.id).replace('-', ' ')).replace('-', '%')
     }
   }));
 
@@ -109,8 +109,8 @@ const initialForm = {
   buyerDetails: '',
   buyerService: service,
   buyerGateway: {},
-  BuyerFiatCurrency: buyerCurrency,
-  BuyerFiatRate: peachRate,
+  buyerFiatCurrency: buyerCurrency,
+  buyerFiatRate: peachRate,
   buyerFiatDecimal: decimal
 }
 const form = ref(initialForm);
@@ -173,21 +173,21 @@ watch(async () => form.value.buyerDate, async () => {
 });
 
 // Update the listed payment methods if the buyer changes the currency
-watch(async () => form.value.BuyerFiatCurrency, async () => {
+watch(async () => form.value.buyerFiatCurrency, async () => {
 
   const { data: paymentMethodsData } = await useFetch('https://corsproxy.io/?https://api.peachbitcoin.com/v1/info');
   const peachPaymentMethods = (paymentMethodsData.value) ? paymentMethodsData.value.paymentMethods : [];
   buyerPaymentMethods.value = peachPaymentMethods
-  .filter(method => method.currencies.includes(form.value.BuyerFiatCurrency) && !method.anonymous)
+  .filter(method => method.currencies.includes(form.value.buyerFiatCurrency) && !method.anonymous)
   .map(method => {
     return {
       id: method.id,
-      name: $capitalize(kebabCase(method.id).replace('-', ' '))
+      name: $capitalize(kebabCase(method.id).replace('-', ' ')).split('-')[0]
     }
   });
-  const { data: peachRateData } = await useFetch(`https://corsproxy.io/?https://api.peachbitcoin.com/v1/market/price/BTC${form.value.BuyerFiatCurrency}`);
-  form.value.BuyerFiatRate = peachRateData.value.price;
-  form.value.buyerFiatDecimal = $getDecimal(form.value.BuyerFiatCurrency)
+  const { data: peachRateData } = await useFetch(`https://corsproxy.io/?https://api.peachbitcoin.com/v1/market/price/BTC${form.value.buyerFiatCurrency}`);
+  form.value.buyerFiatRate = peachRateData.value.price;
+  form.value.buyerFiatDecimal = $getDecimal(form.value.buyerFiatCurrency)
 });
 
 const amount = computed(() => {
@@ -493,6 +493,7 @@ const createInvoice = async () => {
           @click="setGateway('bitcoin', 'bitcoin', 'BTC')"
           native-type="submit"
           icon-right="sale"
+          expanded
         >{{ `${$t('payWith')} bitcoin ${(amount / yadioRate).toFixed(8)} BTC` }}</OButton>
         <OButton
           v-if="gateways.fiat && buyerPaymentMethods.length"
@@ -502,7 +503,8 @@ const createInvoice = async () => {
           outlined
           @click="setGateway('fiat', paymentMethod.id, buyerCurrency)"
           native-type="submit"
-        >{{ `${$t('payWith')} ${paymentMethod.name} ${(amount / yadioRate * form.BuyerFiatRate * (((premium + 2)/ 100) + 1)).toFixed(form.buyerFiatDecimal)} ${form.BuyerFiatCurrency}` }}</OButton>
+          expanded
+        >{{ `${$t('payWith')} ${paymentMethod.name} ${(amount / yadioRate * form.buyerFiatRate * (((premium + 2)/ 100) + 1)).toFixed(form.buyerFiatDecimal)} ${form.buyerFiatCurrency}` }}</OButton>
         <div v-else>{{ $t('fiatNotAvailable') }}</div>
       </OField>
 
@@ -510,8 +512,8 @@ const createInvoice = async () => {
         v-if="peachAvailableCurrencies.length"
         name="changeCurrency"
         :label="$t('changeCurrency')"
-        v-slot="{ handleChange, handleBlur, value, errors }"
-        v-model="form.BuyerFiatCurrency"
+        v-slot="{ handleChange, handleBlur, value }"
+        v-model="form.buyerFiatCurrency"
       >
         <OField
           :label="$t('changeCurrency')"
@@ -555,6 +557,9 @@ select {
 /* Make the fields message multiline to avoid form to expand */
 .help {
   white-space: pre-wrap;
+}
+.field.is-grouped > :not(:last-child) {
+  margin-right: 0px;
 }
 </style>
 

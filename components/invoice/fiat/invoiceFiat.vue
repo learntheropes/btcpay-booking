@@ -12,16 +12,11 @@
   // Get fiat gateway method
   const {
     metadata: {
-      buyerGateway: {
-        gatewayMethod
-      }
+      buyerGateway
     }
   } = invoice;
 </script>
 
 <template>
-  <InvoiceFiatSepa
-    v-if="gatewayMethod === 'SEPA'"
-    :invoice="invoice"
-  />
+  <pre>{{ buyerGateway }}</pre>
 </template>

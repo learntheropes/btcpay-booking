@@ -13,18 +13,23 @@ export default defineNuxtPlugin(nuxtApp => {
         buyerService,
         buyerGateway,
         buyerGateway: {
-          gatewayName
-        }
+          gatewayType,
+          gatewayMethod,
+          gatewayCurrency
+        },
+        buyerFiatCurrency,
+        buyerFiatRate,
+        buyerFiatDecimal
       }) => {
 
         // Get buyer locale
-        const { locale: { value: locale }} = nuxtApp.$i18n;
+        const { locale } = nuxtApp.$i18n;
 
         // Get the service specific settings from md file
         const  {
           currency,
           price,
-        } = await queryContent(`/services/${buyerService}`).locale(locale).findOne();
+        } = await queryContent(`/services/${buyerService}`).locale(locale.value).findOne();
 
 
         // Get merchant email requirement settings
@@ -36,12 +41,9 @@ export default defineNuxtPlugin(nuxtApp => {
 
         const getAmount = () => {
 
-          // Define the decimal length based on the currency
-          const decimal = nuxtApp.$getDecimal(currency);
-
           const time = buyerTime.length * price;
           const extras = (buyerExtras.length) ? buyerExtras.reduce((sum, extra) => sum + extra.price, 0) : 0;
-          return (time + extras).toFixed(decimal);
+          return (time + extras).toFixed(buyerFiatDecimal);
         };
 
         // Workaround to avoid posting a duplicate invoice with 0 value
@@ -51,7 +53,7 @@ export default defineNuxtPlugin(nuxtApp => {
           // Set expirationMinutes and monitoringMinutes based on the gateway
           // For bitcoin, leave the btcpay store settings.
           let expirationMinutes, monitoringMinutes
-          switch(gatewayName) {
+          switch(gatewayType) {
             case 'fiat':
               expirationMinutes = 60 * 24 * 2;
               monitoringMinutes = 60 * 24 * 3;
@@ -88,7 +90,7 @@ export default defineNuxtPlugin(nuxtApp => {
                 buyerFingerprint,
                 buyerPGP,
                 buyerDetails,
-                buyerLanguage: locale,
+                buyerLanguage: locale.value,
                 buyerService,
                 buyerGateway
               },
@@ -111,7 +113,7 @@ export default defineNuxtPlugin(nuxtApp => {
 
           // Navigate to the invoice page
           await navigateTo({
-            path: `/${locale}/invoice/${invoiceId}`
+            path: `/${locale.value}/invoice/${invoiceId}`
           });
         };
       }
