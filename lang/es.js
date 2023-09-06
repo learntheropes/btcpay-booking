@@ -22,6 +22,8 @@ export default {
   clearSelection: 'Quitar selección',
   in: 'en',
   getDiscount: 'Obtén un descuento {premium}% pagando en bitcoins',
+  fiatNotAvailable: 'Métodos de pago en monedas tradicionales no disponibles en este momento',
+  changeCurrency: 'Cambiar moneda',
   // components/invoice/invoiceProfile.vue
   invoice: 'Factura',
   booking: 'Reserva',

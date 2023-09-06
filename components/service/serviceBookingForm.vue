@@ -23,25 +23,6 @@ const  {
   extras
 } = await queryContent(`/services/${service}`).locale(locale.value).findOne();
 
-// Get the buyer currency based on the IP location
-const { data: { value: { country: buyerCountry }}} = await useFetch('https://api.country.is/');
-const buyerCurrency = countryToCurrency[buyerCountry];
-
-// Get available fiat methods for the buyer currency
-const { data: { value: { paymentMethods: peachPaymentMethods }}} = await useFetch('https://corsproxy.io/?https://api.peachbitcoin.com/v1/info');
-const buyerPaymentMethods = peachPaymentMethods
-  .filter(method => method.currencies.includes(buyerCurrency) && !method.anonymous)
-  .map(method => {
-    return {
-      id: method.id,
-      name: kebabCase(method.id).replace('-', ' ')
-    }
-  });
-
-// Get Yadio and Peach exchange rates
-const { data: { value: { BTC: yadioRate }}} = await useFetch(`https://api.yadio.io/exrates/${currency}`);
-const { data: { value: { price: peachRate }}} = await useFetch(`https://corsproxy.io/?https://api.peachbitcoin.com/v1/market/price/BTC${currency}`);
-
 // Get needed functions from plugins
 const {
   // Ugly functions to disable instead of hide the datepicker navigation
@@ -58,7 +39,9 @@ const {
   // getDecimal function from currency
   $getDecimal,
   // Function to listen event
-  $listen
+  $listen,
+  // Function to capitalize strings
+  $capitalize
 } = useNuxtApp();
 
 // Dirty hack to show and disable previous icon in datepicker
@@ -75,6 +58,31 @@ const onChangeYear = (year) => {
   $updateDatapickerNavigation('booking', datepickerCurrentMonth, datepickerCurrentYear)
 };
 
+// Get the buyer currency based on the IP location
+const { data: countryData } = await useFetch('https://api.country.is/');
+const buyerCountry = countryData.value
+const buyerCurrency = countryToCurrency[buyerCountry];
+
+// Get available fiat methods for the buyer currency
+const { data: paymentMethodsData } = await useFetch('https://corsproxy.io/?https://api.peachbitcoin.com/v1/info');
+const peachPaymentMethods = (paymentMethodsData.value) ? paymentMethodsData.value.paymentMethods : [];
+const buyerPaymentMethods = ref(peachPaymentMethods
+  .filter(method => method.currencies.includes(buyerCurrency) && !method.anonymous)
+  .map(method => {
+    return {
+      id: method.id,
+      name: $capitalize(kebabCase(method.id).replace('-', ' '))
+    }
+  }));
+
+// Get all the currencies available on peach
+const { data: peachAvailableCurrenciesData } = await useFetch('https://corsproxy.io/?https://api.peachbitcoin.com/v1/market/prices')
+const peachAvailableCurrencies = Object.keys(peachAvailableCurrenciesData.value || []).filter(currency => currency !== 'SATS').sort()
+
+// Get Yadio and Peach exchange rates
+const { data: { value: { BTC: yadioRate }}} = await useFetch(`https://api.yadio.io/exrates/${currency}`);
+const { data: peachRateData } = await useFetch(`https://corsproxy.io/?https://api.peachbitcoin.com/v1/market/price/BTC${currency}`);
+const peachRate = peachRateData.value
 // Get merchant fields settings
 const {
   fields: {
@@ -96,7 +104,8 @@ const initialForm = {
   buyerPGP: '',
   buyerDetails: '',
   buyerService: service,
-  buyerGateway: {}
+  buyerGateway: {},
+  BuyerFiatCurrency: buyerCurrency
 }
 const form = ref(initialForm);
 
@@ -155,6 +164,21 @@ watch(async () => form.value.buyerDate, async () => {
     service,
     duration
   })
+});
+
+// Update the listed payment methods if the buyer changes the currency
+watch(async () => form.value.BuyerFiatCurrency, async () => {
+
+  const { data: paymentMethodsData } = await useFetch('https://corsproxy.io/?https://api.peachbitcoin.com/v1/info');
+  const peachPaymentMethods = (paymentMethodsData.value) ? paymentMethodsData.value.paymentMethods : [];
+  buyerPaymentMethods.value = peachPaymentMethods
+  .filter(method => method.currencies.includes(form.value.BuyerFiatCurrency) && !method.anonymous)
+  .map(method => {
+    return {
+      id: method.id,
+      name: $capitalize(kebabCase(method.id).replace('-', ' '))
+    }
+  });
 });
 
 const amount = computed(() => {
@@ -463,7 +487,7 @@ const createInvoice = async () => {
           icon-right="sale"
         >{{ `${$t('payWith')} bitcoin ${(amount / yadioRate).toFixed(8)} BTC` }}</OButton>
         <OButton
-          v-if="gateways.fiat"
+          v-if="gateways.fiat && buyerPaymentMethods.length"
           v-for="paymentMethod in buyerPaymentMethods"
           :key="paymentMethod.id"
           variant="primary"
@@ -471,6 +495,24 @@ const createInvoice = async () => {
           @click="setGateway('fiat', paymentMethod.id, buyerCurrency)"
           native-type="submit"
         >{{ `${$t('payWith')} ${paymentMethod.name} ${(amount / yadioRate * peachRate * ((premium / 100) + 1)).toFixed(decimal)} ${buyerCurrency}` }}</OButton>
+        <div v-else>{{ $t('fiatNotAvailable') }}</div>
+      </OField>
+      <OField
+        :label="$t('changeCurrency')"
+      >
+        <OSelect
+          v-if="peachAvailableCurrencies.length"
+          :label="$t('changeCurrency')"
+          :aria-label="$t('changeCurrency')"
+          :v-model="form.BuyerFiatCurrency"
+          expanded
+        >
+          <option
+            v-for="currency of peachAvailableCurrencies"
+            :key="currency"
+            :value="currency"
+          >{{ currency }}</option>
+        </OSelect>
       </OField>
       <!-- <p class="help">{{ $t('surcharge', {
         gateways: Object.keys(gateways).filter((g) => gateways[g] && g !== 'bitcoin' ).join(` ${$t('and')} `)
