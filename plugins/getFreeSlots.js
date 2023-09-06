@@ -67,9 +67,8 @@ export default defineNuxtPlugin((nuxtApp) => {
         };
 
         // Get the paid invoice to extract the busy slots.
-        const invoices = await $fetch('/api/invoices', {
-          method: 'GET'
-        });
+        const { data} = await useFetch('/api/invoices');
+        const invoices = data.value;
 
         // Filter the invoice that have been paid
         const paidInvoices = invoices.filter(({ status }) => status === 'Settled');

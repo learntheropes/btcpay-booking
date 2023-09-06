@@ -68,7 +68,7 @@ export default defineNuxtPlugin(nuxtApp => {
           
           // Create the invoice on btcpay Greenfield api
           // And get the invoiceId page
-          const { id: invoiceId } = await $fetch('/api/invoices', {
+          const { data } = await useFetch('/api/invoices', {
             method: 'POST',
             // Create the request body for btcpay
             body: {
@@ -100,11 +100,12 @@ export default defineNuxtPlugin(nuxtApp => {
               }
             }
           });
+          const invoiceId = data.value.id
 
           // Create the webhhok for notification about the invoice
           // The id and url are added serverside depending by the enviroment
           // The secret is also added serverside for security
-          await $fetch('/api/webhooks', {
+          await useFetch('/api/webhooks', {
             method: 'POST'
           });
 

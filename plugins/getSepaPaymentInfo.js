@@ -29,7 +29,7 @@ Your crypto address: ${crypto_address}
 Your crypto address type: BTC
 `
         // Sign the message with bitcoin-js-lib
-        const { signature } = await $fetch('/api/sign-message', {
+        const { data: signatureData } = await useFetch('/api/sign-message', {
           method: 'POST',
           body: {
             message_to_sign,
@@ -39,9 +39,10 @@ Your crypto address type: BTC
             addressIndex: addressIndex - 1 
           }
         });
+        const signature = signatureData.value;
 
         // Confir ownership on bity by providing the signed meesage signature
-        await $fetch(`https://exchange.api.bity.com/v2/orders/${order_uuid}/signature`, {
+        await useFetch(`https://exchange.api.bity.com/v2/orders/${order_uuid}/signature`, {
           method: 'POST',
           body: signature, 
           headers: {
@@ -51,12 +52,13 @@ Your crypto address type: BTC
         });
 
         // Get the payment details
-        const details = await $fetch(`https://exchange.api.bity.com/v2/orders/${order_uuid}`, {
+        const { data: detailsData } = await useFetch(`https://exchange.api.bity.com/v2/orders/${order_uuid}`, {
           credentials: 'include'
         });
+        const details = detailsData.value
 
         // Store the bity payment details in the btcpay invoice metadata
-        await $fetch(`/api/invoices/${invoiceId}`, {
+        await useFetch(`/api/invoices/${invoiceId}`, {
           method: 'PUT',
           body: {
             metadata: {

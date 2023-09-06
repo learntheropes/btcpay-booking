@@ -2,6 +2,7 @@
   const { locale, locales } = useI18n();
   const switchLocalePath = useSwitchLocalePath();
   const availableLocales = computed(() => (locales.value).filter(i => i.code !== locale.value));
+  // const { $commitBlockHeight } = useNuxtApp();
 </script>
 
 <template>
@@ -19,6 +20,9 @@
             />
           </div>
         </div>
+        <!-- <div class="level-center">
+          <div class="level-item">{{ $t('lastBuiltAt') }} {{ $commitBlockHeight }}</div>
+        </div> -->
         <div class="level-right">
           <div class="level-item">
             <div class="buttons">
@@ -37,3 +41,16 @@
     </div>
   </footer>
 </template>
+
+<!-- <style>
+.level-center {
+  align-items: center;
+  justify-content: center;
+}
+@media screen and (max-width: 768px) {
+  .level-center {
+    padding-top: 2rem;
+    padding-bottom: 1.5rem;
+  }
+}
+</style> -->

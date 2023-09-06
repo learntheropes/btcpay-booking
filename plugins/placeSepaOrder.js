@@ -22,21 +22,23 @@ export default defineNuxtPlugin(nuxtApp => {
         }
       ) => {
         // Get the amount of the invoice in btc from btcpay and the destination bitcoin address
+        const { data: paymentMethodsData } = await useFetch(`/api/invoices/${invoiceId}/payment-methods`);
         const [{
           amount: btcAmount,
           destination: crypto_address
-        }] = await $fetch(`/api/invoices/${invoiceId}/payment-methods`);
+        }] = paymentMethodsData.value
 
         // Get next available account and address indexes
+        const { data: dataAddress } = await useFetch('/api/address');
         const {
           purpose,
           coinType,
           accountIndex,
           addressIndex
-        } = await $fetch('/api/address');
+        } = dataAddress.value
 
         // Release the just fetched next available address
-        await await $fetch('/api/address', {
+        await await useFetch('/api/address', {
           method: 'DELETE'
         });
 

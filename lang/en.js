@@ -76,6 +76,8 @@ export default {
   reference: 'Reference',
   recipient: 'Recipient',
   recipientAddress: 'Recipient address',
+  // component/layoutFooter.vue
+  lastBuiltAt: 'Last built at block',
   copied: 'Copied',
   // error.vue
   pageNotFound: 'This page could not be found',

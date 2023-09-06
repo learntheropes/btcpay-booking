@@ -19,10 +19,8 @@ const checkPGPKey = async (nuxtApp, value, [target], _ctx) => {
 
   try {
     // Try to retrive the pub key from openpgp xerver
-    const file = await $fetch(`https://keys.openpgp.org/vks/v1/by-fingerprint/${fingerprint}`, {
-      method: 'GET',
-    })
-    const publicKey = await file.text()
+    const { data: file } = await useFetch(`https://keys.openpgp.org/vks/v1/by-fingerprint/${fingerprint}`);
+    const publicKey = await file.value.text();
 
     // Return the error message informing the user that the email is not associated with the fingerprint
     if (!publicKey.includes(target)) {

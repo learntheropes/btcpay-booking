@@ -77,6 +77,8 @@ export default {
   recipient: 'Destino',
   recipientAddress: 'Dirección de destino',
   copied: 'Copiado',
+  // component/layoutFooter.vue
+  lastBuiltAt: 'Último commit en bloque',
   // error.vue
   pageNotFound: 'Esta página no se pudo encontrar',
   unauthorized: 'No autorizado',

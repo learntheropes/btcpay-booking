@@ -25,9 +25,8 @@ const {
 } = useNuxtApp();
 
 // Get invoice  payment methods from BTCPay Greenfield API
-const paymentMethods = await $fetch(`/api/invoices/${invoiceId}/payment-methods`, {
-  method: 'GET'
-});
+const { data } = await useFetch(`/api/invoices/${invoiceId}/payment-methods`);
+const paymentMethods = data.value
 
 // Receive updated with pusher from Greenfield webooks about the status of the invoice
 let status = ref(invoice.status);

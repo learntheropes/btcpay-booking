@@ -22,7 +22,7 @@ export default defineNuxtPlugin(nuxtApp => {
         // Create the message to sign
         const message_to_sign = `Peach Registration ${new Date()}`
         // Sign the message with bitcoin-js-lib
-        const { signature } = await $fetch('/api/sign-message', {
+        const { data: signatureData } = await useFetch('/api/sign-message', {
           method: 'POST',
           body: {
             message_to_sign,
@@ -32,9 +32,10 @@ export default defineNuxtPlugin(nuxtApp => {
             addressIndex: addressIndex - 1 
           }
         });
+        const signature = signatureData.value.signature
 
         // Register the user with Peach
-        const details = await $fetch(`https://api.peachbitcoin.com/v1/user/register/`, {
+        const { data: detailsData } = await useFetch(`https://api.peachbitcoin.com/v1/user/register/`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -45,9 +46,10 @@ export default defineNuxtPlugin(nuxtApp => {
             signature
           }
         });
+        const details = detailsData.value;
 
         // Store the bity payment details in the btcpay invoice metadata
-        await $fetch(`/api/invoices/${invoiceId}`, {
+        await useFetch(`/api/invoices/${invoiceId}`, {
           method: 'PUT',
           body: {
             metadata: {

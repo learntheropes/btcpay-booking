@@ -15,9 +15,8 @@ const {
 });
 
 // Get updated invoice  payment methods from BTCPay Greenfield API
-const paymentMethods = await $fetch(`/api/invoices/${invoiceId}/payment-methods`, {
-  method: 'GET'
-});
+const { data } = await useFetch(`/api/invoices/${invoiceId}/payment-methods`);
+const paymentMethods = data.value
 
 // Set the inital values of responsive variables
 const isDetailsOpen = ref(true);

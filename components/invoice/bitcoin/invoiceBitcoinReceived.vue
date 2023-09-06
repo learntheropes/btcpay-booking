@@ -15,9 +15,8 @@ const {
 });
 
 // Get updated  payment methods from BTCPay Greenfield API to get the payments timestamp
-const paymentMethods = await $fetch(`/api/invoices/${invoiceId}/payment-methods`, {
-  method: 'GET'
-});
+const { data } = await useFetch(`/api/invoices/${invoiceId}/payment-methods`);
+const paymentMethods = data.value;
 
 const { payments } = paymentMethods;
 

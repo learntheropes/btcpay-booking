@@ -15,7 +15,8 @@
   } = await queryContent(`/profile`).locale(locale.value).findOne();
 
   // Get invoice from BTCPay Greenfield API
-  const invoice = await $fetch(`/api/invoices/${invoiceId}`);
+  const { data } = await useFetch(`/api/invoices/${invoiceId}`);
+  const invoice = data.value;
 
   const {
     status,
