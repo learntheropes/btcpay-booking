@@ -107,8 +107,20 @@ const openModal = (gallery, index) => {
           height="128"
           width="128"
         />
+        <div v-if="videoExtensions.includes(image.split('.')[1])" @click.native="openModal(gallery, index)" class="is-overlay is-center-center">
+          <OIcon icon="play" size="large" variant="info" />
+        </div>
       </figure>  
     </div>
   </div>
 </div>
 </template>
+
+<style scoped>
+.is-center-center {
+  min-height: 100px;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+</style>

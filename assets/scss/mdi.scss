@@ -22,6 +22,10 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.mdi-play::before {
+  content: "\F040A";
+}
+
 .mdi-close::before {
   content: "\F0156";
 }
