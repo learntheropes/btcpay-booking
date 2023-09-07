@@ -170,5 +170,7 @@
 .ltr-has-no-padding {
   padding-top: 0rem;
   padding-bottom: 0.5rem;
+  padding-left: 0rem;
+  padding-right: 0rem;
 }
 </style>
