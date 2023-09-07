@@ -1,6 +1,10 @@
 <script setup>
   // Get the service parameter
-  const { params: { service }} = useRoute();
+  const { 
+    params: { 
+      service 
+    }
+  } = useRoute();
 
   // Get the buyer leanguage
   const { locale } = useI18n();
@@ -91,10 +95,10 @@
       <nav class="breadcrumb">
       <ul>
         <li>
-          <NuxtLink to="/">{{ profile }}</NuxtLink>
+          <NuxtLink :to="localePath('/')">{{ profile }}</NuxtLink>
         </li>
         <li class="is-active">
-          <NuxtLink :to="'/'+service">{{ title }}</NuxtLink>
+          <NuxtLink :to="localePath(`/${service}`)">{{ title }}</NuxtLink>
         </li>
       </ul>
     </nav>

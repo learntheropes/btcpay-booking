@@ -1,4 +1,11 @@
 <script setup>
+  // Get the buyer leanguage
+  const { locale } = useI18n();
+
+  // Get the profile name for the breadcrumb
+  const {
+    title: profile,
+  } = await queryContent(`/profile`).locale(locale.value).findOne();
 </script>
 
 <template>
@@ -6,10 +13,12 @@
     <section class="section is-medium">
       <nav class="breadcrumb">
         <ul>
-          <li>&nbsp;</li>
+        <li>
+          <NuxtLink :to="localePath('/')">{{ profile }}</NuxtLink>
+        </li>
         </ul>
       </nav>
     </section>
-    <div>{{ $t('underConstruction') }}</div>
+    <div class="has-text-centered">{{ $t('underConstruction') }}</div>
   </NuxtLayout>
 </template>

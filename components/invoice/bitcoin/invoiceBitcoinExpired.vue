@@ -132,10 +132,10 @@ const refreshInvoice = async (metadata) => {
       <div>{{ $t('invoiceValidity', { minutes: invoice.checkout.expirationMinutes }) }}.</div>
     </div>
     <footer class="card-footer">
-      <NuxtLink
+      <div
         @click.native=refreshInvoice(invoice.metadata)
         class="card-footer-item"
-      >{{ $t('payWithBitcoin') }}</NuxtLink>
+      >{{ $t('payWithBitcoin') }}</div>
     </footer>
   </div>
 </template>

@@ -116,10 +116,10 @@ const {
       >{{ parseFloat(payment.value).toFixed(8) }} {{ paymentMethods[selectedMethodIndex].cryptoCode }} {{ $t('invoiceReceived') }} {{ $dayjs(payment.receivedDate * 1000).fromNow() }}</div>
     </div>
     <footer class="card-footer">
-      <NuxtLink
+      <div
         @click.native="$printReceipt"
         class="card-footer-item"
-      >{{ $t('printReceipt') }}</NuxtLink>
+      >{{ $t('printReceipt') }}</div>
     </footer>
   </div>
 </template>

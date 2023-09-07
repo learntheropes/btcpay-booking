@@ -45,10 +45,10 @@
       <nav class="breadcrumb">
       <ul>
         <li>
-          <NuxtLink to="/">{{ profile }}</NuxtLink>
+          <NuxtLink :to="localePath('/')">{{ profile }}</NuxtLink>
         </li>
         <li>
-          <NuxtLink :to="'/' + locale + '/' + buyerService">{{ buyerServiceTitle }}</NuxtLink>
+          <NuxtLink :to="localePath(`/${buyerService}`)">{{ buyerServiceTitle }}</NuxtLink>
         </li>
         <li class="is-active">
           <NuxtLink>{{ `${t('invoice')} ${invoiceId}` }}</NuxtLink>

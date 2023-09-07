@@ -11,8 +11,10 @@
       </Head>
       <Body>
         <div class="full-body">
-          <main class="main-content container">
-            <slot />
+          <main class="main-content">
+            <div class="container">
+              <slot />
+            </div>
           </main>
           <LayoutFooter />
         </div>
