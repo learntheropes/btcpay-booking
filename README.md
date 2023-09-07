@@ -12,6 +12,7 @@ Under active development.
 - Fiat integration with Peach Bitcoin api. Under current development.
 - [ ] Crypto integration with SideShift api. Planned.
 - [ ] Merchant control panel. Planned
+- [ ] Calendar integration. Planned, with google calendar or better with a privacy focused calendar app that provides api.
 
 ## Features
 - Self custodial solution with btcpay server integration.  
