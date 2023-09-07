@@ -168,6 +168,7 @@
   color: black;
 }
 .ltr-has-no-padding {
-  padding: 0rem;
+  padding-top: 0rem;
+  padding-bottom: 0.5rem;
 }
 </style>
