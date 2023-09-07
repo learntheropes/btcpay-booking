@@ -21,9 +21,9 @@ export default {
   bookEvent: 'Prenota',
   clearSelection: 'Rimuovi selezione',
   in: 'in',
-  getDiscount: 'Ottieni un {premium}% di sconto pagando in bitcoin',
-  approximatePrice: 'Il prezzo in valuta tradizionale è approssimato. Il prezzo finale è stabilito al checkout',
-  fiatNotAvailable: 'Metodi di pagamento in valute tradizionali non disponibili al momento',
+  getDiscount: 'Ottieni un {premium}% di sconto pagando in bitcoin.',
+  approximatePrice: 'Il prezzo in valuta tradizionale è approssimato. Il prezzo finale è stabilito al checkout.',
+  fiatNotAvailable: 'Metodi di pagamento in valute tradizionali non disponibili al momento.',
   changeCurrency: 'Cambia valuta',
   // components/invoice/invoiceProfile.vue
   invoice: 'Fattura',
