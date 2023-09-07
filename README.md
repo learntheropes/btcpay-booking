@@ -10,8 +10,8 @@ Under active development.
 - [x] Btcpay server api integration.
 - [x] Bitcoin checkout. On-chain and Lighning Network.
 - [/] Fiat integration with Peach Bitcoin api. Under current development.
-- [] Crypto integration with SideShift api. Planned.
-- [] Merchant control panel. Planned
+- [ ] Crypto integration with SideShift api. Planned.
+- [ ] Merchant control panel. Planned
 
 ## Features
 - Self custodial solution with btcpay server integration.  
