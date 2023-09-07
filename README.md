@@ -19,8 +19,9 @@ Under active development.
 - Optionally supports shitcoins (altcoins and fiat) with the merchant always receiving bitcoins.  
 - Unlimited services and unlimited extras for each service.  
 - Supports any service duration, from 1 minutes to multiple days.  
+- Multilingual: English, Spanish and Italian out of the box with the easy option to add additional translations.  
 - Static generate pages without cookies.   
-- Multilingual: English, Spanish and Italian out of the box with the easy option to add additional translations. 
+- Technical SEO opimized and 98/100 Google Lighhouse performance score.
 
 ## Target
 - Bitcoin enthusiasts: you believe in Bitcoin sound money but at the same time you know that Bitcoin is not widely used as you wish. This tool allows you to reach the traditional market without touching shitcoins.  
