@@ -28,10 +28,10 @@ Under active development.
 - Unbanked and sanctioned: you are unbanked, or you live in a country that has not easy access to popular payment processors like Stripe, because your country is unsupported or even sanctioned.  
 - Emerging markets: you want to expand your virtual service business to emerging markets like LATAM and Africa and you lack of a reliable payment gateway.
 
-## Payment methods, fees, limit per payment, development status
-- Bitcoin: onchain and lightning network, no fee. No limit. Fully implemented.  
-- Crypto: all the currencies supported by [SideShift](https://sideshift.ai/eth/btc), unclear fee, probably between 0.5% and 1% paid by the buyer. No limit. Not implemented yet but planned.  
-- Fiat: All the currencies and local payment methods supported by [Peach Bitcoin](https://peachbitcoin.com) as listed [here](https://api.peachbitcoin.com/v1/info), the fee is set by the merchant and paid by the buyer. realistically, to find a match it should be between 2 and 5%, plus 2% Peach fee. 1000 CHF (or equivalent in other currency) limit for each payment and 100.000 CHF yearly from the same buyer. Under current implementation.  
+## Payment methods, fees, limit per payment.
+- Bitcoin: onchain and lightning network, no fee. No amount limit.  
+- Crypto: all the currencies supported by [SideShift](https://sideshift.ai), unclear fee, probably between 0.5% and 1% paid by the buyer. No amount limit.  
+- Fiat: All the currencies and local payment methods supported by [Peach Bitcoin](https://peachbitcoin.com) as listed [here](https://api.peachbitcoin.com/v1/info), the fee is set by the merchant and paid by the buyer. realistically, to find a match it should be between 2 and 5%, plus 2% Peach fee. 1000 CHF (or equivalent in other currency) amount limit for each payment.  
 
 ## Setup
 1. Clone the repo.  
