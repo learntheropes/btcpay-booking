@@ -20,7 +20,13 @@ Under active development.
 - Unlimited services and unlimited extras for each service.  
 - Supports any service duration, from 1 minutes to multiple days.  
 - Static generate pages without cookies.   
-- Multilingual: English, Spanish and Italian out of the box with the easy option to add additional translations.   
+- Multilingual: English, Spanish and Italian out of the box with the easy option to add additional translations. 
+
+## Target
+- Bitcoin enthusiasts: you believe in Bitcoin sound money but at the same time you know that Bitcoin is not widely used as you wish. This tool allows you to reach the traditional market without touching shitcoins.  
+- High risk businesses: you are involved in legal high risk business such as adult or cannabis consultancy and you can't find a traditional payment gateway supporting your business.  
+- Unbanked and sanctioned: you are unbanked, or you live in a country that has not easy access to popular payment processors like Stripe, because your country is unsupported or even sanctioned.  
+- Emerging markets: you want to expand your virtual service business to emerging markets like LATAM and Africa and you lack of a reliable payment gateway.
 
 ## Payment methods, fees, limit per payment, development status
 - Bitcoin: onchain and lightning network, no fee. No limit. Fully implemented.  
