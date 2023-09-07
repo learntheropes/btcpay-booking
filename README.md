@@ -50,8 +50,8 @@ If you don't have a btcpay instance, feel free to [email](mailto:giovanni@learnt
 
 ## Contribution
 The most valuable contributions at the moment are:
-  - Open an issue to suggest available services for fiat payment methods: I need external services providing API and not requiring KYC. The service should be able to receive a local payment method in any country and send the purchased bitcoins to an onchain address or LN invoice provided by us programmatically. The more remote countries we cover, the better it is.
-  - Feedbacks and bugs report: what would you like to see implemeneted. Feel free to open an issue.  
+  - Bug report: test the software and report bugs using github issues.
+  - Feedbacks: let me know what would you would like to see implemeneted using github issue.   
 Commits to the code are appreciated. Please [sign](https://docs.github.com/en/authentication/managing-commit-signature-verification/signing-commits) your commit.
 
 [![DigitalOcean Referral Badge](https://web-platforms.sfo2.digitaloceanspaces.com/WWW/Badge%202.svg)](https://www.digitalocean.com/?refcode=1930033771d7&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge)
