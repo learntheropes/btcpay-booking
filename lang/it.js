@@ -80,9 +80,11 @@ export default {
   reference: 'Causale',
   recipient: 'Destinatario',
   recipientAddress: 'Indirizzo del destinatario',
-  copied: 'Copiato',
     // component/layoutFooter.vue
   lastBuiltAt: 'Último commit al blocco',
+  merchantDashboard: 'Dashboard del commerciante',
+  // pages/dashboard/index.vue
+  underConstruction: 'In costruzione',
   // errorv.ue
   pageNotFound: 'Pagina non trovata',
   unauthorized: 'Non autorizzato',

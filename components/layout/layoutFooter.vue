@@ -23,6 +23,9 @@
         <!-- <div class="level-center">
           <div class="level-item">{{ $t('lastBuiltAt') }} {{ $commitBlockHeight }}</div>
         </div> -->
+        <div class="level-center">
+          <NuxtLink :to="localePath('/dashboard')" class="level-item has-text-centered">{{ $t('merchantDashboard') }}</NuxtLink>
+        </div>
         <div class="level-right">
           <div class="level-item">
             <div class="buttons">
@@ -42,10 +45,10 @@
   </footer>
 </template>
 
-<!-- <style>
-.level-center {
-  align-items: center;
-  justify-content: center;
+<style>
+.footer {
+  padding-left: 0rem;
+  padding-right: 0rem;
 }
 @media screen and (max-width: 768px) {
   .level-center {
@@ -53,4 +56,4 @@
     padding-bottom: 1.5rem;
   }
 }
-</style> -->
+</style>

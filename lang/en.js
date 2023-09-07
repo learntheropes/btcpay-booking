@@ -82,7 +82,9 @@ export default {
   recipientAddress: 'Recipient address',
   // component/layoutFooter.vue
   lastBuiltAt: 'Last built at block',
-  copied: 'Copied',
+  merchantDashboard: 'Merchant dashboard',
+  // pages/dashboard/index.vue
+  underConstruction: 'Under construction',
   // error.vue
   pageNotFound: 'This page could not be found',
   unauthorized: 'Unauthorized',

@@ -80,9 +80,11 @@ export default {
   reference: 'Referencia',
   recipient: 'Destino',
   recipientAddress: 'Dirección de destino',
-  copied: 'Copiado',
   // component/layoutFooter.vue
   lastBuiltAt: 'Último commit en bloque',
+  merchantDashboard: 'Panel de control del comerciante',
+  // pages/dashboard/index.vue
+  underConstruction: 'En construcción',
   // error.vue
   pageNotFound: 'Esta página no se pudo encontrar',
   unauthorized: 'No autorizado',
