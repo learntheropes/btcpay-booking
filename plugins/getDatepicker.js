@@ -3,7 +3,7 @@ import { defineNuxtPlugin } from '#app';
 export default defineNuxtPlugin((nuxtApp) => {
   return {
     provide: {
-      getDatepicker: async () => {
+      getDatepicker: async (disabled = false) => {
 
         // Min date to now
         const minDate = new Date();
@@ -21,11 +21,11 @@ export default defineNuxtPlugin((nuxtApp) => {
         const { availability } = await queryContent(`/settings`).findOne()
 
         // Disable unavailable days of the week
-        const unselectableDaysOfWeek = availability.reduce((arr, day, index) => {
+        const unselectableDaysOfWeek = (!disabled) ? availability.reduce((arr, day, index) => {
           
           if (!day) arr.push(index);
           return arr;
-        }, []);
+        }, []) : [0,1,2,3,4,5,6];
       
         // Return the calendar settings object
         return {

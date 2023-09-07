@@ -5,10 +5,14 @@ import kebabCase from 'lodash.kebabcase';
 // Get props from [service].vue page
 const {
   service,
+  disabled
 } = defineProps({
   service: {
     type: String,
     required: true
+  },
+  disabled: {
+    type: Boolean,
   }
 });
 
@@ -163,7 +167,7 @@ const {
   unselectableDaysOfWeek,
   minDate,
   modelValue
-} = await $getDatepicker();
+} = await $getDatepicker(disabled);
 
 // Watch the change on buyer date
 // Clear buyer time and update free slots

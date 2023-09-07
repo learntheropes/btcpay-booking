@@ -17,6 +17,7 @@
   // Get the service specific settings from md file
   const  {
     title,
+    disabled,
     description,
     image,
     extras,
@@ -118,6 +119,7 @@
         <section class="section">
           <ServiceBookingForm
             :service="service"
+            :disabled="disabled"
             id="side"
           />
         </section>
