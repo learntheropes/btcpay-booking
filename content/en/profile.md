@@ -19,6 +19,8 @@ twitter: learntheropes_
 nostr: giovanni@learntheropes.xyz
 # Instagram username.
 instagram: null
+# Facebook username.
+facebook: null
 # Websites and/or blogs, including the protocol (https://)
 # Note this is an Array of Object
 # You can provide as many websites as you wish or none

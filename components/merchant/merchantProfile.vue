@@ -93,6 +93,15 @@
                   textTarget="_blank"
                 />
               </div>
+              <div v-if="facebook" class="column is-narrow">
+                <IconWithText
+                  icon="facebook"
+                  :text="facebook"
+                  textVariant="primary"
+                  :textTo="'https://www.facebook.com/'+facebook"
+                  textTarget="_blank"
+                />
+              </div>
               <div
                 v-if="websites && websites.length"
                 v-for="{ title, url }, index in websites" 
