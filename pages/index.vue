@@ -9,7 +9,10 @@
     image,
     twitter,
     nostr,
+    telegram,
     instagram,
+    facebook,
+    tiktok,
     websites,
     body
   } = await queryContent(`/profile`).locale(locale.value).findOne();
@@ -75,7 +78,10 @@
           :image="image"
           :twitter="twitter"
           :nostr="nostr"
+          :telegram="telegram"
           :instagram="instagram"
+          :facebook="facebook"
+          :tiktok="tiktok"
           :websites="websites"
           :body="body"
         />

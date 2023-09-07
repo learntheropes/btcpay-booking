@@ -6,7 +6,10 @@
     image,
     twitter,
     nostr,
+    telegram,
     instagram,
+    facebook,
+    tiktok,
     websites,
     body,
     gallery
@@ -26,7 +29,16 @@
     nostr: {
       type: String,
     },
+    telegram: {
+      type: String,
+    },
     instagram: {
+      type: String,
+    },
+    facebook: {
+      type: String,
+    },
+    tiktok: {
       type: String,
     },
     websites: {
@@ -66,7 +78,7 @@
           <div v-if="description" class="subtitle is-6">{{ description }}</div>
           <div>
             <div class="columns is-multiline">
-              <div v-if="twitter" class="column is-narrow">
+              <div v-if="twitter" class="column is-narrow ltr-has-no-padding">
                 <IconWithText
                   icon="twitter"
                   :text="twitter"
@@ -75,7 +87,7 @@
                   textTarget="_blank"
                 />
               </div>
-              <div v-if="nostr" class="column is-narrow">
+              <div v-if="nostr" class="column is-narrow ltr-has-no-padding">
                 <IconWithText
                   icon="nostr"
                   :text="nostr"
@@ -84,7 +96,16 @@
                   textTarget="_blank"
                 />
               </div>
-              <div v-if="instagram" class="column is-narrow">
+              <div v-if="telegram" class="column is-narrow ltr-has-no-padding">
+                <IconWithText
+                  icon="telegram"
+                  :text="telegram"
+                  textVariant="primary"
+                  :textTo="'https://tm.me/'+telegram"
+                  textTarget="_blank"
+                />
+              </div>
+              <div v-if="instagram" class="column is-narrow ltr-has-no-padding">
                 <IconWithText
                   icon="instagram"
                   :text="instagram"
@@ -93,7 +114,7 @@
                   textTarget="_blank"
                 />
               </div>
-              <div v-if="facebook" class="column is-narrow">
+              <div v-if="facebook" class="column is-narrow ltr-has-no-padding">
                 <IconWithText
                   icon="facebook"
                   :text="facebook"
@@ -102,7 +123,7 @@
                   textTarget="_blank"
                 />
               </div>
-              <div v-if="tiktok" class="column is-narrow">
+              <div v-if="tiktok" class="column is-narrow ltr-has-no-padding">
                 <IconWithText
                   icon="tiktok"
                   :text="tiktok"
@@ -115,7 +136,7 @@
                 v-if="websites && websites.length"
                 v-for="{ title, url }, index in websites" 
                 :key="index"
-                class="column is-narrow"
+                class="column is-narrow ltr-has-no-padding"
               >
                 <IconWithText
                   icon="web"
@@ -145,5 +166,8 @@
 <style scoped>
 .ltr-is-black {
   color: black;
+}
+.ltr-has-no-padding {
+  padding: 0rem;
 }
 </style>

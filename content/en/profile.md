@@ -10,13 +10,17 @@ description: My consultancies booking website powered by Btcpay and Nuxt
 image: learntheropes.png
 # List of images to show on the page
 # Save the files in the ./public foder and list the files name here
-# I don't have a gallery in this case.
-# Check the paraguay-residency file for an example
+# I don't have a gallery in this case. But you have a commented out example.
+# Check the paraguay-residency file for a working example
 gallery:
+#  - picture1.jpg
+#  - picture2.jpg
 # Your twitter handle.
 twitter: learntheropes_
 # Your Nostr pubkey or NIP-05
 nostr: giovanni@learntheropes.xyz
+# Telegram username or channel
+telegram: giovanni_learntheropes_xyz
 # Instagram username.
 instagram: null
 # Facebook username.
@@ -28,6 +32,7 @@ tiktok: null
 # You can provide as many websites as you wish or none
 # Each website must contains title and url properties
 # Url must be unique
+# I don´t show websites, but here you have a commented out example:
 websites:
   - title: blog
     url: https://giovanni.learntheropes.xyz/en/

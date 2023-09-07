@@ -2,15 +2,12 @@
 title: Learntheropes
 description: Mi sitio web de reservas de consultorías creado con Btcpay y Nuxt
 image: learntheropes.png
-gallery:
 twitter: learntheropes_
 nostr: giovanni@learntheropes.xyz
-instagram: null
-facebook: null
-tiktok: null
+telegram: giovanni_learntheropes_xyz
 websites:
   - title: blog
-    url: https://giovanni.learntheropes.xyz/es/
+    url: https://giovanni.learntheropes.xyz/en/
   - title: btcpay
     url: https://learntheropes.xyz
 ---
