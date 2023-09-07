@@ -22,6 +22,7 @@ export default {
   clearSelection: 'Quitar selección',
   in: 'en',
   getDiscount: 'Obtén un descuento {premium}% pagando en bitcoins',
+  approximatePrice: 'El precio en moneda tradicional es aproximado. El precio final se establece al finalizar la compra',
   fiatNotAvailable: 'Métodos de pago en monedas tradicionales no disponibles en este momento',
   changeCurrency: 'Cambiar moneda',
   // components/invoice/invoiceProfile.vue

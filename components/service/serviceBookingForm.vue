@@ -492,8 +492,6 @@ const createInvoice = async () => {
       <p class="help">{{ $t('getDiscount', { premium: premium + 2 }) }}</p>
 
       <OField
-        grouped 
-        group-multiline
       >
         <OButton
           variant="primary"
@@ -502,6 +500,14 @@ const createInvoice = async () => {
           icon-right="sale"
           expanded
         >{{ `${$t('payWith')} bitcoin ${(amount / yadioRate).toFixed(8)} BTC` }}</OButton>
+      </OField>
+
+      <p class="help">{{ $t('approximatePrice') }}</p>
+
+      <OField
+        grouped 
+        group-multiline
+      >
         <OButton
           v-if="gateways.fiat && buyerPaymentMethods.length"
           v-for="paymentMethod in buyerPaymentMethods"
@@ -524,6 +530,7 @@ const createInvoice = async () => {
       >
         <OField
           :label="$t('changeCurrency')"
+          class="change"
         >
           <OSelect
             :label="$t('changeCurrency')"
@@ -567,6 +574,9 @@ select {
 }
 .field.is-grouped > :not(:last-child) {
   margin-right: 0px;
+}
+.change {
+    padding-top: 0.5em;
 }
 </style>
 
