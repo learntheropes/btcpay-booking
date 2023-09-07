@@ -170,7 +170,11 @@
 .ltr-has-no-padding {
   padding-top: 0rem;
   padding-bottom: 0.5rem;
-  padding-left: 0rem;
-  padding-right: 0rem;
+}
+@media screen and (min-width: 768px) {
+  .ltr-has-no-padding {
+    padding-left: 0.5rem;
+    padding-right: 0rem;
+  }
 }
 </style>
