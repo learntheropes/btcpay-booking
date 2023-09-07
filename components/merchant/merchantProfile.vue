@@ -102,6 +102,15 @@
                   textTarget="_blank"
                 />
               </div>
+              <div v-if="tiktok" class="column is-narrow">
+                <IconWithText
+                  icon="tiktok"
+                  :text="tiktok"
+                  textVariant="primary"
+                  :textTo="'https://www.tiktok.com/@'+facebook"
+                  textTarget="_blank"
+                />
+              </div>
               <div
                 v-if="websites && websites.length"
                 v-for="{ title, url }, index in websites" 

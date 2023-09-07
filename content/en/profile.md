@@ -21,6 +21,8 @@ nostr: giovanni@learntheropes.xyz
 instagram: null
 # Facebook username.
 facebook: null
+# Tiktok username
+tiktok: null
 # Websites and/or blogs, including the protocol (https://)
 # Note this is an Array of Object
 # You can provide as many websites as you wish or none

@@ -7,6 +7,7 @@ twitter: learntheropes_
 nostr: giovanni@learntheropes.xyz
 instagram: null
 facebook: null
+tiktok: null
 websites:
   - title: blog
     url: https://giovanni.learntheropes.xyz/it/
