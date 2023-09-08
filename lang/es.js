@@ -75,6 +75,7 @@ export default {
   email: 'Correo',
   iban: 'IBAN',
   bic: 'BIC',
+  copied: '{key} copiado',
   newChatMessage: 'Nuevo mensaje',
   postChatMessage: 'Envia',
   // components/invoice/fiat/invoiceFiatSepaDetails.vue

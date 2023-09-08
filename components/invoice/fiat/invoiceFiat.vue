@@ -1,6 +1,7 @@
 <script setup>
 import kebabCase from 'lodash.kebabcase';
 import nuxtStorage from 'nuxt-storage';
+import { NotificationProgrammatic } from "@oruga-ui/oruga-next";
 
 const sellerPublicKey = `-----BEGIN PGP PUBLIC KEY BLOCK-----
 
@@ -205,6 +206,15 @@ const {
 // Format the payment method id to a readable name
 const paymentMethod = $capitalize(kebabCase(gatewayMethod).replace('-', ' ')).replace('-', '%');
 
+// Get the function for translations
+const { t } = useI18n();
+
+// Functions to copy the payment details
+const copy = (key, value) => {
+  navigator.clipboard.writeText(value);
+  NotificationProgrammatic.open(t('copied', { key }));
+}
+
 const initialForm = {
   newMessage: ''
 }
@@ -282,6 +292,10 @@ const postChatMessage = async () => {
           :model-value="value"
           disabled
           expanded
+          iconPack="mdi"
+          icon-right="content-copy"
+          icon-right-clickable
+          @icon-right-click="copy($t(key), value)"
         />
       </OField>
     </div>
@@ -293,10 +307,13 @@ const postChatMessage = async () => {
         v-for="{ date, text, from } in chatMessages"
         :key="date"
       >
-        <div class="block columns is-mobile">
-          <div v-if="from === 'buyer'" class="column is-one-quarter is-7 is-italic has-text-right has-text-primary">{{ $dayjs(date).fromNow() }}</div>
-          <div :class="(from === 'buyer') ? 'column is-three-quarters has-text-primary' : 'column is-three-quarters'">{{ text }}</div>
-          <div v-if="from !== 'buyer'" class="column is-one-quarter is-7 is-italic">{{ $dayjs(date).fromNow() }}</div>
+        <div class="columns is-mobile">
+          <div v-if="from === 'buyer'" class="column is-one-third has-text-7 is-italic has-text-primary"></div>
+          <div :class="(from === 'buyer') ? 'column is-two-thirds has-text-primary has-text-right' : 'column is-two-thirds'">
+            <div class="has-text-7 is-italic">{{ $dayjs(date).fromNow() }}</div>
+            <div>{{ text  }}</div>
+          </div>
+          <div v-if="from !== 'buyer'" class="column is-one-third has-text-7 is-italic has-text-right"></div>
         </div>
       </div>
       <VForm
@@ -368,5 +385,8 @@ const postChatMessage = async () => {
   display: block;
   font-size: 1rem;
   font-weight: 700;
+}
+.has-text-7 {
+  font-size: 0.75rem;
 }
 </style>
