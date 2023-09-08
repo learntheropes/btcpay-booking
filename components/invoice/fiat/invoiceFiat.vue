@@ -108,150 +108,154 @@ n1EMEqx+cKuvyLfXBS9qCuruu3GhZlpriXnYVnQZsn+iMb35Aq4seNt3sG+oC/ls
 -----END PGP PUBLIC KEY BLOCK-----`
   
 const sellerEncryptedMessage = `-----BEGIN PGP MESSAGE-----
+Version: FlowCrypt Email Encryption 8.4.8
+Comment: Seamlessly send and receive encrypted email
 
-wV4Df+Vpaj0zOkYSAQdADtawK2XvDQuJHf/N1ysEzUAtq0VHpBE/Xryukvq7
-yH0wcPG7vS4FrrxYrjEfE3QMyKwh+rDTt/yWx+um6aIgQKoeILGxA4PyDj5p
-K1TGJdAOwcFMA57HSE6zlWY4AQ//bocGLVHr+TKjraoyW7QOLGyxOlejyoso
-5OR5dEcPFsE9KqGJPpXR77vcZswiBIFq74uVj0idBpuOkzf2GjJf80xcCR19
-nqZhJl06DUy9/q+cIu0Bwbd7DPxPOEFh38TpuhrVCmCXk9G7fHC3bhrZbcLS
-rDyIbcPOpZOeX9nwrBZD0F4eTlD2YGoyNS3FXCMIJ47u+uiMVVw6W0TKL8tw
-13u/Mju40slO2u14N1jYus/jqYPfCRcpYlMjqi5NYqRGz7IFnzTsQm6IdISL
-uOVN526oNNwUlXdhfIKIXxBQ5RHnuZ8A2hUAFe41EwkvoUgf7LP5l6B2Xso8
-eb+cio5qoEoV3oeKrlMzI27mOtSI3QpmyXNyQ1fA1BvK272CuZLfbU6ceck5
-wgoPz8nEE34vT7yiD4XLWO9Xc9ibhcJBCDGyzPFIqOP7fs0VddTKmXwauFvy
-F6GaB31UAyhvyCO7cfVpCmBg24+/vNp7GqNScAzNvWNIi4JeuCwgfds/dVmm
-eWZMsdec5JQLEd85jZY3OUYvgoSAlzGhnArD596SaGSpCGZ7eHcmYKThatHB
-hXNhnp8joZgq0mIMFdxVeMEp8g7rsn9NVSG2JhzrRUBBQfmpqLlTKYWpe+wT
-mwmqTeisOTpOMCWeJMG7h/76iiq6sU8vP155yuF8uoVtRnecYxLSwcABllhR
-yj9QqtK+57lLfHILfwp04romImajQWRSfXLGcUYLUS7YLwuq9c6yL7ipur0E
-MvW0WBfovZy0PQk2PDinsEsWy914BVM4/YTisZKZx8/ex9xJic9cU5QtBKZs
-MHiaiHKe9owX5hZlnO4vM9PMd1AwZgtxMSKjd/OD6BHPmSOXjYFQ9cxLo/kX
-GrzrMqZOTEvY9ohHd5SE7+lofGGGUjt6enk4cPuIlwBoMq7MbZ9HZ3ErMeUD
-hCTzAHapTs7ag1HfhurbwUApInju7qGybjWPFUdXRhVh9j1gU0oeLJN8L3Ww
-TnG77LQT90fBvs1vfAtqVTGRdBY1JrP7uKBPPpDjGRPdUp5a19iX3D+6zzTE
-WRKWwzdgjgVQ+LjxZZgWNTqGNFb7kpue+IXAP/LfDUhUMbZK6FNRQmYHhiuy
-ceHiQq5TOJS8PkUx9QnIbGK/cZFAJdg5YRB75Uog1ZCdFvedQBp60KwTlQo1
-31NN9tr37+U0bk2JwzV+wyHTF4EZmbYrrGYP5ORruUA+6IZcwyzGThmwlyiL
-uUhTP6I3tsDrsxB4D3XvBhHVF8PbowaNirawAoRG2LIs/WueT8NBhlOmBiSh
-v5vC/VYMA7QB/YP7og10+efGZbuCnaj3QxsNg7CT/nrNe3OvJ+hnEDg7juzm
-yk4ia1AabC4pHh8x/cFtsLmzsSyLNQasDAvOiNgTVyrf8GA4zUxwqT7B5h+f
-PfiWCXOz7ZNu6gNbWWm06XKh19lKl70H3fGRzkyQpJmv/LT/OoddfwhOwsS6
-irVemzhOcCt2Ot5yRm2VMRWaY6/snZJxEeEfwdg8jjBlB8CH2YgvQgzHHAfS
-Oo0PtXTh
-=1H3r
+wV4Df+Vpaj0zOkYSAQdA4Xxr2WP7Ygl311kxX3qlK0T07kXWPawzHcqwskq1
+7Bcwu1VKqpA4+/eHEcQHVCB8duxJgQI1w8fGABBHTBezVGRMgozrmxQdvGEs
+3+ZXu8AVwcFMA57HSE6zlWY4AQ//eWh9YhMNT87308jGdIO6tB9CNRrRuqfA
+O/YpFBPcwGBG5zU44Ei172sfDYOuDHmyItNeemhZFnF5gsYTzTjryMMhvnXU
+m/MrLCj//kO5P03tMv8whTjaaQfA5LNU6xcyQVtMVhQZ6H7smw7VGYDQlnWu
+wdAf4Fg4okq7E7JF1sHf5tNLJvLjcs1eP66lBU0EnpReNDY74MDOk2y7thAn
+kLDRNTh8tZ7Us/z503yz2j78FN/DOJ0WsEXcoriXkvRxQJbSwOZFlW/YX2Zh
+poyb4xlmPAMU0OcurPghOc5GBtW+4u/4FLq1y2hwnITFuwFZ1cXaObptIn+n
+V3qzPvPFR1Xs18Jli9WGLCZhFr6gWC35llhrsjz8hfSQWvFPL4lr9y3JlALF
+4NKcvhh3+nonUwBZX1NPiU8iAFvMWHJSikLN/ISxaOLvyQqFxuJlXgci7l6A
+oyZ4Mh9bCvPwnErzMYAJcbCeFFE2FFM/dfUgg/t8ECHWPCBDwtcOFdbKfapQ
+p6sxADN4qpOZUzSYMcoU18Cu45KRsrfd+2zaUilQjA1YoLHPWhCP6RXWmBVT
+OOPxfCDKuz+LtuzOJag8AtThMqVhz0STiWZkKgbAJrti/qSZZ0OiirubfQ8x
+CZs4iyXgcytY/mje1iDQMeDVKUnCMkF7UJSYF9sVk/D5YYpxsfLSwb0B1Dyp
+coy8TDPNjVE3LOllFcyy4zORNLYHrIrRAoB5CL6MgShV/XkZ/hcf8vlAsxa/
++IziYe/VCN+2DKUnxry3HcgBE+vQsXuZRd3ufZITrkeq+S0Iyaju2kyXo6/z
+W7Q1xYZ5Ay3ChEemdkApiH3YH//2r4UQ1uIgofV4FK1sTawQlvR1Y8iQ6oNR
+7+J9xP38vB7Pm9iFycNIUYv8nzhFbTTtyexmczXE0Ie+h3eqTsbkBAiK++6H
+81I+8IRkwSZKOvQ6uez2vzyQwZEx2iUBHoIfQRkuEN8vg6j08yg9sK5DfDeK
+13YzI1olZkbEBgKvggxeTMUhiMID9A3QrcSx1ZTGHZDGYzpGGk55ASJYuoQC
+LWzYKzbkJIP38ofJTGGRhezYE/uFoMEdkW7t0leQtmri39a7ef5Dex+Dvs+e
+vh0fUfWO3DinUGJIWH5eLlGOLV648qYhl8jbh6IodwJCGQudzINZrNCueGKb
+W7SyBcOxnC7mwMS0RRp2wttHtfGX4kqDuk4gAMquW9wsRfpmqpB/7RgOlfpW
+VqS9vpGUj8VVa6QpnwVtMFQPCzx852wKavI9gxernWMB6VDldY1oO7hxU8Br
+P3tima90w1EFrWjnGAdivAFAA52HzSrk+vu2gV61v16x++EgtwZkmW5IYcsx
+ZcvXkfHZ/DjK8WO3TGAny0oNCIVZL1vu7JNHqTkNEXYuNF0g1jEHzzAsMls2
+XN0cKid0GAJEGnB1KHOG9FDUiksspdB0aUIhiLHR3tcHfd8wvOq3w/CvuYoJ
+U7UW5JcD/j+UQVhU1rNyWTDr3HXd0M0SPltd5X6y6BEWcPX8TCyQ/Eir20Pl
+vSNL
+=kR6o
 -----END PGP MESSAGE-----`
 
 const sellerSignature = `-----BEGIN PGP SIGNATURE-----
+Version: FlowCrypt Email Encryption 8.4.8
+Comment: Seamlessly send and receive encrypted email
 
-wsFzBAEBCAAnBYJk+qsqCZBYx5gQD/inQxYhBFunilEM2kQTK9xR+ljHmBAP
-+KdDAADw4g/+ILL/5D6WWFE9HZipwGjKvr2j0bIQLBCqHdQGpF2JGF7+5gW7
-nxKT6IrxnocjZNcWBsujPAodQSgpcU5aO7icCRvfIB2HIGFwoNrLklW2jTY8
-hQywgSREvRnM0n9Dx4tBy7EtGcIhNbX7TvswESno1sMb4+LehYpiEJeNOtXr
-p9GBrpyxwyLnGfmvKyC3QNHwnUuOt+eLbP/5Fxjs63Dp5DrMM5Uk5aJxHiMe
-O2QNMDvqZkB12QJrT1h3VfHTNMMtDMEqWDz/bxxG8XsuuAfmlS7f79Kspnby
-jN6B3PKOWaOfdFlKQB5C1+clrZE7W4zWDhVVPEFugDd0zQzCW9ABfeMq71nk
-mMxFBQVqajGCpHmUVchTOijF9fo5idgMQ5Y84g+RKbfLyBQKreshbYQiFUB4
-hhn4PLY3kIT1q9U2YF8axrIEhLNVfzS+Z1ms2fxfgRszij6FocTlgB5dT7Pa
-ai+xGfJJgwHeNNn2XFlRjGfoB3ItjPuCkzw5F8PXqRcjXlIZ3xTbPlXFSCBw
-wxkv6M2k6AaIaZVzd2ErglLbhBENwg8MJbGJO4aL0aZWR8wmgMKXEkcIRKEw
-VXSgN55DblXhSVvUB+i78EpnJKBhp7FUXLIUCsiAeqvs8rda1ABtsWb/vbBv
-xTbIEozfdA8EPbbPnfduNYi3xY7iCKLiU8A=
-=XAvy
+wsFzBAEBCAAnBYJk+sAiCZBYx5gQD/inQxYhBFunilEM2kQTK9xR+ljHmBAP
++KdDAADXThAAj08Uz76BLcRUP/CRO5ef61cZJjS61eU/Ei6/pgcoeOpjHcc/
+RS2g4H+gH54ZPf2hjdlTaZU/oJ9GB5XPmg2hChFs+YIc78fem9MGgxSznYGJ
+m7cAt5+JcmxuIHEjzNb4I5jIYWGus+PWwwGge9zNIOROPZ3gSj2Wamgq/05P
+MAdVwJtxGaU8KVeKN51Uy+SF6igwEjQvXoCRE8WQOsdifNgtZ3ABAeABG27T
+P2zhU/N1sQnyTYmpJ8hW/+Rmmk1dmj3ccmJGacds44/MzXwTcSxRrsLituNv
+wQmbAxlkiHPqBJX6AmMwZOWw4LrHYqSJqMsuynjKHAlzcSscWcfiVLZjWJMy
+uz5y07o1rb0SgZQowlbxwbXj+WVg5nL380DCMFrgNBiD5I9qKT8jLX3p00n2
+ou6JTxmq3/pzxgwRpbW8gySDv3UUOcauAx+g40GixXExcDSacPLyxhj7T64/
+qNrBwNc7oUP5gjh8jistRMlEYtAv1vr9pT4eWier18IS5Q2INn7lHUZAOzBx
+y/B7Ac6/gHyv6wnpLwUj6NPtB5soeY6tJKEf4Yj1ZJMAucQfALlUpLMqFTwB
+anSWLK76M6jAk2VNQUqmbAAqwUXNZ8M/FxHm68J7AzPrf81s98j6lVhB+8Ao
+ZyxT7PqvMDFeG1QhDnF5KE8Vaos3CzOKRJ4=
+=UFxS
 -----END PGP SIGNATURE-----`
   
-  const sellerPaymentDetails = {
-    beneficiary: 'Foo Bar',
-    reference: 'foo bar baz'
+const sellerPaymentDetails = {
+  beneficiary: 'Foo Bar',
+  reference: 'foo bar baz'
+}
+
+const buyerId = '0213583209ada26c16e5c3157d86809f8fd46e602936a4e3d51cd988a42ebe19f3'
+
+// Get invoice props
+const {
+  invoice
+} = defineProps({
+  invoice: {
+    type: Object,
+    required: true
   }
+})
 
-  const buyerId = '0213583209ada26c16e5c3157d86809f8fd46e602936a4e3d51cd988a42ebe19f3'
-
-  // Get invoice props
-  const {
-    invoice
-  } = defineProps({
-    invoice: {
-      type: Object,
-      required: true
-    }
-  })
-
-  const {
-    metadata: {
-      buyerGateway: {
-        gatewayMethod
-      },
-      // sellerPaymentDetails,
-      // chatMessages
-    }
-  } = invoice;
-
-  // Get needed functions from plugins
-  const {
-    // Function to capitalize strings
-    $capitalize,
-    // Function to format time
-    $dayjs,
-    // Handle pgp keys
-    $signMessage,
-    $encryptMessage,
-    $decryptMessage
-  } = useNuxtApp();
-
-  // Format the payment method id to a readable name
-  const paymentMethod = $capitalize(kebabCase(gatewayMethod).replace('-', ' ')).replace('-', '%');
-
-  const initialForm = {
-    newMessage: ''
+const {
+  metadata: {
+    buyerGateway: {
+      gatewayMethod
+    },
+    // sellerPaymentDetails,
+    // chatMessages
   }
+} = invoice;
 
-  const form = ref(initialForm);
+// Get needed functions from plugins
+const {
+  // Function to capitalize strings
+  $capitalize,
+  // Function to format time
+  $dayjs,
+  // Handle pgp keys
+  $signMessage,
+  $encryptMessage,
+  $decryptMessage
+} = useNuxtApp();
 
-  const validationSchema = {
-    newMessage: {
-      required: true
+// Format the payment method id to a readable name
+const paymentMethod = $capitalize(kebabCase(gatewayMethod).replace('-', ' ')).replace('-', '%');
+
+const initialForm = {
+  newMessage: ''
+}
+
+const form = ref(initialForm);
+
+const validationSchema = {
+  newMessage: {
+    required: true
+  }
+}
+
+const chatMessages = ref([])
+onMounted(async () => {
+  const buyerPublicKey = nuxtStorage.localStorage.getData('pgp_public_key');
+  const apiRespone = [
+    {
+      "date": "2023-09-07T14:41:41.605Z",
+      "from": "26dc...5de2",
+      "message": sellerEncryptedMessage,
+      "readBy": ["26dc...5de2"],
+      "roomid": "123-456",
+      "signature": sellerSignature
+    },
+  ]
+
+  const chat = []
+  for (const message of apiRespone ) {
+    if (message.from === buyerId) {
+      chat.push({
+        from: 'buyer',
+        text: await $decryptMessage(message.message, message.signature, buyerPublicKey),
+        date: message.date
+      })
+    } else {
+      chat.push({
+        from: 'seller',
+        text: await $decryptMessage(message.message, message.signature, sellerPublicKey),
+        date: message.date
+      })
     }
   }
+  chatMessages.value = chat
+});
 
-  const chatMessages = ref([])
-  onMounted(async () => {
-    const buyerPublicKey = nuxtStorage.localStorage.getData('pgp_public_key');
-    const apiRespone = [
-      {
-        "date": "2023-09-07T14:41:41.605Z",
-        "from": "26dc...5de2",
-        "message": sellerEncryptedMessage,
-        "readBy": ["26dc...5de2"],
-        "roomid": "123-456",
-        "signature": sellerSignature
-      },
-    ]
-
-    const chat = []
-    for (const message of apiRespone ) {
-      if (message.from === buyerId) {
-        chat.push({
-          from: 'buyer',
-          text: await $decryptMessage(message.message, message.signature, buyerPublicKey),
-          date: message.date
-        })
-      } else {
-        chat.push({
-          from: 'seller',
-          text: await $decryptMessage(message.message, message.signature, sellerPublicKey),
-          date: message.date
-        })
-      }
-    }
-    chatMessages.value = chat
-  });
-
-  const postChatMessage = async () => {
-    const message = await $encryptMessage(form.value.newMessage, sellerPublicKey);
-    const signature = await $signMessage(form.value.newMessage);
-    console.log({ message, signature })
-    return({ message, signature })
-  }
+const postChatMessage = async () => {
+  const message = await $encryptMessage(form.value.newMessage, sellerPublicKey);
+  const signature = await $signMessage(form.value.newMessage);
+  console.log({ message, signature })
+  return({ message, signature })
+}
 
 </script>
 
@@ -289,18 +293,10 @@ xTbIEozfdA8EPbbPnfduNYi3xY7iCKLiU8A=
         v-for="{ date, text, from } in chatMessages"
         :key="date"
       >
-        <div class="columns is-mobile">
-          <div v-if="from === buyerId" class="column is-one-quarter"></div>
-          <div class="column is-three-quarters">
-            <div 
-              :class="(from === 'buyer') ? 'is-7 is-italic has-text-right' : 'is-7 is-italic'"
-            >{{ $dayjs(date).fromNow() }}</div>
-            <ONotification
-              :rootClass="(from === 'buyer') ? 'is-buyer-chat' : 'is-seller-chat'"
-              :contentClass="(from === 'buyer') ? 'ltr-has-new-line is-buyer-chat-text' : 'ltr-has-new-line is-success'"
-            >{{ text }}</ONotification>
-          </div>
-          <div v-if="from !== 'buyer'" class="column is-one-quarter"></div>
+        <div class="block columns is-mobile">
+          <div v-if="from === 'buyer'" class="column is-one-quarter is-7 is-italic has-text-right has-text-primary">{{ $dayjs(date).fromNow() }}</div>
+          <div :class="(from === 'buyer') ? 'column is-three-quarters has-text-primary' : 'column is-three-quarters'">{{ text }}</div>
+          <div v-if="from !== 'buyer'" class="column is-one-quarter is-7 is-italic">{{ $dayjs(date).fromNow() }}</div>
         </div>
       </div>
       <VForm
@@ -336,6 +332,7 @@ xTbIEozfdA8EPbbPnfduNYi3xY7iCKLiU8A=
           <OButton
             variant="primary"
             native-type="submit"
+            expanded
           >{{ $t('postChatMessage') }}</OButton>
         </OField>
       </VForm>
@@ -353,22 +350,6 @@ xTbIEozfdA8EPbbPnfduNYi3xY7iCKLiU8A=
 }
 // Custom notification with primary border
 .has-border-primary {
-  background-color: white;
-  border-style: solid;
-  border-width: 1px;
-  border-color: $primary;
-  color: black;
-}
-// Custom notification for the seller chat 
-.is-seller-chat {
-  background-color: white;
-  border-style: solid;
-  border-width: 1px;
-  border-color: $success;
-  color: black;
-}
-// Custom notification for the buyer chat 
-.is-buyer-chat {
   background-color: white;
   border-style: solid;
   border-width: 1px;

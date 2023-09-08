@@ -87,7 +87,7 @@ export default defineNuxtPlugin(async nuxtApp => {
       const { data } = await openpgp.decrypt({
         verificationKeys,
         message,
-        // signature,
+        signature,
         decryptionKeys: pgpPrivateKey,
         expectSigned: true,
       });
