@@ -1,3 +1,5 @@
+import { nodePolyfills } from 'vite-plugin-node-polyfills';
+
 import {
   locales,
   localeCodes,
@@ -92,7 +94,7 @@ export default defineNuxtConfig({
       pusherApikey: process.env.PUSHER_APIKEY,
       pusherCluster: process.env.PUSHER_CLUSTER,
       pusherAppId: process.env.PUSHER_APP_ID,
-      network: process.env.NETWORK
+      reputationId: process.env.REPUTATION_ID
     }
   },
 
@@ -110,7 +112,16 @@ export default defineNuxtConfig({
           additionalData: '@use "@/assets/scss/custom.scss" as *;'
         }
       }
-    }
+    },
+    plugins: [
+      nodePolyfills({
+        include: ['buffer', 'util', 'stream', 'crypto'],
+        globals: {
+          Buffer: true,
+        },
+        protocolImports: false,
+      }),
+    ]
   },
 
   components: [{

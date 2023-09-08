@@ -11,7 +11,6 @@ export default defineNuxtPlugin(nuxtApp => {
         buyerPGP,
         buyerDetails,
         buyerService,
-        buyerGateway,
         buyerGateway: {
           gatewayType,
           gatewayMethod,
@@ -92,7 +91,11 @@ export default defineNuxtPlugin(nuxtApp => {
                 buyerDetails,
                 buyerLanguage: locale.value,
                 buyerService,
-                buyerGateway
+                buyerGateway: {
+                  gatewayType,
+                  gatewayMethod,
+                  gatewayCurrency: buyerFiatCurrency
+                }
               },
               checkout: {
                 expirationMinutes,

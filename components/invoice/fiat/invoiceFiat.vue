@@ -198,7 +198,9 @@ const {
   // Function to format time
   $dayjs,
   // Handle pgp keys
-  $pgp
+  $pgp,
+  // Hadle bitcoin operations
+  $bitcoin
 } = useNuxtApp();
 
 // Format the payment method id to a readable name
@@ -255,7 +257,26 @@ onMounted(async () => {
       })
     }
   }
-  chatMessages.value = chat
+  chatMessages.value = chat;
+  const {
+    public: {
+      isDeployed,
+      reputationId
+    }
+  } = useRuntimeConfig();
+  const proxy = (isDeployed) ? '' : 'https://corsproxy.io/?'
+  const { data, error } = await useFetch(`${proxy}https://api.peachbitcoin.com/v1/user/register/`, {
+    method: 'POST',
+    body: {
+      message: $bitcoin.message,
+      signature: $bitcoin.signature,
+      publicKey: $bitcoin.publicKeyHex,
+      uniqueId: reputationId
+    }
+  });
+
+  if (error) console.log(error)
+  else console.log(data.value)
 });
 
 const postChatMessage = async () => {
@@ -269,6 +290,7 @@ const postChatMessage = async () => {
 
 <template>
   <div>
+    {{ chatMessages }}
     <ONotification
       v-if="!sellerPaymentDetails"
       rootClass="has-border-primary"
@@ -277,27 +299,28 @@ const postChatMessage = async () => {
     >{{ $t('bitcoinPurchaseWarning', { paymentMethod }) }}</ONotification>
     <div v-else>
       <div class="is-4">{{ paymentMethod }}</div>
-      <OField
-        v-for="[key, value], index in Object.entries(sellerPaymentDetails)"
-        :label="(index === 0 ) ? $t('sellerPaymentDetails') : null"
-        :key="key"
-      >
-        <OButton
-          variant="warning"
-          disabled
-        >{{ $t(key) }}</OButton>
-        <OInput 
-          :model-value="value"
-          disabled
-          expanded
-          iconPack="mdi"
-          icon-right="content-copy"
-          icon-right-clickable
-          @icon-right-click="copy($t(key), value)"
-        />
-      </OField>
+      <div class="section">
+        <OField
+          v-for="[key, value], index in Object.entries(sellerPaymentDetails)"
+          :label="(index === 0 ) ? $t('sellerPaymentDetails') : null"
+          :key="key"
+        >
+          <OButton
+            variant="warning"
+            disabled
+          >{{ $t(key) }}</OButton>
+          <OInput 
+            :model-value="value"
+            disabled
+            expanded
+            iconPack="mdi"
+            icon-right="content-copy"
+            icon-right-clickable
+            @icon-right-click="copy($t(key), value)"
+          />
+        </OField>
+      </div>
     </div>
-    <!-- <pre class="section">{{ invoice }}</pre> -->
     <div v-if="chatMessages" class="section">
       <div class="replicate-label">Chat</div>
       <div 
