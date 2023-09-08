@@ -42,10 +42,13 @@
     "lodash.sortby": "^4.7.0",
     "mitt": "^3.0.0",
     "nuxt-icons": "^3.2.1",
+    "nuxt-storage": "^1.2.2",
     "nuxt-umami": "^2.4.2",
+    "openpgp": "^5.10.1",
     "pusher": "^5.1.2",
     "pusher-js": "^8.0.2",
     "qrcode": "^1.5.3",
+    "uuid": "^9.0.0",
     "vee-validate": "^4.8.4"
   },
   "engines": {

@@ -3,9 +3,9 @@ const {
   gallery
 } = defineProps({
   gallery: {
-      type: Array,
-      default: []
-    }
+    type: Array,
+    default: []
+  }
 })
 </script>
 

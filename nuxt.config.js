@@ -102,6 +102,17 @@ export default defineNuxtConfig({
     // "@mdi/font/css/materialdesignicons.css"
   ],
 
+  // This is needed to inject bulma custom sass variables such as $primary in the css page and component stylesheets 
+  vite: {
+    css: {
+      preprocessorOptions: {
+        scss: {
+          additionalData: '@use "@/assets/scss/custom.scss" as *;'
+        }
+      }
+    }
+  },
+
   components: [{
     path: '~/components',
     pathPrefix: false,

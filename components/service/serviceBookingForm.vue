@@ -495,11 +495,10 @@ const createInvoice = async () => {
 
       <p class="help">{{ $t('getDiscount', { premium: premium + 2 }) }}</p>
 
-      <OField
-      >
+      <OField>
         <OButton
           variant="primary"
-          @click="setGateway('bitcoin', 'bitcoin', 'BTC')"
+          @click.native="setGateway('bitcoin', 'bitcoin', 'BTC')"
           native-type="submit"
           icon-right="sale"
           expanded

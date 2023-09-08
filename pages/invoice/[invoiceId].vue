@@ -68,20 +68,15 @@
             :invoiceId="invoiceId"
             :invoice="invoice"
             :status="status"
-            class="is-hidden-mobile"
+            :class="($device.isMobile) ? null : 'side'"
           />
-          <invoiceBitcoin
-            :invoiceId="invoiceId"
-            :invoice="invoice"
-            :status="status"
-            class="is-hidden-tablet"
-          />
+
         </section>
         <section v-else-if="gatewayType === 'fiat'" class="section">
           <invoiceFiat
             :invoice="invoice"
             :status="status"
-            id="side"
+            :class="($device.isMobile) ? null : 'side'"
           />
         </section>
       </div>
@@ -90,8 +85,8 @@
 </template>
 
 <style scoped>
-  @media screen and (min-width: 768px) {
-    #side {
+@media screen and (min-width: 768px) {
+  .side {
     width: 366px;
   }
 }

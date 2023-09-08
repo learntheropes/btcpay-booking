@@ -6,12 +6,12 @@ Without KYC requirements for the merchant and the client. Merchant and buyer per
 
 ## Status
 Under active development.  
-- [x] Profile and services settings.
-- [x] Btcpay server api integration.
-- [x] Bitcoin checkout. On-chain and Lighning Network.
+- [x] Profile and services settings. Ready.
+- [x] Btcpay server api integration. Ready.
+- [x] Bitcoin checkout. On-chain and Lighning Network. Ready.
 - Fiat integration with Peach Bitcoin api. Under current development.
 - [ ] Crypto integration with SideShift api. Planned.
-- [ ] Merchant control panel. Planned
+- [ ] Merchant control panel. Planned.
 - [ ] Calendar integration. Planned, with google calendar or better with a privacy focused calendar app that provides api.
 
 ## Features
@@ -33,7 +33,7 @@ Under active development.
 ## Payment methods. Fees. Limits.
 - Bitcoin: onchain and lightning network, no fee. No amount limit.  
 - Crypto: all the currencies supported by [SideShift](https://sideshift.ai). Fee between 0.5% and 1% paid by the buyer. No amount limit.  
-- Fiat: All the currencies and local payment methods supported by [Peach Bitcoin](https://peachbitcoin.com) as listed [here](https://api.peachbitcoin.com/v1/info). Tens of local payment methods in Europe, LATAM, Africa with more to come, US excluded. The fee is set by the merchant and paid by the buyer. realistically, to find a match it should be between 2 and 5%, plus 2% Peach fee. 1000 CHF (or equivalent in other currency) amount limit for each payment.  
+- Fiat: All the currencies and local payment methods supported by [Peach Bitcoin](https://peachbitcoin.com) as listed [here](https://api.peachbitcoin.com/v1/info). Tens of local payment methods in Europe, LATAM, Africa with more to come, US excluded. The fee is set by the merchant and paid by the buyer. realistically, to find a match it should be between 5 and 10%, plus 2% Peach fee. 1000 CHF (or equivalent in other currency) amount limit for each payment.  
 
 ## Setup
 1. Clone the repo.  
