@@ -198,9 +198,7 @@ const {
   // Function to format time
   $dayjs,
   // Handle pgp keys
-  $signMessage,
-  $encryptMessage,
-  $decryptMessage
+  $pgp
 } = useNuxtApp();
 
 // Format the payment method id to a readable name
@@ -246,13 +244,13 @@ onMounted(async () => {
     if (message.from === buyerId) {
       chat.push({
         from: 'buyer',
-        text: await $decryptMessage(message.message, message.signature, buyerPublicKey),
+        text: await $pgp.decryptMessage(message.message, message.signature, buyerPublicKey),
         date: message.date
       })
     } else {
       chat.push({
         from: 'seller',
-        text: await $decryptMessage(message.message, message.signature, sellerPublicKey),
+        text: await $pgp.decryptMessage(message.message, message.signature, sellerPublicKey),
         date: message.date
       })
     }
@@ -261,8 +259,8 @@ onMounted(async () => {
 });
 
 const postChatMessage = async () => {
-  const message = await $encryptMessage(form.value.newMessage, sellerPublicKey);
-  const signature = await $signMessage(form.value.newMessage);
+  const message = await $pgp.encryptMessage(form.value.newMessage, sellerPublicKey);
+  const signature = await $pgp.signMessage(form.value.newMessage);
   console.log({ message, signature })
   return({ message, signature })
 }

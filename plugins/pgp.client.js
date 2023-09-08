@@ -96,10 +96,12 @@ export default defineNuxtPlugin(async nuxtApp => {
 
     return {
       provide: {
-        getPgpKeys,
-        signMessage,
-        encryptMessage,
-        decryptMessage
+        pgp: {
+          getPgpKeys,
+          signMessage,
+          encryptMessage,
+          decryptMessage
+        }
       }
     }
 });
