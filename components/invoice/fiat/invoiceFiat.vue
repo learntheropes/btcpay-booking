@@ -230,7 +230,7 @@ const validationSchema = {
 const chatMessages = ref([])
 onMounted(async () => {
   const buyerPublicKey = nuxtStorage.localStorage.getData('pgp_public_key');
-  const apiRespone = [
+  const chatLogApiResponse = [
     {
       "date": "2023-09-07T14:41:41.605Z",
       "from": "26dc...5de2",
@@ -241,37 +241,35 @@ onMounted(async () => {
     },
   ]
 
-  const chat = []
-  for (const message of apiRespone ) {
+  for (const message of chatLogApiResponse ) {
     if (message.from === buyerId) {
-      chat.push({
+      chatMessages.value.push({
         from: 'buyer',
         text: await $pgp.decryptMessage(message.message, message.signature, buyerPublicKey),
         date: message.date
       })
     } else {
-      chat.push({
+      chatMessages.value.push({
         from: 'seller',
         text: await $pgp.decryptMessage(message.message, message.signature, sellerPublicKey),
         date: message.date
       })
     }
   }
-  chatMessages.value = chat;
+
   const {
     public: {
       isDeployed,
-      reputationId
     }
   } = useRuntimeConfig();
-  const proxy = (isDeployed) ? '' : 'https://corsproxy.io/?'
+  const proxy = (isDeployed) ? '' : 'https://corsproxy.io/?';
   const { data, error } = await useFetch(`${proxy}https://api.peachbitcoin.com/v1/user/register/`, {
     method: 'POST',
     body: {
       message: $bitcoin.message,
       signature: $bitcoin.signature,
       publicKey: $bitcoin.publicKeyHex,
-      uniqueId: reputationId
+      uniqueId: $bitcoin.uniqueId
     }
   });
 
@@ -290,7 +288,6 @@ const postChatMessage = async () => {
 
 <template>
   <div>
-    {{ chatMessages }}
     <ONotification
       v-if="!sellerPaymentDetails"
       rootClass="has-border-primary"

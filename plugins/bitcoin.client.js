@@ -5,8 +5,7 @@ import ecc from '@bitcoinerlab/secp256k1';
 initEccLib(ecc);
 const bip32 = BIP32Factory.default(ecc);
 import bitcoinMessage from 'bitcoinjs-message';
-import { createHash } from 'crypto';
-
+import * as crypto from 'crypto';
 
 export default defineNuxtPlugin(nuxtApp => {
 
@@ -26,7 +25,7 @@ export default defineNuxtPlugin(nuxtApp => {
 
   const publicKeyHex = child.publicKey.toString('hex');
 
-  const { address } = payments.p2sh({ 
+  const { address } = payments.p2sh({
     redeem: payments.p2wpkh({ 
       pubkey: child.publicKey, 
       network, 
@@ -40,9 +39,12 @@ export default defineNuxtPlugin(nuxtApp => {
 
   const message = `Peach Registration ${timeStamp}`;
 
-  const sha256Message = createHash('sha256').update(message).digest('hex');
+  const sha256Message = crypto.createHash('sha256').update(message).digest('hex');
 
   const signature =  bitcoinMessage.sign(sha256Message , privateKeyBuffer).toString('base64');
+
+  const randomId = Math.floor(100000 + Math.random() * 900000)
+  const uniqueId = `${timeStamp}${randomId}`
 
   console.log('mnemonic', mnemonic)
   console.log('derivationPath', derivationPath)
@@ -56,6 +58,7 @@ export default defineNuxtPlugin(nuxtApp => {
   return {
     provide: {
       bitcoin: {
+        uniqueId,
         message,
         signature,
         publicKeyHex,

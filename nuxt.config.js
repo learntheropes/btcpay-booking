@@ -13,6 +13,8 @@ const deploymentDomain = (isDeployed) ? `https://${process.env.DEPLOYMENT_DOMAIN
 
 export default defineNuxtConfig({
 
+  debug: true,
+
   // Settings specific for production
   $production: {
 
@@ -103,26 +105,6 @@ export default defineNuxtConfig({
     '~/assets/scss/mdi.scss',
     // "@mdi/font/css/materialdesignicons.css"
   ],
-
-  // This is needed to inject bulma custom sass variables such as $primary in the css page and component stylesheets 
-  vite: {
-    css: {
-      preprocessorOptions: {
-        scss: {
-          additionalData: '@use "@/assets/scss/custom.scss" as *;'
-        }
-      }
-    },
-    plugins: [
-      nodePolyfills({
-        include: ['buffer', 'util', 'stream', 'crypto'],
-        globals: {
-          Buffer: true,
-        },
-        protocolImports: false,
-      }),
-    ]
-  },
 
   components: [{
     path: '~/components',
@@ -234,9 +216,27 @@ export default defineNuxtConfig({
     },
   },
 
-  // build: {
-  //   transpile: ['consola']
-  // },
+  vite: {
+    // This is needed to inject bulma custom sass variables such as $primary 
+    // in the css page and component stylesheets 
+    css: {
+      preprocessorOptions: {
+        scss: {
+          additionalData: '@use "@/assets/scss/custom.scss" as *;'
+        }
+      }
+    },
+    plugins: [
+      nodePolyfills({
+        include: [
+          'buffer', 
+          'util', 
+          'stream', 
+          'crypto'
+        ],
+      }),
+    ]
+  },
 
   appConfig: {
 
