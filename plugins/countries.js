@@ -20,6 +20,7 @@ export default defineNuxtPlugin(async nuxtApp => {
 
   return {
     provide: {
+      // Function to get the full transalted list of countries sorted alphabetically
       getCountriesList: () => {
         return sortBy(countryCodes.map(country => {
           return {
@@ -30,6 +31,7 @@ export default defineNuxtPlugin(async nuxtApp => {
           };
         }), ['name']);
       },
+      // Function to get just one translated country given the country code
       getOneCountry: (countryCode) => {
         return countries.getName(countryCode, locale.value, {
           select: "official"

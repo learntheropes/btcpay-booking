@@ -15,6 +15,7 @@ import {
 } from '@oruga-ui/oruga-next';
 import { bulmaConfig } from '@oruga-ui/theme-bulma';
 
+// When the notification is opened programmatically, it shows on the bottom right
 const myConfig = Object.assign(bulmaConfig, {
   notification: {
       ...bulmaConfig.notification,
@@ -22,6 +23,7 @@ const myConfig = Object.assign(bulmaConfig, {
   }
 })
 
+// Import the used oruga components
 export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.vueApp.component('OField', OField);
   nuxtApp.vueApp.component('ODatepicker', ODatepicker);

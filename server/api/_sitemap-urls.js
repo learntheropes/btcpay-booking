@@ -1,5 +1,6 @@
 import { defaultLocale, locales } from '~/assets/js/locales';
 
+// Endpoint to generate dynamic routes sitemap
 export default defineEventHandler(async () => {
 
   const serviceFiles = await useStorage(`content:${defaultLocale}:services`).getKeys();

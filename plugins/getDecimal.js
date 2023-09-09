@@ -2,6 +2,8 @@ import { defineNuxtPlugin } from '#app';
 
 export default defineNuxtPlugin((nuxtApp) => {
 
+  // Define the decimal place for each country.
+  // Needs more currencies added.
   return {
     provide: {
       getDecimal: (currency) => {

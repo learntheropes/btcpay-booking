@@ -54,6 +54,7 @@ export default defineNuxtPlugin(async nuxtApp => {
       };
     };
 
+    // Function to get the message signature
     const signMessage = async (text) => {
       const { passphrase, pgpPrivateKey: signingKeys } = await getPgpKeys();
       const message = await openpgp.createCleartextMessage({ text });
@@ -67,6 +68,7 @@ export default defineNuxtPlugin(async nuxtApp => {
       return signature[0].trim();
     };
 
+    // Function to get the encrypted message
     const encryptMessage = async (text, armoredKey) => {
       const { passphrase, pgpPrivateKey: signingKeys } = await getPgpKeys();
       const message = await openpgp.createMessage({ text });
@@ -79,6 +81,7 @@ export default defineNuxtPlugin(async nuxtApp => {
       });
     };
 
+    // function to decrypt counterparty messages
     const decryptMessage = async (armoredMessage, armoredSignature, armoredKey) => {
       const { pgpPrivateKey } = await getPgpKeys();
       const verificationKeys = await openpgp.readKey({ armoredKey });
@@ -94,6 +97,7 @@ export default defineNuxtPlugin(async nuxtApp => {
       return data;
     }
 
+    // Export the functions as client only plugin
     return {
       provide: {
         pgp: {
