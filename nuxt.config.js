@@ -13,7 +13,7 @@ const deploymentDomain = (isDeployed) ? `https://${process.env.DEPLOYMENT_DOMAIN
 
 export default defineNuxtConfig({
 
-  debug: true,
+  debug: (isDeployed) ? false : true,
 
   // Settings specific for production
   $production: {
