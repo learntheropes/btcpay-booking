@@ -3,6 +3,7 @@ import kebabCase from 'lodash.kebabcase';
 import nuxtStorage from 'nuxt-storage';
 import { NotificationProgrammatic } from "@oruga-ui/oruga-next";
 
+// Mock the seller pgp public key to encrypt new chat messages
 const sellerPublicKey = `-----BEGIN PGP PUBLIC KEY BLOCK-----
 
 mQINBGQUSXkBEADPIAII3r8KO1GbY/sp9kdmNPVYyFFRiusjRFTYqiysO6eyOWlp
@@ -108,6 +109,7 @@ n1EMEqx+cKuvyLfXBS9qCuruu3GhZlpriXnYVnQZsn+iMb35Aq4seNt3sG+oC/ls
 =93+5
 -----END PGP PUBLIC KEY BLOCK-----`
   
+// mock the seller pgp encrypted chat message
 const sellerEncryptedMessage = `-----BEGIN PGP MESSAGE-----
 Version: FlowCrypt Email Encryption 8.4.8
 Comment: Seamlessly send and receive encrypted email
@@ -144,6 +146,7 @@ vSNL
 =kR6o
 -----END PGP MESSAGE-----`
 
+// Moch the seller chat message pgp signature
 const sellerSignature = `-----BEGIN PGP SIGNATURE-----
 Version: FlowCrypt Email Encryption 8.4.8
 Comment: Seamlessly send and receive encrypted email
@@ -164,11 +167,13 @@ ZyxT7PqvMDFeG1QhDnF5KE8Vaos3CzOKRJ4=
 =UFxS
 -----END PGP SIGNATURE-----`
   
+// Mock decripted buyer details 
 const sellerPaymentDetails = {
   beneficiary: 'Foo Bar',
   reference: 'foo bar baz'
 }
 
+// Mock the buyer uniqueId
 const buyerId = '0213583209ada26c16e5c3157d86809f8fd46e602936a4e3d51cd988a42ebe19f3'
 
 // Get invoice props
@@ -181,6 +186,7 @@ const {
   }
 })
 
+// Get the needed info from the invoice prop
 const {
   metadata: {
     buyerGateway: {
@@ -215,6 +221,7 @@ const copy = (key, value) => {
   NotificationProgrammatic.open(t('copied', { key }));
 }
 
+// Set the new chat message html form with validation
 const initialForm = {
   newMessage: ''
 }
@@ -229,7 +236,8 @@ const validationSchema = {
 
 const chatMessages = ref([])
 onMounted(async () => {
-  const buyerPublicKey = nuxtStorage.localStorage.getData('pgp_public_key');
+
+  // Mock chat log from peach api
   const chatLogApiResponse = [
     {
       "date": "2023-09-07T14:41:41.605Z",
@@ -241,6 +249,11 @@ onMounted(async () => {
     },
   ]
 
+  // Get the user pgp publica key from localStorage
+  // to determinate if the chat message belong to the buyer or the seller
+  const buyerPublicKey = nuxtStorage.localStorage.getData('pgp_public_key');
+
+  // Decript the pgp encrypted chat log
   for (const message of chatLogApiResponse ) {
     if (message.from === buyerId) {
       chatMessages.value.push({
@@ -262,6 +275,8 @@ onMounted(async () => {
       isDeployed,
     }
   } = useRuntimeConfig();
+
+  // Register the peach account
   const proxy = (isDeployed) ? '' : 'https://corsproxy.io/?';
   const { data, error } = await useFetch(`${proxy}https://api.peachbitcoin.com/v1/user/register/`, {
     method: 'POST',
@@ -277,6 +292,7 @@ onMounted(async () => {
   else console.log(data.value)
 });
 
+// Function to encrypt and post a new peach chat message
 const postChatMessage = async () => {
   const message = await $pgp.encryptMessage(form.value.newMessage, sellerPublicKey);
   const signature = await $pgp.signMessage(form.value.newMessage);

@@ -27,6 +27,7 @@ export default defineNuxtConfig({
     ],
   },
 
+  // Head script default tags
   app: {
     head: {
       meta: [
@@ -83,6 +84,7 @@ export default defineNuxtConfig({
     },
   },
 
+  // Define the private and public env variables
   runtimeConfig: {
     mnemonic: process.env.MNEMONIC,
     btcpayApikey: process.env.BTCPAY_APIKEY,
@@ -100,18 +102,21 @@ export default defineNuxtConfig({
     }
   },
 
+  // Import the scss srylesheets
   css: [
     '~/assets/scss/main.scss',
     '~/assets/scss/mdi.scss',
     // "@mdi/font/css/materialdesignicons.css"
   ],
 
+  // Skip the folders in the components import
   components: [{
     path: '~/components',
     pathPrefix: false,
     global: true
   }],
 
+  // Import the nuxt modules
   modules: [
     'nuxt-simple-robots',
     'nuxt-simple-sitemap',
@@ -123,23 +128,27 @@ export default defineNuxtConfig({
     'nuxt-delay-hydration'
   ],
 
+  // Robots settings
   robots: {
     userAgents: ['*'],
     disallow: ['/cdn-cgi', ...localeCodes.map(code => `/${code}/invoice`)],
     sitemap: `${deploymentDomain}/sitemap_index.xml`
   },
 
+  // Sitemap settings
   sitemap: {
     xsl: false,
     autoI18n: false,
     sitemapName: `sitemap_index.xml`
   },
 
+  // Setting for content module with i18n
   content: {
     locales: localeCodes,
     defaultLocale,
   },
 
+  // settings for i18n module
   i18n: {
     baseUrl: deploymentDomain,
     locales,
@@ -157,6 +166,7 @@ export default defineNuxtConfig({
     }
   },
 
+  // Define the presets for nuxt image module
   image: {
     screens: {
       avatar: 192,
@@ -183,12 +193,16 @@ export default defineNuxtConfig({
     }
   },
 
+  // Delay hidration to deastically improve google loghhouse performance score
   delayHydration: {
     mode: 'init',
     exclude: localeCodes.map(code => `/${code}/invoice/**`),
     debug: process.env.NODE_ENV === 'development'
   },
 
+  // Enanble the storage layer on nitro server
+  // Filesystem on development
+  // Github on production
   nitro: {
     devStorage: {
       lang: {
@@ -226,6 +240,7 @@ export default defineNuxtConfig({
         }
       }
     },
+    // Include nodejs module that are purged by vite in the browser by default
     plugins: [
       nodePolyfills({
         include: [
