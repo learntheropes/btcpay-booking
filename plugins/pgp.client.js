@@ -84,7 +84,7 @@ export default defineNuxtPlugin(async nuxtApp => {
     };
 
     // function to decrypt counterparty messages
-    const decryptMessage = async (armoredMessage, armoredSignature, armoredKey) => {
+    const decryptMessage = async (armoredMessage, armoredSignature, armoredKey, expectSigned) => {
       const { pgpPrivateKey } = await getPgpKeys();
       const verificationKeys = await openpgp.readKey({ armoredKey });
       const message = await openpgp.readMessage({ armoredMessage });
@@ -94,7 +94,7 @@ export default defineNuxtPlugin(async nuxtApp => {
         message,
         signature,
         decryptionKeys: pgpPrivateKey,
-        // expectSigned: true,
+        expectSigned,
       });
       return data;
     }

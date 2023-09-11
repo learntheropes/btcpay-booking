@@ -70,7 +70,6 @@ export default defineNuxtPlugin(nuxtApp => {
     // Hash the message to sign with sha256 alghoritm
     const sha256Message = crypto.createHash('sha256').update(message).digest('hex');
 
-
     // Convert the private key from hex string to buffer
     // to be used in the message sign function
     const privateKeyBuffer = Buffer.from(privateKey, "hex");
