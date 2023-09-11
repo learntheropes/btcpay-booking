@@ -65,8 +65,10 @@ const onChangeYear = (year) => {
 };
 
 // Get the buyer currency based on the IP location
-const { data: countryData } = await useFetch('https://api.country.is/');
-const buyerCountry = (countryData.value) ? countryData.value.country : null;
+const { data: countryData } = await useFetch('https://api.country.is/', {
+  server: false
+});
+const buyerCountry = (countryData.value) ? countryData.value.country : 'EUR';
 const buyerCurrency = countryToCurrency[buyerCountry];
 
 // Define the decimal length based on the currency
@@ -77,7 +79,7 @@ const {
   data: paymentMethodsData, 
   refresh: paymentMethodsRefresh 
 } = await useFetch(`${proxy}https://api.peachbitcoin.com/v1/info/`, {
-  server: false,
+  key: Date.now().toString(),
   immediate: false,
   lazy: true
 });
