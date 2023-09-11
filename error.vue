@@ -10,9 +10,7 @@ useContentHead({
 })
 
 const {
-  locale: {
-    value: locale
-  },
+  locale,
   t
 } = useI18n();
 
@@ -31,7 +29,7 @@ switch(props.error.statusCode) {
     translatedErrorMessage = t('somethingWentWrong')
 }
 
-const handleError = () => clearError({ redirect: `/${locale}` });
+const handleError = () => clearError({ redirect: `/${locale.value}` });
 </script>
 
 <template>
@@ -39,12 +37,12 @@ const handleError = () => clearError({ redirect: `/${locale}` });
     <div class="hero-body">
       <div class="container has-text-centered">
         <p class="title">{{ translatedErrorMessage }}</p>
-        <DevOnly>
+        <!-- <DevOnly v-if="props.error.statusCode !== 404"> -->
           <div class="block content">
             <div>{{ error.statusMessage || error.message }}</div>
             <div>{{ error.stack }}</div>
           </div>
-        </DevOnly>
+        <!-- </DevOnly> -->
         <button @click="handleError" class="button is-primary is-outlined">{{ $t('backToTheHomePage') }}</button>
       </div>
     </div>

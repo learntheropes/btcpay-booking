@@ -24,7 +24,7 @@ const { locale } = useI18n();
 // Get the service specific settings from md file
 const  {
   duration,
-  currency,
+  currency: merchantCurrency,
   price,
   extras
 } = await queryContent(`/services/${service}`).locale(locale.value).findOne();
@@ -64,73 +64,47 @@ const onChangeYear = (year) => {
   $updateDatapickerNavigation('booking', datepickerCurrentMonth, datepickerCurrentYear)
 };
 
-// Get the buyer currency based on the IP location
-const { data: countryData } = await useFetch('https://api.country.is/');
-const buyerCountry = (countryData.value) ? countryData.value.country : 'CH';
-const buyerCurrency = countryToCurrency[buyerCountry];
+const buyerCurrency = ref(null);
+const decimal = ref(null);
+const buyerPaymentMethods = ref([]);
+const peachAvailableCurrencies = ref([])
+const yadioRate = ref(null);
+const peachRate = ref(null);
 
-// Define the decimal length based on the currency
-const decimal = $getDecimal(currency);
+onMounted(async () => {
 
-// Get available fiat methods for the buyer currency
-const { 
-  data: paymentMethodsData, 
-  refresh: paymentMethodsRefresh 
-} = await useFetch(`${proxy}https://api.peachbitcoin.com/v1/info/`, {
-  key: Date.now().toString(),
-  immediate: false,
-  lazy: true
-});
-await paymentMethodsRefresh();
-const peachPaymentMethods = (paymentMethodsData.value) ? paymentMethodsData.value.paymentMethods : [];
-const buyerPaymentMethods = ref(peachPaymentMethods
-  .filter(method => method.currencies.includes(buyerCurrency) && !method.anonymous)
-  .map(method => {
-    return {
-      id: method.id,
-      name: $capitalize(kebabCase(method.id).replace('-', ' ')).replace('-', '%')
-    }
-  }));
+  // Get the buyer currency based on the IP location
+  const { country: buyerCountry } = await $fetch('https://api.country.is/');
+  buyerCurrency.value = countryToCurrency[buyerCountry];
 
+  // Define the decimal length based on the currency
+  decimal.value = $getDecimal(buyerCurrency.value);
+  const { 
+    paymentMethods: peachPaymentMethods
+  } = await $fetch(`${proxy}https://api.peachbitcoin.com/v1/info/`);
+  
+  // Get available fiat methods for the buyer currency
+  buyerPaymentMethods.value = peachPaymentMethods
+    .filter(method => method.currencies.includes(buyerCurrency) && !method.anonymous)
+    .map(method => {
+      return {
+        id: method.id,
+        name: $capitalize(kebabCase(method.id).replace('-', ' ')).replace('-', '%')
+      }
+    });
 
-// Get all the currencies available on peach
-const { 
-  data: peachAvailableCurrenciesData,
-  refresh: peachAvailableCurrenciesRefresh
-} = await useFetch(`${proxy}https://api.peachbitcoin.com/v1/market/prices`, {
-  key: Date.now().toString(),
-  immediate: false,
-  lazy: true
-});
-await peachAvailableCurrenciesRefresh();
-const peachAvailableCurrencies = Object.keys(peachAvailableCurrenciesData.value || []).filter(currency => currency !== 'SAT' && currency !== 'USDT').sort()
+  // Get all the currencies available on peach
+  const peachCurrencies = await $fetch(`${proxy}https://api.peachbitcoin.com/v1/market/prices`);
+  peachAvailableCurrencies.value = Object.keys(peachCurrencies).filter(currency => currency !== 'SAT' && currency !== 'USDT').sort()
+  
+  // Get Yadio exchange rates
+  const { BTC } = await $fetch(`https://api.yadio.io/exrates/${buyerCurrency.value}`);
+  yadioRate.value = BTC;
 
-// Get Yadio exchange rates
-const { 
-  data: { 
-    value: { 
-      BTC: yadioRate 
-    }
-  }, 
-  refresh: yadioRateRefesh 
-} = await useFetch(`https://api.yadio.io/exrates/${currency}`, {
-  key: Date.now().toString(),
-  immediate: false,
-  lazy: true
-});
-await yadioRateRefesh();
-
-// Get Peach exchange rate
-const { 
-  data: peachRateData,
-  refresh: peachRateRefresh
-} = await useFetch(`${proxy}https://api.peachbitcoin.com/v1/market/price/BTC${currency}`, {
-  key: Date.now().toString(),
-  immediate: false,
-  lazy: true
-});
-await peachRateRefresh()
-const peachRate = (peachRateData.value) ? peachRateData.value.price : null;
+  // Get Peach exchange rate
+  const { price } = await $fetch(`${proxy}https://api.peachbitcoin.com/v1/market/price/BTC${buyerCurrency.value}`);
+  peachRate.value = price
+})
 
 // Get merchant fields settings
 const {
@@ -217,26 +191,33 @@ watch(async () => form.value.buyerDate, async () => {
   })
 });
 
-// Update the listed payment methods if the buyer changes the currency
-watch(async () => form.value.buyerFiatCurrency, async () => {
+const { BTC: btcExchangeRateForMerchantCurrency } = await $fetch(`https://api.yadio.io/exrates/${merchantCurrency}`);
 
-  const { data: paymentMethodsData } = await useFetch(`${proxy}https://api.peachbitcoin.com/v1/info`);
-  const peachPaymentMethods = (paymentMethodsData.value) ? paymentMethodsData.value.paymentMethods : [];
-  buyerPaymentMethods.value = peachPaymentMethods
-  .filter(method => method.currencies.includes(form.value.buyerFiatCurrency) && !method.anonymous)
-  .map(method => {
-    return {
-      id: method.id,
-      name: $capitalize(kebabCase(method.id).replace('-', ' ')).split('-')[0]
-    }
-  });
-  const { data: peachRateData } = await useFetch(`${proxy}https://api.peachbitcoin.com/v1/market/price/BTC${form.value.buyerFiatCurrency}`);
-  form.value.buyerFiatRate = peachRateData.value.price;
-  form.value.buyerFiatDecimal = $getDecimal(form.value.buyerFiatCurrency)
+const priceInBitcoin = computed(() => {
+  const priceInMerchantCurrency = (form.value.buyerTime.length * price) + form.value.buyerExtras.reduce((sum, extra) => sum + extra.price, 0);
+  const priceInBitcoin = ( priceInMerchantCurrency / btcExchangeRateForMerchantCurrency).toFixed(8);
+  return priceInBitcoin
 });
 
-const amount = computed(() => {
-  return (form.value.buyerTime.length * price) + form.value.buyerExtras.reduce((sum, extra) => sum + extra.price, 0);
+// If the buyer changes the currency or the price in bitcoin changes
+// Update the listed payment methods and the amount of fiat
+let priceInBuyerCurrency = ref(0)
+watch(async () => [form.value.buyerFiatCurrency, priceInBitcoin.value], async () => {
+
+  const { paymentMethods: peachPaymentMethods } = await $fetch(`${proxy}https://api.peachbitcoin.com/v1/info`);
+    buyerPaymentMethods.value = peachPaymentMethods
+    .filter(method => method.currencies.includes(form.value.buyerFiatCurrency) && !method.anonymous)
+    .map(method => {
+      return {
+        id: method.id,
+        name: $capitalize(kebabCase(method.id).replace('-', ' ')).split('-')[0]
+      }
+    });
+
+    const { price: buyerCurrencyExchangeRate } = await $fetch(`${proxy}https://api.peachbitcoin.com/v1/market/price/BTC${form.value.buyerFiatCurrency}`);
+    form.value.buyerFiatRate = buyerCurrencyExchangeRate;
+    form.value.buyerFiatDecimal = $getDecimal(form.value.buyerFiatCurrency);
+    priceInBuyerCurrency.value = ( priceInBitcoin.value * (((premium + 2) / 100) + 1) * buyerCurrencyExchangeRate).toFixed(form.value.buyerFiatDecimal)
 });
 
 // Handle is loading free slots
@@ -284,6 +265,7 @@ const createInvoice = async () => {
 
 <template>
   <div>
+    {{ yadioRate }}
     <OLoading
       :full-page="true"
       v-model:active="isLoadingPage"
@@ -536,7 +518,7 @@ const createInvoice = async () => {
           native-type="submit"
           icon-right="sale"
           expanded
-        >{{ `${$t('payWith')} bitcoin ${(amount / yadioRate).toFixed(8)} BTC` }}</OButton>
+        >{{ `${$t('payWith')} bitcoin ${priceInBitcoin} BTC` }}</OButton>
       </OField>
 
       <p 
@@ -557,12 +539,11 @@ const createInvoice = async () => {
           @click="setGateway('fiat', paymentMethod.id, buyerCurrency)"
           native-type="submit"
           expanded
-        >{{ `${$t('payWith')} ${paymentMethod.name} ${(amount / yadioRate * form.buyerFiatRate * (((premium + 2)/ 100) + 1)).toFixed(form.buyerFiatDecimal)} ${form.buyerFiatCurrency}` }}</OButton>
+        >{{ `${$t('payWith')} ${paymentMethod.name} ${priceInBuyerCurrency} ${form.buyerFiatCurrency}` }}</OButton>
         <div v-else>{{ $t('fiatNotAvailable') }}</div>
       </OField>
 
       <VField
-        v-if="peachAvailableCurrencies.length"
         name="changeCurrency"
         :label="$t('changeCurrency')"
         v-slot="{ handleChange, handleBlur, value }"
