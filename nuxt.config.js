@@ -249,6 +249,9 @@ export default defineNuxtConfig({
           'stream', 
           'crypto'
         ],
+        globals: {
+          process: false,
+        }
       }),
     ]
   },
