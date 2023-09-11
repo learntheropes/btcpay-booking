@@ -4,24 +4,34 @@ import { readBody, getQuery, getRequestHeaders } from 'h3';
 
 export default eventHandler(async event => {
 
-  const params = event.context.params;
-  const endpoint = params._
+  try {
 
-  let query, body;
-  if (method === 'GET') {
+    const params = event.context.params;
+    const endpoint = params._
+  
+    let query, body;
+    if (event.method === 'GET') {
+  
+      query = getQuery(event);
+    } else {
+  
+      body = await readBody(event);
+    };
 
-    query = getQuery(event);
-  } else {
+    console.log('endpont', endpoint)
+  
+    await ofetch(endpoint, {
+      baseURL: 'https://api.peachbitcoin.com/',
+      method: event.method,
+      headers: getRequestHeaders(event),
+      query,
+      body,
+      rejectUnauthorized: false
+    })
+    return params;
 
-    body = await readBody(event);
-  };
+  } catch(error) {
+    console.log('peach middleware error', error)
+  }
 
-  await ofetch(endpoint, {
-    baseURL: 'https://api.peachbitcoin.com/',
-    method: event.method,
-    headers: getRequestHeaders(event),
-    query,
-    body
-  })
-  return params;
 });
