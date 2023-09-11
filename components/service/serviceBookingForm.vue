@@ -100,6 +100,8 @@ const {
   data: peachAvailableCurrenciesData,
   refresh: peachAvailableCurrenciesRefresh
 } = await useFetch(`${proxy}https://api.peachbitcoin.com/v1/market/prices`, {
+  key: Date.now().toString(),
+  immediate: false,
   lazy: true
 });
 await peachAvailableCurrenciesRefresh();
@@ -123,6 +125,8 @@ const {
   data: peachRateData,
   refresh: peachRateRefresh
 } = await useFetch(`${proxy}https://api.peachbitcoin.com/v1/market/price/BTC${currency}`, {
+  key: Date.now().toString(),
+  immediate: false,
   lazy: true
 });
 await peachRateRefresh()
