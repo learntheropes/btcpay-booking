@@ -44,9 +44,9 @@ onMounted(async () => {
   <section class="section">
     <div class="ltr-replicate-label">Backup</div>
     <div class="card">
-      <!-- <div class="card-content">
-        <div class="content">{{ mnemonic }}</div>
-      </div> -->
+      <div class="card-content">
+        <div class="content">{{ $t('backupWarning') }}</div>
+      </div>
       <footer class="card-footer">
         <a href="#" @click.native="copy" class="card-footer-item">
           <OIcon icon="content-copy" variant="primary" />

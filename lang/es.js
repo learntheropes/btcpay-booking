@@ -61,8 +61,9 @@ export default {
   printReceipt: 'Imprimir el recibo',
   // components/invoice/fiat/invoiceFiatSelector.vue
   selectPaymentMethod: 'Seleccionar un método de pago',
-  // component/invoice/fiat/invoiceFiat.vue
+  // component/invoice/fiat/invoiceFiatWarning.vue
   bitcoinPurchaseWarning: 'Solo aceptamos bitcoins como método de pago final.\n\nAhora le permitiremos comprar bitcoins con {paymentMethod} de un vendedor amigable y luego enviárnoslos.\n\n\No se preocupe, haremos que el proceso sea fácil y sin complicaciones para usted con solo unos pocos clics.\n\nLe notificaremos sobre sus detalles de pago tan pronto como estén disponibles.\n\nTambién mostraremos los detalles de pago y cualquier comunicación adicional en esta página. Por favor, añade esta página a tus favoritos.',
+  // component/invoice/fiat/invoiceFiatPaymentDetails.vue
   sellerPaymentDetails: "Detalles de pago",
   method: 'Método',
   reference: 'Motivo',
@@ -78,14 +79,8 @@ export default {
   copied: '{key} copiado',
   newChatMessage: 'Nuevo mensaje',
   postChatMessage: 'Envia',
-  // components/invoice/fiat/invoiceFiatSepaDetails.vue
-  // amount: 'Monto',
-  // currency: 'Divisa',
-  // iban: 'IBAN',
-  // bic: 'BIC',
-  // reference: 'Referencia',
-  // recipient: 'Destino',
-  // recipientAddress: 'Dirección de destino',
+  // component/invoice/fiat/invoiceBackup.vue
+  backupWarning: 'Para mantener los bitcoins seguros, guarde la copia de seguridad. Puede copiarlo o descargarlo.',
   // component/layoutFooter.vue
   lastBuiltAt: 'Último commit en bloque',
   merchantDashboard: 'Panel de control del comerciante',
