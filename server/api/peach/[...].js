@@ -8,27 +8,28 @@ export default eventHandler(async event => {
 
     const params = event.context.params;
     const endpoint = params._
+
+    const method = event.method
   
-    let query, body;
-    if (event.method === 'GET') {
-  
-      query = getQuery(event);
-    } else {
-  
+    const query = getQuery(event);
+
+    let body;
+    if (method !== 'GET') {
+
       body = await readBody(event);
     };
 
+    const headers = getRequestHeaders(event)
+
     console.log('endpont', endpoint)
   
-    await ofetch(endpoint, {
+    return await ofetch(endpoint, {
       baseURL: 'https://api.peachbitcoin.com/',
-      method: event.method,
-      headers: getRequestHeaders(event),
+      method,
+      headers,
       query,
       body,
-      rejectUnauthorized: false
     })
-    return params;
 
   } catch(error) {
     console.log('peach middleware error', error)
