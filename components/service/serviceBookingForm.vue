@@ -68,7 +68,7 @@ const onChangeYear = (year) => {
 const { data: countryData } = await useFetch('https://api.country.is/', {
   server: false
 });
-const buyerCountry = (countryData.value) ? countryData.value.country : 'EUR';
+const buyerCountry = (countryData.value) ? countryData.value.country : 'CH';
 const buyerCurrency = countryToCurrency[buyerCountry];
 
 // Define the decimal length based on the currency
