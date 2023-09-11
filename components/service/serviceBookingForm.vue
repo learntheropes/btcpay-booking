@@ -577,4 +577,3 @@ select {
     padding-top: 0.5em;
 }
 </style>
-
