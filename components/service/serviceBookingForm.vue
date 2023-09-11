@@ -74,6 +74,7 @@ const decimal = $getDecimal(currency);
 
 // Get available fiat methods for the buyer currency
 const { data: paymentMethodsData } = await useFetch(`${proxy}https://api.peachbitcoin.com/v1/info`);
+console.log('paymentMethods', paymentMethodsData.value)
 const peachPaymentMethods = (paymentMethodsData.value) ? paymentMethodsData.value.paymentMethods : [];
 const buyerPaymentMethods = ref(peachPaymentMethods
   .filter(method => method.currencies.includes(buyerCurrency) && !method.anonymous)
