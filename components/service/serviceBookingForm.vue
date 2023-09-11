@@ -73,8 +73,15 @@ const buyerCurrency = countryToCurrency[buyerCountry];
 const decimal = $getDecimal(currency);
 
 // Get available fiat methods for the buyer currency
-const { data: paymentMethodsData } = await useFetch(`${proxy}https://api.peachbitcoin.com/v1/info`);
-console.log('paymentMethods', paymentMethodsData.value)
+const { 
+  data: paymentMethodsData, 
+  refresh: paymentMethodsRefresh 
+} = await useFetch(`${proxy}https://api.peachbitcoin.com/v1/info`, {
+  // server: false,
+  // immediate: false,
+  lazy: true
+});
+await paymentMethodsRefresh();
 const peachPaymentMethods = (paymentMethodsData.value) ? paymentMethodsData.value.paymentMethods : [];
 const buyerPaymentMethods = ref(peachPaymentMethods
   .filter(method => method.currencies.includes(buyerCurrency) && !method.anonymous)
@@ -87,13 +94,38 @@ const buyerPaymentMethods = ref(peachPaymentMethods
 
 
 // Get all the currencies available on peach
-const { data: peachAvailableCurrenciesData } = await useFetch(`${proxy}https://api.peachbitcoin.com/v1/market/prices`)
+const { 
+  data: peachAvailableCurrenciesData,
+  refresh: peachAvailableCurrenciesRefresh
+} = await useFetch(`${proxy}https://api.peachbitcoin.com/v1/market/prices`, {
+  lazy: true
+});
+await peachAvailableCurrenciesRefresh();
 const peachAvailableCurrencies = Object.keys(peachAvailableCurrenciesData.value || []).filter(currency => currency !== 'SAT' && currency !== 'USDT').sort()
 
-// Get Yadio and Peach exchange rates
-const { data: { value: { BTC: yadioRate }}} = await useFetch(`https://api.yadio.io/exrates/${currency}`);
-const { data: peachRateData } = await useFetch(`${proxy}https://api.peachbitcoin.com/v1/market/price/BTC${currency}`);
+// Get Yadio exchange rates
+const { 
+  data: { 
+    value: { 
+      BTC: yadioRate 
+    }
+  }, 
+  refresh: yadioRateRefesh 
+} = await useFetch(`https://api.yadio.io/exrates/${currency}`, {
+  lazy: true
+});
+await yadioRateRefesh();
+
+// Get Peach exchange rate
+const { 
+  data: peachRateData,
+  refresh: peachRateRefresh
+} = await useFetch(`${proxy}https://api.peachbitcoin.com/v1/market/price/BTC${currency}`, {
+  lazy: true
+});
+await peachRateRefresh()
 const peachRate = (peachRateData.value) ? peachRateData.value.price : null;
+
 // Get merchant fields settings
 const {
   fields: {
