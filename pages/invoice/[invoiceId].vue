@@ -74,6 +74,7 @@
         </section>
         <section v-else-if="gatewayType === 'fiat'" class="section">
           <invoiceFiat
+            :invoiceId="invoiceId"
             :invoice="invoice"
             :status="status"
             :class="($device.isMobile) ? null : 'side'"

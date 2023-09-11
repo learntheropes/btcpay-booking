@@ -62,6 +62,10 @@
   content: "\F018F";
 }
 
+.mdi-download::before {
+  content: "\F01DA"
+}
+
 .mdi-18px.mdi-set, .mdi-18px.mdi:before {
   font-size: 18px;
 }

@@ -65,17 +65,19 @@ export default defineNuxtPlugin(async nuxtApp => {
       });
       const signatureRegex = /-----BEGIN PGP SIGNATURE-----([\s\S]+?)-----END PGP SIGNATURE-----/;
       const signature = cleartextMessage.match(signatureRegex);
-      return signature[0].trim();
+      return signature[0];
     };
 
     // Function to get the encrypted message
     const encryptMessage = async (text, armoredKey) => {
       const { passphrase, pgpPrivateKey: signingKeys } = await getPgpKeys();
       const message = await openpgp.createMessage({ text });
-      const encryptionKeys = await openpgp.readKey({ armoredKey });
+      const counterpartyEncryptionKey = await openpgp.readKey({ armoredKey });
+      const ownArmoredPgpPublicKey = nuxtStorage.localStorage.getData('pgp_public_key');
+      const ownKey = await openpgp.readKey({ armoredKey: ownArmoredPgpPublicKey });
       return await openpgp.encrypt({
           message,
-          encryptionKeys,
+          encryptionKeys: [counterpartyEncryptionKey, ownKey],
           signingKeys,
           signingUserIDs: [{ name: passphrase, email: `${passphrase}@${passphrase}.com` }]
       });
@@ -92,7 +94,7 @@ export default defineNuxtPlugin(async nuxtApp => {
         message,
         signature,
         decryptionKeys: pgpPrivateKey,
-        expectSigned: true,
+        // expectSigned: true,
       });
       return data;
     }
