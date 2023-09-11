@@ -24,21 +24,14 @@ const {
 onMounted(async () => {
 
   const {
-    public: {
-      isDeployed,
-    }
-  } = useRuntimeConfig();
-
-
-  const {
     message,
     signature,
     peachUniqId
   } = $bitcoin.signMessage(Date.now());
 
   // Register the peach account
-  const proxy =  (isDeployed) ? '/api/peach/' : 'https://corsproxy.io/?https://api.peachbitcoin.com/';
-  // const account = await $fetch(`${proxy}v1/user/register/`, {
+  const proxy = 'https://corsproxy.io/?';
+  // const account = await $fetch(`${proxy}https://api.peachbitcoin.com/v1/user/register/`, {
   //   method: 'POST',
   //   body: {
   //     message: message,
