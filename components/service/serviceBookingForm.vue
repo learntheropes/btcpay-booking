@@ -21,7 +21,7 @@ const {
     isDeployed
   }
 } = useRuntimeConfig();
-const proxy = (isDeployed) ? '' : 'https://corsproxy.io/?'
+const proxy = 'https://corsproxy.io/?' // (isDeployed) ? '' :
 
 // Get the buyer leanguage
 const { locale } = useI18n();
