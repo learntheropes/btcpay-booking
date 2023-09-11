@@ -76,7 +76,7 @@ const decimal = $getDecimal(currency);
 const { 
   data: paymentMethodsData, 
   refresh: paymentMethodsRefresh 
-} = await useFetch(`/api/peach/v1/info`, {
+} = await useFetch(`${proxy}https://api.peachbitcoin.com/v1/info/`, {
   server: false,
   immediate: false,
   lazy: true

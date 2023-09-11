@@ -20,8 +20,6 @@ export default eventHandler(async event => {
     };
 
     const headers = getRequestHeaders(event)
-
-    console.log('endpont', endpoint)
   
     return await ofetch(endpoint, {
       baseURL: 'https://api.peachbitcoin.com/',
@@ -29,10 +27,17 @@ export default eventHandler(async event => {
       headers,
       query,
       body,
+      ignoreResponseError: true,
+      async onRequestError({ request, options, error }) {
+        console.log("[fetch request error]", request, error);
+      },
+      async onResponseError({ request, response, options }) {
+        console.log("[fetch response error]", request, response.status, response.body);
+      },
     })
-
   } catch(error) {
-    console.log('peach middleware error', error)
+
+    console.log('peach middleware error', error);
   }
 
 });
