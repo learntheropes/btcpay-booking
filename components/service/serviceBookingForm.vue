@@ -65,9 +65,7 @@ const onChangeYear = (year) => {
 };
 
 // Get the buyer currency based on the IP location
-const { data: countryData } = await useFetch('https://api.country.is/', {
-  server: false
-});
+const { data: countryData } = await useFetch('https://api.country.is/');
 const buyerCountry = (countryData.value) ? countryData.value.country : 'CH';
 const buyerCurrency = countryToCurrency[buyerCountry];
 
@@ -116,6 +114,8 @@ const {
   }, 
   refresh: yadioRateRefesh 
 } = await useFetch(`https://api.yadio.io/exrates/${currency}`, {
+  key: Date.now().toString(),
+  immediate: false,
   lazy: true
 });
 await yadioRateRefesh();
@@ -539,7 +539,10 @@ const createInvoice = async () => {
         >{{ `${$t('payWith')} bitcoin ${(amount / yadioRate).toFixed(8)} BTC` }}</OButton>
       </OField>
 
-      <p class="help">{{ $t('approximatePrice') }}</p>
+      <p 
+        v-if="gateways.fiat && buyerPaymentMethods.length"
+        class="help"
+      >{{ $t('approximatePrice') }}</p>
 
       <OField
         grouped 
