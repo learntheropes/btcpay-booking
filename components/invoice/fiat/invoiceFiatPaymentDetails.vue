@@ -49,25 +49,32 @@ const copy = (key, value) => {
   <div>
     <div class="is-4">{{ paymentMethod }}</div>
     <section class="section">
-      <OField
-        v-for="[key, value], index in Object.entries(sellerPaymentDetails)"
-        :label="(index === 0 ) ? $t('sellerPaymentDetails') : null"
-        :key="key"
-      >
-        <OButton
-          variant="warning"
-          disabled
-        >{{ $t(key) }}</OButton>
-        <OInput 
-          :model-value="value"
-          disabled
-          expanded
-          iconPack="mdi"
-          icon-right="content-copy"
-          icon-right-clickable
-          @icon-right-click="copy($t(key), value)"
-        />
-      </OField>
+      <div class="ltr-replicate-label">{{ $t('sellerPaymentDetails') }}</div>
+      <div class="columns is-mobile is-vcentered">
+        <div class="column is-narrow">
+          <div
+            v-for="[key, value] in Object.entries(sellerPaymentDetails)"
+            :key="key"
+          >{{ $t(key) }}:</div>
+        </div>
+        <div class="column">
+          <div
+            v-for="[key, value] in Object.entries(sellerPaymentDetails)"
+            :key="key"
+          >{{ value }}</div>
+        </div> 
+        <div class="column is-narrow">
+          <div
+            v-for="[key, value] in Object.entries(sellerPaymentDetails)"
+            :key="key"
+          >
+            <OIcon
+              icon="content-copy"
+              @click.native="copy($t(key), value)"
+            />
+          </div>
+        </div>          
+      </div>
     </section>
   </div>
 </template>

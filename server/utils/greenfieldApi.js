@@ -1,4 +1,4 @@
-import { getMethod, readBody, getQuery } from 'h3';
+import { readBody, getQuery } from 'h3';
 import { ofetch } from 'ofetch';
 import { defaultLocale } from '~/assets/js/locales';
 const {
@@ -41,13 +41,13 @@ export const greenfieldApi = async (endpoint, event) => {
     }
   });
 
-  const method = getMethod(event);
+  const method = event.method;
 
-  let query, body;
-  if (method === 'GET') {
+  const query = getQuery(event);
 
-    query = getQuery(event);
-  } else {
+
+  let body;
+  if (method !== 'GET') {
 
     body = await readBody(event);
   };
