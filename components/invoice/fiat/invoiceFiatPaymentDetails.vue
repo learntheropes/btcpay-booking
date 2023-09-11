@@ -1,5 +1,6 @@
 <script setup>
 import kebabCase from 'lodash.kebabcase';
+import { NotificationProgrammatic } from "@oruga-ui/oruga-next";
 
 // Get invoice props
 const {
