@@ -21,7 +21,7 @@ const {
     isDeployed
   }
 } = useRuntimeConfig();
-const proxy = 'https://corsproxy.io/?' // (isDeployed) ? '' :
+const proxy =  (isDeployed) ? '/api/peach/' : 'https://corsproxy.io/?https://api.peachbitcoin.com/';
 
 // Get the buyer leanguage
 const { locale } = useI18n();
@@ -78,7 +78,7 @@ const buyerCurrency = countryToCurrency[buyerCountry];
 const decimal = $getDecimal(currency);
 
 // Get available fiat methods for the buyer currency
-const { data: paymentMethodsData } = await useFetch(`${proxy}https://api.peachbitcoin.com/v1/info`);
+const { data: paymentMethodsData } = await useFetch(`${proxy}v1/info`);
 const peachPaymentMethods = (paymentMethodsData.value) ? paymentMethodsData.value.paymentMethods : [];
 const buyerPaymentMethods = ref(peachPaymentMethods
   .filter(method => method.currencies.includes(buyerCurrency) && !method.anonymous)
@@ -91,12 +91,12 @@ const buyerPaymentMethods = ref(peachPaymentMethods
 
 
 // Get all the currencies available on peach
-const { data: peachAvailableCurrenciesData } = await useFetch(`${proxy}https://api.peachbitcoin.com/v1/market/prices`)
+const { data: peachAvailableCurrenciesData } = await useFetch(`${proxy}v1/market/prices`)
 const peachAvailableCurrencies = Object.keys(peachAvailableCurrenciesData.value || []).filter(currency => currency !== 'SAT' && currency !== 'USDT').sort()
 
 // Get Yadio and Peach exchange rates
 const { data: { value: { BTC: yadioRate }}} = await useFetch(`https://api.yadio.io/exrates/${currency}`);
-const { data: peachRateData } = await useFetch(`${proxy}https://api.peachbitcoin.com/v1/market/price/BTC${currency}`);
+const { data: peachRateData } = await useFetch(`${proxy}v1/market/price/BTC${currency}`);
 const peachRate = (peachRateData.value) ? peachRateData.value.price : null;
 // Get merchant fields settings
 const {
@@ -186,7 +186,7 @@ watch(async () => form.value.buyerDate, async () => {
 // Update the listed payment methods if the buyer changes the currency
 watch(async () => form.value.buyerFiatCurrency, async () => {
 
-  const { data: paymentMethodsData } = await useFetch(`${proxy}https://api.peachbitcoin.com/v1/info`);
+  const { data: paymentMethodsData } = await useFetch(`${proxy}v1/info`);
   const peachPaymentMethods = (paymentMethodsData.value) ? paymentMethodsData.value.paymentMethods : [];
   buyerPaymentMethods.value = peachPaymentMethods
   .filter(method => method.currencies.includes(form.value.buyerFiatCurrency) && !method.anonymous)
@@ -196,7 +196,7 @@ watch(async () => form.value.buyerFiatCurrency, async () => {
       name: $capitalize(kebabCase(method.id).replace('-', ' ')).split('-')[0]
     }
   });
-  const { data: peachRateData } = await useFetch(`${proxy}https://api.peachbitcoin.com/v1/market/price/BTC${form.value.buyerFiatCurrency}`);
+  const { data: peachRateData } = await useFetch(`${proxy}v1/market/price/BTC${form.value.buyerFiatCurrency}`);
   form.value.buyerFiatRate = peachRateData.value.price;
   form.value.buyerFiatDecimal = $getDecimal(form.value.buyerFiatCurrency)
 });
