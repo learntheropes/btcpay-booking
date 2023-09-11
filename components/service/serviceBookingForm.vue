@@ -130,7 +130,9 @@ const initialForm = {
   buyerGateway: {},
   buyerFiatCurrency: buyerCurrency,
   buyerFiatRate: peachRate,
-  buyerFiatDecimal: decimal
+  buyerFiatDecimal: decimal,
+  bitcoinExhangeRate: 0,
+  priceInBitcoin: 0
 }
 const form = ref(initialForm);
 
@@ -191,11 +193,15 @@ watch(async () => form.value.buyerDate, async () => {
   })
 });
 
+// Get the bitcoin exchange rate in the currency of the merchant
 const { BTC: btcExchangeRateForMerchantCurrency } = await $fetch(`https://api.yadio.io/exrates/${merchantCurrency}`);
+form.value.bitcoinExhangeRate = btcExchangeRateForMerchantCurrency;
 
+// Calculate the price in bitcoin 
 const priceInBitcoin = computed(() => {
   const priceInMerchantCurrency = (form.value.buyerTime.length * price) + form.value.buyerExtras.reduce((sum, extra) => sum + extra.price, 0);
   const priceInBitcoin = ( priceInMerchantCurrency / btcExchangeRateForMerchantCurrency).toFixed(8);
+  form.value.priceInBitcoin = priceInBitcoin;
   return priceInBitcoin
 });
 

@@ -106,7 +106,8 @@ const {
 // After that the invoice has been refreshed by the invoiceBitcoinExpired component
 $event('invoiceBitcoinIsLoading', false);
 
-const { data } = await useFetch('https://mempool.space/api/v1/fees/recommended');
+const proxy = 'https://corsproxy.io/?';
+const { data } = await useFetch(`${proxy}https://mempool.space/api/v1/fees/recommended`);
 const suggestedFee = data.value.fastestFee
 </script>
 
