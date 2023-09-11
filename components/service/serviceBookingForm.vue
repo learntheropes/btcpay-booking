@@ -1,7 +1,7 @@
 <script setup>
 import countryToCurrency from 'country-to-currency';
 import kebabCase from 'lodash.kebabcase';
-
+import sortBy from 'lodash.sortby'
 // Get props from [service].vue page
 const {
   service,
@@ -84,14 +84,14 @@ onMounted(async () => {
   } = await $fetch(`${proxy}https://api.peachbitcoin.com/v1/info/`);
   
   // Get available fiat methods for the buyer currency
-  buyerPaymentMethods.value = peachPaymentMethods
+  buyerPaymentMethods.value = sortBy(peachPaymentMethods
     .filter(method => method.currencies.includes(buyerCurrency) && !method.anonymous)
     .map(method => {
       return {
         id: method.id,
         name: $capitalize(kebabCase(method.id).replace('-', ' ')).replace('-', '%')
       }
-    });
+    }), 'name');
 
   // Get all the currencies available on peach
   const peachCurrencies = await $fetch(`${proxy}https://api.peachbitcoin.com/v1/market/prices`);
@@ -205,14 +205,15 @@ let priceInBuyerCurrency = ref(0)
 watch(async () => [form.value.buyerFiatCurrency, priceInBitcoin.value], async () => {
 
   const { paymentMethods: peachPaymentMethods } = await $fetch(`${proxy}https://api.peachbitcoin.com/v1/info`);
-    buyerPaymentMethods.value = peachPaymentMethods
-    .filter(method => method.currencies.includes(form.value.buyerFiatCurrency) && !method.anonymous)
-    .map(method => {
-      return {
-        id: method.id,
-        name: $capitalize(kebabCase(method.id).replace('-', ' ')).split('-')[0]
-      }
-    });
+    buyerPaymentMethods.value = sortBy(peachPaymentMethods
+      .sort()
+      .filter(method => method.currencies.includes(form.value.buyerFiatCurrency) && !method.anonymous)
+      .map(method => {
+        return {
+          id: method.id,
+          name: $capitalize(kebabCase(method.id).replace('-', ' ')).split('-')[0]
+        }
+      }), 'name');
 
     const { price: buyerCurrencyExchangeRate } = await $fetch(`${proxy}https://api.peachbitcoin.com/v1/market/price/BTC${form.value.buyerFiatCurrency}`);
     form.value.buyerFiatRate = buyerCurrencyExchangeRate;
@@ -265,7 +266,6 @@ const createInvoice = async () => {
 
 <template>
   <div>
-    {{ yadioRate }}
     <OLoading
       :full-page="true"
       v-model:active="isLoadingPage"
