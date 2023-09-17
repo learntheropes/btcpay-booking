@@ -6,13 +6,13 @@ Without KYC requirements for the merchant and the client. Merchant and buyer per
 
 ## Status
 Under active development.  
-- [x] Profile and services settings. Ready.
-- [x] Btcpay server api integration. Ready.
-- [x] Bitcoin checkout. On-chain and Lighning Network. Ready.
-- Fiat integration with Peach Bitcoin api. Under current development.
-- [ ] Crypto integration with SideShift api. Planned.
-- [ ] Merchant control panel. Planned.
-- [ ] Calendar integration. Planned, with google calendar or better with a privacy focused calendar app that provides api.
+- [x] Profile and services settings. Ready.  
+- [x] Btcpay server api integration. Ready.  
+- [x] Bitcoin checkout. On-chain and Lighning Network. Ready.  
+- Fiat integration with Peach Bitcoin api. Under current development.  
+- [ ] Crypto integration with SideShift api. Planned.  
+- [ ] Merchant control panel. Planned.  
+- [ ] Calendar integration. Planned, with google calendar or better with a privacy focused calendar app that provides api.  
 
 ## Features
 - Self custodial solution with btcpay server integration.  

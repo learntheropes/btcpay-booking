@@ -48,7 +48,7 @@ const refreshInvoice = async (metadata) => {
   <div class="card">
     <header class="card-header">
       <div class="card-header-title is-justify-content-center">
-        <span>{{ $t('invoiceExpired') }}</span>
+        <span>{{ $t('invoiceBitcoinExpired.invoiceExpired') }}</span>
       </div>
     </header>
     <div class="card-content">
@@ -71,7 +71,7 @@ const refreshInvoice = async (metadata) => {
               >
                 <IconWithText
                   icon="chevron-down"
-                  :text="$t('viewDetails')"
+                  :text="$t('invoiceBitcoinNew.viewDetails')"
                   textVariant="primary"
                   iconVariant="primary"
                   iconSide="right"
@@ -84,7 +84,7 @@ const refreshInvoice = async (metadata) => {
               >
                 <IconWithText
                   icon="chevron-up"
-                  :text="$t('hideDetails')"
+                  :text="$t('invoiceBitcoinNew.hideDetails')"
                   textVariant="primary"
                   iconVariant="primary"
                   iconSide="right"
@@ -95,7 +95,7 @@ const refreshInvoice = async (metadata) => {
           <div>
             <div class="level is-mobile">
               <div class="level-left">
-                <div class="level-item has-text-warning">{{ $t('totalPrice') }}</div>
+                <div class="level-item has-text-warning">{{ $t('invoiceBitcoinNew.totalPrice') }}</div>
               </div>
               <div class="level-rigth">
                 <div class="level-item">{{ Number.parseFloat(paymentMethods[selectedMethodIndex].amount).toFixed(8) }} {{ paymentMethods[selectedMethodIndex].cryptoCode}}</div>
@@ -103,7 +103,7 @@ const refreshInvoice = async (metadata) => {
             </div>
             <div class="level is-mobile">
               <div class="level-left">
-                <div class="level-item has-text-warning">{{ $t('totalFiat') }}</div>
+                <div class="level-item has-text-warning">{{ $t('invoiceBitcoinNew.totalFiat') }}</div>
               </div>
               <div class="level-rigth">
                 <div class="level-item">{{ Number.parseFloat(invoice.amount).toFixed(2) }} {{ invoice.currency }}</div>
@@ -111,7 +111,7 @@ const refreshInvoice = async (metadata) => {
             </div>
             <div class="level is-mobile">
               <div class="level-left">
-                <div class="level-item has-text-warning">{{ $t('exchangeRate') }}</div>
+                <div class="level-item has-text-warning">{{ $t('invoiceBitcoinNew.exchangeRate') }}</div>
               </div>
               <div class="level-rigth">
                 <div class="level-item">{{ Number.parseFloat(paymentMethods[selectedMethodIndex].rate).toFixed(2) }} {{ paymentMethods[selectedMethodIndex].cryptoCode}}/{{ invoice.currency }}</div>
@@ -119,7 +119,7 @@ const refreshInvoice = async (metadata) => {
             </div>
             <div class="level is-mobile">
               <div class="level-left">
-                <div class="level-item has-text-warning">{{ $t('amountDue') }}</div>
+                <div class="level-item has-text-warning">{{ $t('invoiceBitcoinNew.amountDue') }}</div>
               </div>
               <div class="level-rigth">
                 <div class="level-item">{{ Number.parseFloat(paymentMethods[selectedMethodIndex].due).toFixed(8) }} {{ paymentMethods[selectedMethodIndex].cryptoCode}}</div>
@@ -128,14 +128,14 @@ const refreshInvoice = async (metadata) => {
           </div>
         </OCollapse>
       </div>
-      <div>{{ $t('invoiceExpired') }} {{ $dayjs(invoice.expirationTime * 1000).fromNow() }}.</div>
-      <div>{{ $t('invoiceValidity', { minutes: invoice.checkout.expirationMinutes }) }}.</div>
+      <div>{{ $t('invoiceBitcoinExpired.invoiceExpired') }} {{ $dayjs(invoice.expirationTime * 1000).fromNow() }}.</div>
+      <div>{{ $t('invoiceBitcoinExpired.invoiceValidity', { minutes: invoice.checkout.expirationMinutes }) }}.</div>
     </div>
     <footer class="card-footer">
       <div
         @click.native=refreshInvoice(invoice.metadata)
         class="card-footer-item"
-      >{{ $t('payWithBitcoin') }}</div>
+      >{{ $t('invoiceBitcoinExpired.payWithBitcoin') }}</div>
     </footer>
   </div>
 </template>

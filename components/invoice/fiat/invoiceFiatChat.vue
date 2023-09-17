@@ -295,12 +295,12 @@ onMounted(async () => {
     >
       <VField
         name="newMessage"
-        :label="$t('newChatMessage')"
+        :label="$t('invoiceFiatPaymentDetails.newChatMessage')"
         v-slot="{ handleChange, handleBlur, value, errors }"
         v-model="form.newMessage"
       >
         <OField
-          :label="$t('newChatMessage')"
+          :label="$t('invoiceFiatPaymentDetails.newChatMessage')"
           :variant="errors[0] ? 'danger' : null"
           :message="errors[0] ? errors[0] : ''"
         >
@@ -321,7 +321,7 @@ onMounted(async () => {
           variant="primary"
           native-type="submit"
           expanded
-        >{{ $t('postChatMessage') }}</OButton>
+        >{{ $t('invoiceFiatPaymentDetails.postChatMessage') }}</OButton>
       </OField>
     </VForm>
   </section>

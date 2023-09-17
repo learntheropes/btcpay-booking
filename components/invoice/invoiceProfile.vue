@@ -67,50 +67,50 @@ const {
         </div>
       </div>
       <div class="column">
-        <h1 class="title is-4 has-text-primary">{{ $t('invoice') }} {{ invoiceId }}</h1>
-        <div class="subtitle is-6">{{ $t('booking')}} {{ orderId }}</div>
+        <h1 class="title is-4 has-text-primary">{{ $t('invoiceProfile.invoice') }} {{ invoiceId }}</h1>
+        <div class="subtitle is-6">{{ $t('invoiceProfile.booking')}} {{ orderId }}</div>
       </div>
     </div>
   </section>
   <section class="section content">
     <div class=block>
-      <div class="has-text-weight-semibold">{{ $t('buyerService') }}</div>
+      <div class="has-text-weight-semibold">{{ $t('serviceBookingForm.buyerService') }}</div>
       <div>{{ buyerServiceTitle }}</div>
     </div>
     <div class=block>
-      <div class="has-text-weight-semibold">{{ $t('buyerTime') }}</div>
+      <div class="has-text-weight-semibold">{{ $t('serviceBookingForm.buyerTime') }}</div>
       <div>{{ buyerTime.map(t => $dayjs(t * 1000).format('llll')).join('\n') }}</div>
     </div>
     <div class=block>
-      <div class="has-text-weight-semibold">{{ $t('buyerExtras') }}</div>
-      <div>{{ (buyerExtras.length) ? buyerExtras.map(e => e.title).join('\n') : $t('notProvided') }}</div>
+      <div class="has-text-weight-semibold">{{ $t('serviceBookingForm.buyerExtras') }}</div>
+      <div>{{ (buyerExtras.length) ? buyerExtras.map(e => e.title).join('\n') : $t('invoiceProfile.notProvided') }}</div>
     </div>
     <div class=block>
-      <div class="has-text-weight-semibold">{{ $t('buyerName') }}</div>
-      <div>{{ buyerName || $t('notProvided') }}</div>
+      <div class="has-text-weight-semibold">{{ $t('serviceBookingForm.buyerName') }}</div>
+      <div>{{ buyerName || $t('invoiceProfile.notProvided') }}</div>
     </div>
     <div class=block>
-      <div class="has-text-weight-semibold">{{ $t('buyerEmail') }}</div>
+      <div class="has-text-weight-semibold">{{ $t('serviceBookingForm.buyerEmail') }}</div>
       <div>{{ buyerEmail || $t('notProvided') }}</div>
     </div>
     <div class=block>
-      <div class="has-text-weight-semibold">{{ $t('buyerFingerprint') }}</div>
-      <div>{{ buyerFingerprint || $t('notProvided') }}</div>
+      <div class="has-text-weight-semibold">{{ $t('serviceBookingForm.buyerFingerprint') }}</div>
+      <div>{{ buyerFingerprint || $t('invoiceProfile.notProvided') }}</div>
     </div>
     <div class=block>
-      <div class="has-text-weight-semibold">{{ $t('buyerPGP') }}</div>
-      <div>{{ buyerPGP || $t('notProvided') }}</div>
+      <div class="has-text-weight-semibold">{{ $t('serviceBookingForm.buyerPGP') }}</div>
+      <div>{{ buyerPGP || $t('invoiceProfile.notProvided') }}</div>
     </div>
     <div class=block>
-      <div class="has-text-weight-semibold">{{ $t('buyerDetails') }}</div>
-      <div>{{ buyerDetails || $t('notProvided') }}</div>
+      <div class="has-text-weight-semibold">{{ $t('serviceBookingForm.buyerDetails') }}</div>
+      <div>{{ buyerDetails || $t('invoiceProfile.notProvided') }}</div>
     </div>
     <div class=block>
-      <div class="has-text-weight-semibold">{{ $t('buyerGateway') }}</div>
+      <div class="has-text-weight-semibold">{{ $t('serviceBookingForm.buyerGateway') }}</div>
       <div class="is-capitalized">{{ gatewayType }} - {{ gatewayMethod }} - {{ gatewayCurrency }}</div>
     </div>
     <div class=block>
-      <div class="has-text-weight-semibold">{{ $t('buyerLanguage') }}</div>
+      <div class="has-text-weight-semibold">{{ $t('serviceBookingForm.buyerLanguage') }}</div>
       <div>{{ find(locales, { code: buyerLanguage}).name }}</div>
     </div>
   </section>

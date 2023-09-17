@@ -294,18 +294,18 @@ const createInvoice = async () => {
     >
       <VField
         name="buyerDate"
-        :label="$t('buyerDate')"
+        :label="$t('serviceBookingForm.buyerDate')"
         v-slot="{ handleChange, handleBlur, value, errors }"
         v-model="form.buyerDate"
       >
         <OField
-          :label="$t('buyerDate')"
+          :label="$t('serviceBookingForm.buyerDate')"
           :variant="errors[0] ? 'danger' : null"
           :message="errors[0] ? errors[0] : ''"
         >
           <ODatepicker
-            :label="$t('buyerDate')"
-            :aria-label="$t('buyerDate')"
+            :label="$t('serviceBookingForm.buyerDate')"
+            :aria-label="$t('serviceBookingForm.buyerDate')"
             :model-value="value"
             @update:modelValue="handleChange"
             @change="handleChange"
@@ -325,12 +325,12 @@ const createInvoice = async () => {
 
       <VField
         name="buyerTime"
-        :label="$t('buyerTime')"
+        :label="$t('serviceBookingForm.buyerTime')"
         v-slot="{ handleChange, handleBlur, value, errors }"
         v-model="form.buyerTime"
       >
         <OField
-          :label="$t('buyerTime')"
+          :label="$t('serviceBookingForm.buyerTime')"
           :variant="errors[0] ? 'danger' : null"
           :message="errors[0] ? errors[0] : ''"
         >
@@ -343,8 +343,8 @@ const createInvoice = async () => {
             <OIcon pack="mdi" icon="loading" size="small" spin class="is-hidden-tablet" />
           </OLoading>
           <OSelect
-            :label="$t('buyerTime')"
-            :aria-label="$t('buyerTime')"
+            :label="$t('serviceBookingForm.buyerTime')"
+            :aria-label="$t('serviceBookingForm.buyerTime')"
             :model-value="value"
             @update:modelValue="handleChange"
             @change="handleChange"
@@ -357,13 +357,13 @@ const createInvoice = async () => {
               v-if="!form.buyerDate"
               disabled
             >
-              {{ $t('selectDateFirst') }}
+              {{ $t('serviceBookingForm.selectDateFirst') }}
             </option>
             <option
               v-for="freeSlot of freeSlots"
               :key="freeSlot.value"
               :value="freeSlot.value"
-            >{{ $t('from') }} {{ freeSlot.display.from }} {{ $t('to') }} {{ freeSlot.display.to }}</option>
+            >{{ $t('from') }} {{ freeSlot.display.from }} {{ $t('serviceBookingForm.to') }} {{ freeSlot.display.to }}</option>
           </OSelect>
         </OField>
         <p
@@ -372,25 +372,25 @@ const createInvoice = async () => {
           class="help is-primary"
         >
           <OIcon pack="mdi" icon="close" size="small" />
-          {{ $t('clearSelection') }}
+          {{ $t('serviceBookingForm.clearSelection') }}
         </p>
       </VField>
 
       <VField
         v-if="extras && extras.length"
         name="buyerExtras"
-        :label="$t('buyerExtras')"
+        :label="$t('serviceBookingForm.buyerExtras')"
         v-slot="{ handleChange, handleBlur, value, errors }"
         v-model="form.buyerExtras"
       >
         <OField
-          :label="$t('buyerExtras')"
+          :label="$t('serviceBookingForm.buyerExtras')"
           :variant="errors[0] ? 'danger' : null"
           :message="errors[0] ? errors[0] : ''"
         >
           <OSelect
-            :label="$t('buyerExtras')"
-            :aria-label="$t('buyerExtras')"
+            :label="$t('serviceBookingForm.buyerExtras')"
+            :aria-label="$t('serviceBookingForm.buyerExtras')"
             :model-value="value"
             @update:modelValue="handleChange"
             @change="handleChange"
@@ -412,25 +412,25 @@ const createInvoice = async () => {
           class="help is-primary"
         >
           <OIcon pack="mdi" icon="close" size="small" />
-          {{ $t('clearSelection') }}
+          {{ $t('serviceBookingForm.clearSelection') }}
         </p>
       </VField>
 
       <VField
         name="buyerName"
-        :label="$t('buyerName')"
+        :label="$t('serviceBookingForm.buyerName')"
         v-slot="{ handleChange, handleBlur, value, errors }"
         v-model="form.buyerName"
       >
         <OField
           v-if="name"
-          :label="$t('buyerName')"
+          :label="$t('serviceBookingForm.buyerName')"
           :variant="errors[0] ? 'danger' : null"
           :message="errors[0] ? errors[0] : ''"
         >
           <OInput
-            :label="$t('buyerName')"
-            :aria-label="$t('buyerName')"
+            :label="$t('serviceBookingForm.buyerName')"
+            :aria-label="$t('serviceBookingForm.buyerName')"
             :model-value="value"
             @update:modelValue="handleChange"
             @change="handleChange"
@@ -441,19 +441,19 @@ const createInvoice = async () => {
 
       <VField
         name="buyerEmail"
-        :label="$t('buyerEmail')"
+        :label="$t('serviceBookingForm.buyerEmail')"
         v-slot="{ handleChange, handleBlur, value, errors }"
         v-model="form.buyerEmail"
       >
         <OField
           v-if="email"
-          :label="$t('buyerEmail')"
+          :label="$t('serviceBookingForm.buyerEmail')"
           :variant="errors[0] ? 'danger' : null"
           :message="errors[0] ? errors[0] : ''"
         >
           <OInput
-            :label="$t('buyerEmail')"
-            :aria-label="$t('buyerEmail')"
+            :label="$t('serviceBookingForm.buyerEmail')"
+            :aria-label="$t('serviceBookingForm.buyerEmail')"
             type="email"
             :model-value="value"
             @update:modelValue="handleChange"
@@ -466,20 +466,20 @@ const createInvoice = async () => {
       <!-- 5BA78A510CDA44132BDC51FA58C798100FF8A743 -->
       <VField
         name="buyerFingerprint"
-        :label="$t('buyerFingerprint')"
+        :label="$t('serviceBookingForm.buyerFingerprint')"
         v-slot="{ handleChange, handleBlur, value, errors }"
         v-model="form.buyerFingerprint"
       >
         <OField
           v-if="pgp"
-          :label="$t('buyerFingerprint')"
+          :label="$t('serviceBookingForm.buyerFingerprint')"
           :variant="errors[0] ? 'danger' : null"
           :message="errors[0] ? errors[0] : $t('fingerprintOnServer')"
         >
           <!-- https://github.com/logaretm/vee-validate/issues/3575#issuecomment-1516900983 -->
           <OInput
-            :label="$t('buyerFingerprint')"
-            :aria-label="$t('buyerFingerprint')"
+            :label="$t('serviceBookingForm.buyerFingerprint')"
+            :aria-label="$t('serviceBookingForm.buyerFingerprint')"
             :model-value="value"
             @change="handleChange"
             @blur="handleBlur"
@@ -490,19 +490,19 @@ const createInvoice = async () => {
 
       <VField
         name="buyerDetails"
-        :label="$t('buyerDetails')"
+        :label="$t('serviceBookingForm.buyerDetails')"
         v-slot="{ handleChange, handleBlur, value, errors }"
         v-model="form.buyerDetails"
       >
         <OField
           v-if="details"
-          :label="$t('buyerDetails')"
+          :label="$t('serviceBookingForm.buyerDetails')"
           :variant="errors[0] ? 'danger' : null"
           :message="errors[0] ? errors[0] : ''"
         >
           <OInput
-            :label="$t('buyerDetails')"
-            :aria-label="$t('buyerDetails')"
+            :label="$t('serviceBookingForm.buyerDetails')"
+            :aria-label="$t('serviceBookingForm.buyerDetails')"
             type="textarea"
             :model-value="value"
             @update:modelValue="handleChange"
@@ -515,7 +515,7 @@ const createInvoice = async () => {
         </OField>
       </VField>
 
-      <p class="help">{{ $t('getDiscount', { premium: premium + 2 }) }}</p>
+      <p class="help">{{ $t('serviceBookingForm.getDiscount', { premium: premium + 2 }) }}</p>
 
       <OField>
         <OButton
@@ -524,13 +524,13 @@ const createInvoice = async () => {
           native-type="submit"
           icon-right="sale"
           expanded
-        >{{ `${$t('payWith')} bitcoin ${priceInBitcoin} BTC` }}</OButton>
+        >{{ `${$t('serviceBookingForm.payWith')} bitcoin ${priceInBitcoin} BTC` }}</OButton>
       </OField>
 
       <p 
         v-if="gateways.fiat && buyerPaymentMethods.length"
         class="help"
-      >{{ $t('approximatePrice') }}</p>
+      >{{ $t('serviceBookingForm.approximatePrice') }}</p>
 
       <OField
         grouped 
@@ -545,23 +545,23 @@ const createInvoice = async () => {
           @click="setGateway('fiat', paymentMethod.id, buyerCurrency)"
           native-type="submit"
           expanded
-        >{{ `${$t('payWith')} ${paymentMethod.name} ${priceInBuyerCurrency} ${form.buyerFiatCurrency}` }}</OButton>
-        <div v-else>{{ $t('fiatNotAvailable') }}</div>
+        >{{ `${$t('serviceBookingForm.payWith')} ${paymentMethod.name} ${priceInBuyerCurrency} ${form.buyerFiatCurrency}` }}</OButton>
+        <div v-else>{{ $t('serviceBookingForm.fiatNotAvailable') }}</div>
       </OField>
 
       <VField
         name="changeCurrency"
-        :label="$t('changeCurrency')"
+        :label="$t('serviceBookingForm.changeCurrency')"
         v-slot="{ handleChange, handleBlur, value }"
         v-model="form.buyerFiatCurrency"
       >
         <OField
-          :label="$t('changeCurrency')"
+          :label="$t('serviceBookingForm.changeCurrency')"
           class="change"
         >
           <OSelect
-            :label="$t('changeCurrency')"
-            :aria-label="$t('changeCurrency')"
+            :label="$t('serviceBookingForm.changeCurrency')"
+            :aria-label="$t('serviceBookingForm.changeCurrency')"
             :model-value="value"
             @update:modelValue="handleChange"
             @change="handleChange"

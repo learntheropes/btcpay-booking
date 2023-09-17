@@ -86,7 +86,7 @@ const { t } = useI18n();
 // Functions to copy the address/invoice with notification
 const copyDestination = () => {
   navigator.clipboard.writeText(paymentMethodsCleaned[selectedMethodIndex.value].destination);
-  NotificationProgrammatic.open(t('destinationCopied'));
+  NotificationProgrammatic.open(t('invoiceBitcoinNew.destinationCopied'));
 };
 
 // Render and copy btc or sat amount based on the payment method selected
@@ -94,7 +94,7 @@ const renderAmount = computed(() => (selectedMethodIndex.value === 0) ? paymentM
 
 const copyAmount = () => {
   navigator.clipboard.writeText((selectedMethodIndex.value === 0) ? paymentMethodsCleaned[selectedMethodIndex.value].due : parseInt(Number(paymentMethodsCleaned[selectedMethodIndex.value].due) * 100000000));
-  NotificationProgrammatic.open(t('amountCopied'));
+  NotificationProgrammatic.open(t('invoiceBitcoinNew.amountCopied'));
 };
 
 // Get needed functions from plugins
@@ -115,7 +115,7 @@ const suggestedFee = data.value.fastestFee
   <div class="card">
     <header class="card-header">
       <div class="card-header-title is-justify-content-center">
-        <span>{{ $t('invoiceNew') }}</span>
+        <span>{{ $t('invoiceBitcoinNew.invoiceNew') }}</span>
       </div>
     </header>
     <div class="card-content">
@@ -139,7 +139,7 @@ const suggestedFee = data.value.fastestFee
               >
                 <IconWithText
                   icon="chevron-down"
-                  :text="$t('viewDetails')"
+                  :text="$t('invoiceBitcoinNew.viewDetails')"
                   textVariant="primary"
                   iconVariant="primary"
                   iconSide="right"
@@ -152,7 +152,7 @@ const suggestedFee = data.value.fastestFee
               >
                 <IconWithText
                   icon="chevron-up"
-                  :text="$t('hideDetails')"
+                  :text="$t('invoiceBitcoinNew.hideDetails')"
                   textVariant="primary"
                   iconVariant="primary"
                   iconSide="right"
@@ -163,7 +163,7 @@ const suggestedFee = data.value.fastestFee
           <div>
             <div class="level is-mobile">
               <div class="level-left">
-                <div class="level-item has-text-warning">{{ $t('totalPrice') }}</div>
+                <div class="level-item has-text-warning">{{ $t('invoiceBitcoinNew.totalPrice') }}</div>
               </div>
               <div class="level-rigth">
                 <div class="level-item">{{ (selectedMethodIndex === 0) ? Number.parseFloat(paymentMethodsCleaned[selectedMethodIndex].amount).toFixed(8) : Number.parseFloat(paymentMethodsCleaned[selectedMethodIndex].amount * 100000000).toFixed(0) }} {{ ((selectedMethodIndex === 0)) ? paymentMethodsCleaned[selectedMethodIndex].cryptoCode : 'SATS' }}</div>
@@ -171,7 +171,7 @@ const suggestedFee = data.value.fastestFee
             </div>
             <div class="level is-mobile">
               <div class="level-left">
-                <div class="level-item has-text-warning">{{ $t('totalFiat') }}</div>
+                <div class="level-item has-text-warning">{{ $t('invoiceBitcoinNew.totalFiat') }}</div>
               </div>
               <div class="level-rigth">
                 <div class="level-item">{{ Number.parseFloat(invoice.amount).toFixed(2) }} {{ invoice.currency }}</div>
@@ -179,7 +179,7 @@ const suggestedFee = data.value.fastestFee
             </div>
             <div class="level is-mobile">
               <div class="level-left">
-                <div class="level-item has-text-warning">{{ $t('exchangeRate') }}</div>
+                <div class="level-item has-text-warning">{{ $t('invoiceBitcoinNew.exchangeRate') }}</div>
               </div>
               <div class="level-rigth">
                 <div class="level-item">{{ Number.parseFloat(paymentMethodsCleaned[selectedMethodIndex].rate).toFixed(2) }} {{ paymentMethodsCleaned[selectedMethodIndex].cryptoCode }}/{{ invoice.currency }}</div>
@@ -187,7 +187,7 @@ const suggestedFee = data.value.fastestFee
             </div>
             <div class="level is-mobile">
               <div class="level-left">
-                <div class="level-item has-text-warning">{{ $t('amountDue') }}</div>
+                <div class="level-item has-text-warning">{{ $t('invoiceBitcoinNew.amountDue') }}</div>
               </div>
               <div class="level-rigth">
                 <div class="level-item">{{ (selectedMethodIndex === 0) ? Number.parseFloat(paymentMethodsCleaned[selectedMethodIndex].due).toFixed(8) : Number.parseFloat(paymentMethodsCleaned[selectedMethodIndex].due * 100000000).toFixed(0) }} {{ ((selectedMethodIndex === 0)) ? paymentMethodsCleaned[selectedMethodIndex].cryptoCode : 'SATS' }}</div>
@@ -195,7 +195,7 @@ const suggestedFee = data.value.fastestFee
             </div>
             <div v-if="selectedMethodIndex === 0" class="level is-mobile">
               <div class="level-left">
-                <div class="level-item has-text-warning">{{ $t('recommendedFee') }}</div>
+                <div class="level-item has-text-warning">{{ $t('invoiceBitcoinNew.recommendedFee') }}</div>
               </div>
               <div class="level-rigth">
                 <div class="level-item">{{ suggestedFee }} sat/vB</div>
@@ -206,7 +206,7 @@ const suggestedFee = data.value.fastestFee
       </div>
       <div class="block has-text-centered">
         <div class="field">
-          <label class="label">{{ $t('payWith') }}</label>
+          <label class="label">{{ $t('invoiceBitcoinNew.payWith') }}</label>
           <div class="control">
             <div class="buttons is-centered">
               <OButton
@@ -215,7 +215,7 @@ const suggestedFee = data.value.fastestFee
                 variant="primary"
                 :outlined="selectedMethodIndex !== index"
                 @click.native="setMethodIndex(index)"
-              >{{ $t(method.name) }}</OButton>
+              >{{ $t(`invoiceBitcoinNew.${method.name}`) }}</OButton>
             </div>
           </div>
         </div>
@@ -236,7 +236,7 @@ const suggestedFee = data.value.fastestFee
       </div>
     </div>
     <div class="card-content">
-      <OField :label="$t(allowedMethods[selectedMethodIndex].destination)">
+      <OField :label="$t(`invoiceBitcoinNew.${allowedMethods[selectedMethodIndex].destination}`)">
         <OInput
           v-model="paymentMethodsCleaned[selectedMethodIndex].destination"
           icon-right="content-copy"
@@ -246,7 +246,7 @@ const suggestedFee = data.value.fastestFee
           readonly
         />
       </OField>
-      <OField :label="$t('amount')">
+      <OField :label="$t('invoiceBitcoinNew.amount')">
         <OInput
           v-model="renderAmount"
           icon-right="content-copy"
@@ -258,7 +258,7 @@ const suggestedFee = data.value.fastestFee
       </OField>
     </div>
     <footer class="card-footer">
-      <NuxtLink :to="paymentMethodsCleaned[selectedMethodIndex].paymentLink" class="card-footer-item">{{ $t('payInWallet') }}</NuxtLink>
+      <NuxtLink :to="paymentMethodsCleaned[selectedMethodIndex].paymentLink" class="card-footer-item">{{ $t('invoiceBitcoinNew.payInWallet') }}</NuxtLink>
     </footer>
   </div>
 </template>

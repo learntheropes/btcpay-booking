@@ -3,7 +3,7 @@ import find from 'lodash.find';
 export const locales = [
   {
     code: 'en',
-    file: 'en.js',
+    file: 'en.json',
     iso: 'en-US',
     name: 'English',
     validate: 'en',
@@ -11,14 +11,14 @@ export const locales = [
   }, 
   {
     code: 'es',
-    file: 'es.js',
+    file: 'es.json',
     iso: 'es-419',
     name: 'Español',
     validate: 'es',  
   },
   {
     code: 'it',
-    file: 'it.js',
+    file: 'it.json',
     iso: 'it-IT',
     name: 'Italiano',
     validate: 'it',

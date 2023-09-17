@@ -19,6 +19,6 @@
         </ul>
       </nav>
     </section>
-    <div class="has-text-centered">{{ $t('underConstruction') }}</div>
+    <div class="has-text-centered">{{ $t('dashboardIndex.underConstruction') }}</div>
   </NuxtLayout>
 </template>

@@ -38,7 +38,7 @@ const {
   <div class="card">
     <header class="card-header">
       <div class="card-header-title is-justify-content-center">
-        <span>{{ $t('invoicePaid') }}</span>
+        <span>{{ $t('invoiceBitcoinReceived.invoicePaid') }}</span>
       </div>
     </header>
     <div class="card-content">
@@ -61,7 +61,7 @@ const {
               >
                 <IconWithText
                   icon="chevron-down"
-                  :text="$t('viewDetails')"
+                  :text="$t('invoiceBitcoinNew.viewDetails')"
                   textVariant="primary"
                   iconVariant="primary"
                   iconSide="right"
@@ -74,7 +74,7 @@ const {
               >
                 <IconWithText
                   icon="chevron-up"
-                  :text="$t('hideDetails')"
+                  :text="$t('invoiceBitcoinNew.hideDetails')"
                   textVariant="primary"
                   iconVariant="primary"
                   iconSide="right"
@@ -85,7 +85,7 @@ const {
           <div>
             <div class="level is-mobile">
               <div class="level-left">
-                <div class="level-item has-text-warning">{{ $t('totalPrice') }}</div>
+                <div class="level-item has-text-warning">{{ $t('invoiceBitcoinNew.totalPrice') }}</div>
               </div>
               <div class="level-rigth">
                 <div class="level-item">{{ Number.parseFloat(paymentMethods[selectedMethodIndex].amount).toFixed(8) }} {{ paymentMethods[selectedMethodIndex].cryptoCode }}</div>
@@ -93,7 +93,7 @@ const {
             </div>
             <div class="level is-mobile">
               <div class="level-left">
-                <div class="level-item has-text-warning">{{ $t('totalFiat') }}</div>
+                <div class="level-item has-text-warning">{{ $t('invoiceBitcoinNew.totalFiat') }}</div>
               </div>
               <div class="level-rigth">
                 <div class="level-item">{{ Number.parseFloat(invoice.amount).toFixed(2) }} {{ invoice.currency }}</div>
@@ -101,7 +101,7 @@ const {
             </div>
             <div class="level is-mobile">
               <div class="level-left">
-                <div class="level-item has-text-warning">{{ $t('exchangeRate') }}</div>
+                <div class="level-item has-text-warning">{{ $t('invoiceBitcoinNew.exchangeRate') }}</div>
               </div>
               <div class="level-rigth">
                 <div class="level-item">{{ Number.parseFloat(paymentMethods[selectedMethodIndex].rate).toFixed(2) }} {{ paymentMethods[selectedMethodIndex].cryptoCode }}/{{ invoice.currency }}</div>
@@ -113,13 +113,13 @@ const {
       <div
         v-for="payment in payments"
         :key="payment.id"
-      >{{ parseFloat(payment.value).toFixed(8) }} {{ paymentMethods[selectedMethodIndex].cryptoCode }} {{ $t('invoiceReceived') }} {{ $dayjs(payment.receivedDate * 1000).fromNow() }}</div>
+      >{{ parseFloat(payment.value).toFixed(8) }} {{ paymentMethods[selectedMethodIndex].cryptoCode }} {{ $t('invoiceBitcoinReceived.invoiceReceived') }} {{ $dayjs(payment.receivedDate * 1000).fromNow() }}</div>
     </div>
     <footer class="card-footer">
       <div
         @click.native="$printReceipt"
         class="card-footer-item"
-      >{{ $t('printReceipt') }}</div>
+      >{{ $t('invoiceBitcoinReceived.printReceipt') }}</div>
     </footer>
   </div>
 </template>

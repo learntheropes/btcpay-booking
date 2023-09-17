@@ -1,0 +1,110 @@
+{
+  "merchantServiceSelector": {
+    "offers": "Offerte che puoi prenotare"
+  },
+  "serviceBookingForm": {
+    "buyerDate": "Data",
+    "buyerTime": "Orario",
+    "selectDateFirst": "Seleziona una data",
+    "from": "Dalle",
+    "to": "alle",
+    "buyerExtras": "Extra",
+    "buyerName": "Nome",
+    "buyerEmail": "Email",
+    "buyerFingerprint": "Impronta digitale della chiave pubblica PGP",
+    "buyerPGP": "Chiave pubblica PGP",
+    "fingerprintOnServer": "Assicurati che la chiave pubblica sia presente su keys.openpgp.org",
+    "buyerDetails": "Dettagli",
+    "buyerLanguage": "Lingua",
+    "buyerService": "Servizio",
+    "buyerGateway": "Tipo di pagamento",
+    "bookEvent": "Prenota",
+    "clearSelection": "Rimuovi selezione",
+    "in": "in",
+    "getDiscount": "Ottieni un {premium}% di sconto pagando in bitcoin.",
+    "approximatePrice": "Il prezzo in valuta tradizionale è approssimato. Il prezzo finale è stabilito al checkout.",
+    "fiatNotAvailable": "Metodi di pagamento in valute tradizionali non disponibili al momento.",
+    "changeCurrency": "Cambia valuta"
+  },
+  "invoiceProfile": {
+    "invoice": "Fattura",
+    "booking": "Prenotazione",
+    "and": "e",
+    "notProvided": "Non fornito"
+  },
+  "invoiceBitcoinNew": {
+    "invoiceNew": "Nuova fattura",
+    "invoiceId": "ID della fattura",
+    "oderId": "ID dell\"ordine",
+    "viewDetails": "Visualizza dettagli",
+    "hideDetails": "Nascondi dettagli",
+    "totalPrice": "Prezzo totale",
+    "totalFiat": "Totale fiat",
+    "exchangeRate": "Tasso di cambio",
+    "amountDue": "Importo dovuto",
+    "recommendedFee": "Commissione consigliata",
+    "payWith": "Paga con",
+    "bitcoin": "Bitcoin",
+    "lnurl": "Lnurl",
+    "lightning": "Lightning",
+    "address": "Indirizzo",
+    "invoice": "Fattura",
+    "amount": "Quantità",
+    "payInWallet": "Paga col portafoglio",
+    "destinationCopied": "Destinatiozione copiata",
+    "amountCopied": "Valore copiato"
+  },
+  "invoiceBitcoinExpired": {
+    "invoiceExpired": "Fattura scaduta",
+    "invoiceValidity": "Una fattura in bitcoin è valida solo per {minutes} minuti",
+    "payWithBitcoin": "Paga con Bitcoin"
+  },
+  "invoiceBitcoinReceived": {
+    "invoicePaid": "Fattura pagata",
+    "invoiceReceived": "sono stati pagati",
+    "printReceipt": "Stampa la ricevuta"
+  },
+  "invoiceFiatWarning": {
+    "bitcoinPurchaseWarning": "Accettiamo solo bitcoin come metodo di pagamento finale.\n\nOra ti consentiremo di acquistare bitcoin con {paymentMethod} da un peer amichevole e inviarceli.\n\n\nNon preoccuparti, renderemo il processo semplice e senza problemi per te in pochi clic.\n\nTi invieremo una notifica sui dettagli di pagamento non appena saranno disponibili.\n\nMostreremo anche i dettagli di pagamento ed eventuali comunicazioni aggiuntive in questa pagina. Si prega di aggiungere questa pagina ai preferiti."
+  },
+  "invoiceFiatPaymentDetails": {
+    "sellerPaymentDetails": "Estremi per il pagamento",
+    "method": "Metodo",
+    "reference": "Causale",
+    "phone": "Telefono",
+    "beneficiary": "Beneficiario",
+    "accountNumber": "Numero di conto",
+    "userName": "Nome utente",
+    "ukBankAccount": "Numero di conto UK",
+    "ukSortCode": "Codice sort UK",
+    "email": "Email",
+    "iban": "IBAN",
+    "bic": "BIC",
+    "copied": "{key} copiato",
+    "newChatMessage": "Nuovo messaggio",
+    "postChatMessage": "Invia"
+  },
+  "invoiceBackup": {
+    "backupWarning": "Per mantenere i bitcoin al sicuro, si prega di salvare il backup. Puoi copiarlo o scaricarlo."
+  },
+  "layoutFooter": {
+    "lastBuiltAt": "Último commit al blocco",
+    "merchantDashboard": "Dashboard del commerciante"
+  },
+  "dashboardIndex": {
+    "underConstruction": "In costruzione"
+  },
+  "error": {
+    "pageNotFound": "Pagina non trovata",
+    "unauthorized": "Non autorizzato",
+    "somethingWentWrong": "Qualcosa è andato storto",
+    "backToTheHomePage": "Tornare alla pagina principale"
+  },
+  "customRules": {
+    "arrayLengthBetween": "Puoi prenotare tra i 0:{min} e i 1:{max} slot per ogni giornata",
+    "validateIban": "Formato IBAN non valido",
+    "validateBic": "BIC della banca non valido",
+    "_isOnServer": "Non abbiamo trovato una chiave pubblica sul server\nkeys.openpgp.org\nassociata alla impronta digitale fornita",
+    "_isAssociatedWithEmail": "La chiave pubblica con impronta digitale forinita\nnon è associata con la email {target}"
+  }
+}

@@ -34,5 +34,5 @@ const paymentMethod = $capitalize(kebabCase(gatewayMethod).replace('-', ' ')).re
     rootClass="has-border-primary"
     contentClass="ltr-has-new-line is-success"
     closable
-  >{{ $t('bitcoinPurchaseWarning', { paymentMethod }) }}</ONotification>
+  >{{ $t('invoiceFiatWarning.bitcoinPurchaseWarning', { paymentMethod }) }}</ONotification>
 </template>

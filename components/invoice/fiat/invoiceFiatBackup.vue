@@ -45,7 +45,7 @@ onMounted(async () => {
     <div class="ltr-replicate-label">Backup</div>
     <div class="card">
       <div class="card-content">
-        <div class="content">{{ $t('backupWarning') }}</div>
+        <div class="content">{{ $t('invoiceBackup.backupWarning') }}</div>
       </div>
       <footer class="card-footer">
         <a href="#" @click.native="copy" class="card-footer-item">

@@ -12,7 +12,7 @@ export default defineEventHandler(async (event) => {
   const { invoiceId, type } = body;
 
   // Pusher trigger the invoice status to the client
-  await pusherTrigger('webhook', invoiceId, {
+  await pusherTrigger('bitcoin_invoice_webhook', invoiceId, {
     value: type
   });
   

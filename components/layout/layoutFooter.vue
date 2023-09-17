@@ -21,10 +21,10 @@
           </div>
         </div>
         <!-- <div class="level-center">
-          <div class="level-item">{{ $t('lastBuiltAt') }} {{ $commitBlockHeight }}</div>
+          <div class="level-item">{{ $t('layoutFooter.lastBuiltAt') }} {{ $commitBlockHeight }}</div>
         </div> -->
         <div class="level-center">
-          <NuxtLink :to="localePath('/dashboard')" class="level-item has-text-centered">{{ $t('merchantDashboard') }}</NuxtLink>
+          <NuxtLink :to="localePath('/dashboard')" class="level-item has-text-centered">{{ $t('layoutFooter.merchantDashboard') }}</NuxtLink>
         </div>
         <div class="level-right">
           <div class="level-item">

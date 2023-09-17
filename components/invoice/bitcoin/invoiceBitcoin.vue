@@ -53,7 +53,7 @@ onMounted(()=> {
   refreshIntervalId = setInterval(checkConfirmations, 1000);
 
   // Update the status of the invoice using pusher
-  const channel = $pusher.subscribe('webhook');
+  const channel = $pusher.subscribe('bitcoin_invoice_webhook');
 
   channel.bind(invoiceId, (newStatus) => {
 

@@ -13,7 +13,7 @@ services.forEach(service => service.slug = `/${service._path.split('/')[2]}`)
 <template>
   <OField
     name="offers"
-    :label="$t('offers')"
+    :label="$t('merchantServiceSelector.offers')"
   >
     <div class="content">
       <OButton

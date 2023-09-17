@@ -5,8 +5,7 @@ const {
   btcpayApikey,
   public: {
     isDeployed,
-    deploymentDomain,
-    pusherCluster
+    deploymentDomain
   }
 } = useRuntimeConfig();
 
@@ -33,7 +32,8 @@ export default defineEventHandler(async (event) => {
     }
     else {
       const ngrokUrl = await ngrok.connect({
-        addr: 3000, region: pusherCluster
+        addr: 3000, 
+        region: 'eu'
       });
 
       webhookDomain = ngrokUrl;

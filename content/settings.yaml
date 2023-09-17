@@ -71,7 +71,7 @@ availability:
 # true means it will be show and will be optional.
 # "required" means it will show and will be mandatory for the buyer.
 fields:
-  # n\Name of the buyer.
+  # Name of the buyer.
   name: false
   # Email of the buyer.
   email: required

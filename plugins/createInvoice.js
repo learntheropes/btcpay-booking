@@ -47,8 +47,7 @@ export default defineNuxtPlugin(nuxtApp => {
           default:
             expirationMinutes = null;
             monitoringMinutes = null;  
-        }
-        
+        };
         
         // Create the invoice on btcpay Greenfield api
         // And get the invoiceId page

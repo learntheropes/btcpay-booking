@@ -41,7 +41,7 @@ const { t } = useI18n();
 // Functions to copy the payment details
 const copy = (key, value) => {
   navigator.clipboard.writeText(value);
-  NotificationProgrammatic.open(t('copied', { key }));
+  NotificationProgrammatic.open(t('invoiceFiatPaymentDetails.copied', { key }));
 }
 </script>
 
@@ -49,13 +49,13 @@ const copy = (key, value) => {
   <div>
     <div class="is-4">{{ paymentMethod }}</div>
     <section class="section">
-      <div class="ltr-replicate-label">{{ $t('sellerPaymentDetails') }}</div>
+      <div class="ltr-replicate-label">{{ $t('invoiceFiatPaymentDetails.sellerPaymentDetails') }}</div>
       <div class="columns is-mobile is-vcentered">
         <div class="column is-narrow">
           <div
             v-for="[key, value] in Object.entries(sellerPaymentDetails)"
             :key="key"
-          >{{ $t(key) }}:</div>
+          >{{ $t(`invoiceFiatPaymentDetails.${key}`) }}:</div>
         </div>
         <div class="column">
           <div
@@ -70,7 +70,8 @@ const copy = (key, value) => {
           >
             <OIcon
               icon="content-copy"
-              @click.native="copy($t(key), value)"
+              @click.native="copy($t(`invoiceFiatPaymentDetails.${key}`), value)"
+              variant="primary"
             />
           </div>
         </div>          
