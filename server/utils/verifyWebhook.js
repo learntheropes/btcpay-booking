@@ -9,10 +9,8 @@ export const verifyWebhook = async (event) => {
   const signature = getRequestHeader(event, 'BTCPay-Sig');
 
   if (!signature) {
-    return {
-      statusCode: 403,
-      body: 'BTCPay-Sig header is missing!'
-    }
+    setResponseStatus(event, 403);
+    return 'BTCPay-Sig header is missing!'
   };
 
   const rawBody = await readRawBody(event, 'utf8');
@@ -21,10 +19,7 @@ export const verifyWebhook = async (event) => {
 
   if (signature !== expectedSignature) {
     setResponseStatus(event, 403);
-    return {
-      statusCode: 403,
-      body: 'Request signatures didn\'t match!'
-    };
+    return 'Request signatures didn\'t match!'
   };
 
   return {
