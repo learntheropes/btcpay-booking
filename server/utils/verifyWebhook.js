@@ -22,8 +22,5 @@ export const verifyWebhook = async (event) => {
     return 'Request signatures didn\'t match!'
   };
 
-  return {
-    statusCode: 200,
-    body: JSON.parse(rawBody)
-  };
+  return JSON.parse(rawBody);
 };

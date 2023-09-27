@@ -474,7 +474,7 @@ const createInvoice = async () => {
           v-if="pgp"
           :label="$t('serviceBookingForm.buyerFingerprint')"
           :variant="errors[0] ? 'danger' : null"
-          :message="errors[0] ? errors[0] : $t('fingerprintOnServer')"
+          :message="errors[0] ? errors[0] : $t('serviceBookingForm.fingerprintOnServer')"
         >
           <!-- https://github.com/logaretm/vee-validate/issues/3575#issuecomment-1516900983 -->
           <OInput
@@ -524,7 +524,7 @@ const createInvoice = async () => {
           native-type="submit"
           icon-right="sale"
           expanded
-        >{{ `${$t('serviceBookingForm.payWith')} bitcoin ${priceInBitcoin} BTC` }}</OButton>
+        >{{ `${$t('invoiceBitcoinNew.payWith')} bitcoin ${priceInBitcoin} BTC` }}</OButton>
       </OField>
 
       <p 
@@ -545,7 +545,7 @@ const createInvoice = async () => {
           @click="setGateway('fiat', paymentMethod.id, buyerCurrency)"
           native-type="submit"
           expanded
-        >{{ `${$t('serviceBookingForm.payWith')} ${paymentMethod.name} ${priceInBuyerCurrency} ${form.buyerFiatCurrency}` }}</OButton>
+        >{{ `${$t('invoiceBitcoinNew.payWith')} ${paymentMethod.name} ${priceInBuyerCurrency} ${form.buyerFiatCurrency}` }}</OButton>
         <div v-else>{{ $t('serviceBookingForm.fiatNotAvailable') }}</div>
       </OField>
 
