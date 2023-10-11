@@ -7,7 +7,7 @@ export default defineNuxtPlugin(nuxtApp => {
   // Register peach account
   const registerPeachAccount = async (message, signature, publicKey) => {
 
-    const message = `Peach Registration ${Date.now()}`
+    let message = `Peach Registration ${Date.now()}`
 
     // Sign message with bitcoinjs-lib
     const {
@@ -43,7 +43,7 @@ export default defineNuxtPlugin(nuxtApp => {
   // Authorize peach account
   const authorizePeachAccount = async (message, signature, publicKey) => {
 
-    const message = `Peach Registration ${Date.now()}`
+    let message = `Peach Registration ${Date.now()}`
 
     // Sign message with bitcoinjs-lib
     const {
@@ -90,7 +90,8 @@ export default defineNuxtPlugin(nuxtApp => {
 
     const accessToken = await getAccessToken();
 
-    return await $fetch(`${proxy}https://api.peachbitcoin.com/v1/user/me`, {
+    return await $fetch(`/v1/user/me`, {
+      baseURL: `${proxy}https://api.peachbitcoin.com`,
       headers: {
         Authorization: `Bearer ${accessToken}`
       }
