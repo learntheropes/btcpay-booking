@@ -36,7 +36,7 @@
 
   // Set title page
   const { t } = useI18n();
-  useContentHead({ title: `${t('invoice')} ${invoiceId}` });
+  useContentHead({ title: `${t('invoiceBitcoinNew.invoice')} ${invoiceId}` });
 </script>
 
 <template>
@@ -51,7 +51,7 @@
           <NuxtLink :to="localePath(`/${buyerService}`)">{{ buyerServiceTitle }}</NuxtLink>
         </li>
         <li class="is-active">
-          <NuxtLink>{{ `${t('invoice')} ${invoiceId}` }}</NuxtLink>
+          <NuxtLink>{{ `${t('invoiceBitcoinNew.invoice')} ${invoiceId}` }}</NuxtLink>
         </li>
       </ul>
     </nav>
