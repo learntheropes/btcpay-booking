@@ -24,7 +24,7 @@ export default defineNuxtPlugin(nuxtApp => {
   mnemonic = nuxtStorage.localStorage.getData('bitcoin_mnemonic');
 
 
-  const signMessage = (timeStamp) => {
+  const signMessage = (message) => {
 
     // Get the seed from the mnemonico
     const seedBuffer =  bip39.mnemonicToSeedSync(mnemonic);
@@ -40,25 +40,15 @@ export default defineNuxtPlugin(nuxtApp => {
     const child = root.derivePath(derivationPath);
     const publicKey = child.publicKey.toString('hex');
 
-    // Generate the message to sign
-    const message = `Peach Registration ${timeStamp}`;
-
     // Hash the message to sign with sha256 alghoritm
     const sha256Message = crypto.createHash('sha256').update(message).digest('hex');
 
     // Generate the signature
     const signature = child.sign(Buffer.from(sha256Message, "hex")).toString('hex');
 
-    // Generate the unique id to be associate with the account on Peach
-    const randomId = Math.floor(100000 + Math.random() * 900000);
-    const peachUniqId = `${timeStamp}${randomId}`;
-    nuxtStorage.localStorage.setData('peach_uniqe_id', peachUniqId, 14, 'd');
-
     return {
-      message,
       publicKey,
       signature,
-      peachUniqId
     };
   }
 

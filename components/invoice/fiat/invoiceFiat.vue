@@ -17,81 +17,14 @@ const {
 
 // Get needed functions from plugins
 const {
-  // Hadle bitcoin operations
-  $bitcoin,
-  $pgp
+  $peach
 } = useNuxtApp();
+
 
 onMounted(async () => {
 
-  const {
-    message,
-    publicKey,
-    signature,
-    peachUniqId
-  } = $bitcoin.signMessage(Date.now());
-
-  // Register the peach account
-  const proxy = 'https://corsproxy.io/?';
-
-  const registerPeachAccount = async () => {
-
-    const { expiry, accessToken } = await $fetch(`/v1/user/register/`, {
-      baseURL: `${proxy}https://api.peachbitcoin.com`,
-      method: 'POST',
-      body: {
-        message: message,
-        signature: signature,
-        publicKey: publicKey,
-        uniqueId: peachUniqId
-      }
-    });
-    nuxtStorage.localStorage.setData('peach_expiry', expiry, 1, 'h');
-    nuxtStorage.localStorage.setData('peach_access_token', accessToken, 1, 'h');
-
-    return {
-      expiry,
-      accessToken
-    }
-  };
-
-  const authorizePeachAccount = async () => {
-
-    const { expiry, accessToken } = await $fetch(`/v1/user/auth/`, {
-      baseURL: `${proxy}https://api.peachbitcoin.com`,
-      method: 'POST',
-      body: {
-        message: message,
-        signature: signature,
-        publicKey: publicKey
-      }
-    });
-    nuxtStorage.localStorage.setData('peach_expiry', expiry, 1, 'h');
-    nuxtStorage.localStorage.setData('peach_access_token', accessToken, 1, 'h');
-
-    return {
-      expiry,
-      accessToken
-    }
-  };
-
-  let peachAccessToken = nuxtStorage.localStorage.getData('peach_access_token');
-  if (!peachAccessToken ) {
-    try {
-      const { accessToken } = await registerPeachAccount();
-      peachAccessToken = accessToken;
-    } catch (_error) {
-      const { accessToken } = await authorizePeachAccount();
-      peachAccessToken = accessToken;
-    }
-  }
-  console.log('peachAccessToken', peachAccessToken)
-  const me = await $fetch(`${proxy}https://api.peachbitcoin.com/v1/user/me`, {
-    headers: {
-      Authorization: `Bearer ${peachAccessToken}`
-    }
-  });
-  console.log('me', me)
+  // Get the peach access token
+  const me = await $peach.getMe();
 });
 
 </script>
