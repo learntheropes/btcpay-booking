@@ -5,9 +5,9 @@ export default defineNuxtPlugin(nuxtApp => {
   const proxy = 'https://corsproxy.io/?';
 
   // Register peach account
-  const registerPeachAccount = async (message, signature, publicKey) => {
+  const registerPeachAccount = async () => {
 
-    let message = `Peach Registration ${Date.now()}`
+    const message = `Peach Registration ${Date.now()}`
 
     // Sign message with bitcoinjs-lib
     const {
@@ -41,9 +41,9 @@ export default defineNuxtPlugin(nuxtApp => {
   };
 
   // Authorize peach account
-  const authorizePeachAccount = async (message, signature, publicKey) => {
+  const authorizePeachAccount = async () => {
 
-    let message = `Peach Registration ${Date.now()}`
+    const message = `Peach Registration ${Date.now()}`
 
     // Sign message with bitcoinjs-lib
     const {
@@ -76,10 +76,10 @@ export default defineNuxtPlugin(nuxtApp => {
     let peachAccessToken = nuxtStorage.localStorage.getData('peach_access_token');
     if (!peachAccessToken ) {
       try {
-        const { accessToken } = await registerPeachAccount(message, signature, publicKey);
+        const { accessToken } = await registerPeachAccount();
         peachAccessToken = accessToken;
       } catch (_error) {
-        const { accessToken } = await authorizePeachAccount(message, signature, publicKey);
+        const { accessToken } = await authorizePeachAccount();
         peachAccessToken = accessToken;
       }
     };
