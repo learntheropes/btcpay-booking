@@ -97,7 +97,7 @@ export default defineNuxtConfig({
       deploymentDomain,
       pusherApikey: process.env.PUSHER_APIKEY,
       pusherCluster: process.env.PUSHER_CLUSTER,
-      pusherAppId: process.env.PUSHER_APP_ID,
+      pusherAppId: process.env.PUSHER_APP_ID
     }
   },
 
@@ -227,7 +227,18 @@ export default defineNuxtConfig({
         dir: '/content',
       }
     },
+
+    routeRules: {
+      '/api/peach': { proxy: 'https://api.peachbitcoin.com' },
+    }
   },
+
+  // devServer: {
+  //   https: {
+  //     key: 'localhost-key.pem',
+  //     cert: 'localhost.pem'
+  //   }
+  // },
 
   vite: {
     // This is needed to inject bulma custom sass variables such as $primary 

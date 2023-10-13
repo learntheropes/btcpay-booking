@@ -32,6 +32,7 @@
     "bip32": "^4.0.0",
     "bip39": "^3.1.0",
     "bitcoinjs-lib": "^6.1.0",
+    "bitcoinjs-message": "^2.2.0",
     "country-to-currency": "^1.0.11",
     "dayjs": "^1.11.7",
     "i18n-iso-countries": "^7.6.0",

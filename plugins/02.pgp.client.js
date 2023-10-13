@@ -47,6 +47,8 @@ export default defineNuxtPlugin(async nuxtApp => {
       const pgpPublicKey = await openpgp.readKey({ armoredKey: armoredPgpPublicKey });
 
       return {
+        armoredPgpPrivateKey,
+        armoredPgpPublicKey,
         passphrase,
         pgpPrivateKey,
         pgpPublicKey,

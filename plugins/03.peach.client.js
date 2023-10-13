@@ -1,11 +1,12 @@
 import nuxtStorage from 'nuxt-storage';
+import * as crypto from 'crypto';
 
 export default defineNuxtPlugin(nuxtApp => {
 
   const proxy = 'https://corsproxy.io/?';
 
   // Register peach account
-  const registerPeachAccount = async () => {
+  const registerAccount = async () => {
 
     const message = `Peach Registration ${Date.now()}`
 
@@ -41,7 +42,7 @@ export default defineNuxtPlugin(nuxtApp => {
   };
 
   // Authorize peach account
-  const authorizePeachAccount = async () => {
+  const authorizeAccount = async () => {
 
     const message = `Peach Registration ${Date.now()}`
 
@@ -76,10 +77,11 @@ export default defineNuxtPlugin(nuxtApp => {
     let peachAccessToken = nuxtStorage.localStorage.getData('peach_access_token');
     if (!peachAccessToken ) {
       try {
-        const { accessToken } = await registerPeachAccount();
+        const { accessToken } = await registerAccount();
         peachAccessToken = accessToken;
+        await updateUser();
       } catch (_error) {
-        const { accessToken } = await authorizePeachAccount();
+        const { accessToken } = await authorizeAccount();
         peachAccessToken = accessToken;
       }
     };
@@ -98,13 +100,105 @@ export default defineNuxtPlugin(nuxtApp => {
     });
   };
 
+  const updateUser = async () => {
+
+    const accessToken = await getAccessToken();
+
+    const { armoredPgpPublicKey } = await nuxtApp.$pgp.getPgpKeys();
+
+    const message = 'foo bar';
+
+    return await $fetch(`/v1/user`, {
+      baseURL: `${proxy}https://api.peachbitcoin.com`,
+      method: 'PATCH',
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+      body: {
+        pgpPublicKey: armoredPgpPublicKey,
+        message: message,
+        pgpSignature: await nuxtApp.$pgp.signMessage(message),
+        signature: nuxtApp.$bitcoin.signMessage(armoredPgpPublicKey).signature,
+        referralCode: 'PR41CA',
+        feeRate: 'hourFee'
+      }
+    });
+  }
+
+  const postBuyOffer = async (currency, method, amount) => {
+
+    const accessToken = await getAccessToken();
+
+    // Get the release address and the signed message
+    const { id: userId } = await getMe();
+    const peachId = userId.substring(0, 8);
+    const { 
+      address: releaseAddress, 
+      signature: messageSignature 
+    } = nuxtApp.$bitcoin.signAddress(peachId);
+
+    // Get merchant premium settings
+    const {
+      premium
+    } = await queryContent(`/settings`).findOne();
+
+    // Get the meansOfPayment
+    const meansOfPayment = {};
+    meansOfPayment[currency] = [method];
+
+    // Fake the payment data
+    const data = nuxtStorage.localStorage.getData('peach_uniqe_id');
+    const paymentData = {};
+    paymentData[method] = {};
+    paymentData[method].hashes = [crypto.createHash('sha256').update(data).digest('hex')];
+
+    const sats = parseInt(parseFloat(amount)*100000000);
+
+    const { id: offerId } = await $fetch(`/v1/offer`, {
+      baseURL: `${proxy}https://api.peachbitcoin.com`,
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${accessToken}`
+      },
+      body: {
+        type: 'bid',
+        amount: [sats, sats],
+        maxPremium: premium,
+        meansOfPayment,
+        paymentData,
+        releaseAddress,
+        messageSignature
+      }
+    });
+    nuxtStorage.localStorage.setData('peach_offer_id', offerId, 14, 'd');
+    return offerId
+  }
+
+  const getMatches = async () => {
+
+    const accessToken = await getAccessToken();
+
+    const offerId = nuxtStorage.localStorage.getData('peach_offer_id');
+
+    return await $fetch(`/v1/offer/${offerId}/matches`, {
+      baseURL: `${proxy}https://api.peachbitcoin.com`,
+      headers: {
+        Authorization: `Bearer ${accessToken}`
+      },
+    })
+  }
+
+
   return {
     provide: {
       peach: {
-        registerPeachAccount,
-        authorizePeachAccount,
+        registerAccount,
+        authorizeAccount,
         getAccessToken,
-        getMe
+        getMe,
+        updateUser,
+        postBuyOffer,
+        getMatches
       }
     }
   }

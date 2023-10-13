@@ -224,7 +224,7 @@ watch(async () => [form.value.buyerFiatCurrency, priceInBitcoin.value], async ()
     const { price: buyerCurrencyExchangeRate } = await $fetch(`${proxy}https://api.peachbitcoin.com/v1/market/price/BTC${form.value.buyerFiatCurrency}`);
     form.value.buyerFiatRate = buyerCurrencyExchangeRate;
     form.value.buyerFiatDecimal = $getDecimal(form.value.buyerFiatCurrency);
-    priceInBuyerCurrency.value = ( priceInBitcoin.value * (((premium + 2) / 100) + 1) * buyerCurrencyExchangeRate).toFixed(form.value.buyerFiatDecimal)
+    priceInBuyerCurrency.value = ( priceInBitcoin.value * (((premium) / 100) + 1) * buyerCurrencyExchangeRate).toFixed(form.value.buyerFiatDecimal)
 });
 
 // Handle is loading free slots
