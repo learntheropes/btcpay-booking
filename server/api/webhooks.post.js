@@ -1,5 +1,6 @@
 import ngrok from 'ngrok';
 import find from 'lodash.find';
+import { ofetch } from 'ofetch';
 
 const {
   btcpayApikey,
@@ -51,7 +52,8 @@ export default defineEventHandler(async (event) => {
 
   // Get all the existing webhooks and find the one matching the enviroment
   event.node.req.method = 'GET';
-  const existingsWebhooks = await greenfieldApi(`/webhooks`, event);
+  // const existingsWebhooks = await greenfieldApi(`/webhooks`, event);
+  const existingsWebhooks = await ofetch(`${deploymentDomain}/api/webhooks`)
   console.log('existingsWebhooks', existingsWebhooks)
   const partialUrl = (isDeployed) ? deploymentDomain : 'ngrok-free.app';
   console.log('partialUrl', partialUrl)
