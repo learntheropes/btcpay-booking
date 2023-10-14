@@ -1,7 +1,8 @@
 <script setup>
 import countryToCurrency from 'country-to-currency';
 import kebabCase from 'lodash.kebabcase';
-import sortBy from 'lodash.sortby'
+import sortBy from 'lodash.sortby';
+
 // Get props from [service].vue page
 const {
   service,
@@ -229,9 +230,9 @@ watch(async () => [form.value.buyerFiatCurrency, priceInBitcoin.value], async ()
         }
       }), 'name');
 
-    const { price: buyerCurrencyExchangeRate } = await $fetch(`/v1/market/price/BTC${form.value.buyerFiatCurrency}, {
+    const { price: buyerCurrencyExchangeRate } = await $fetch(`/v1/market/price/BTC${form.value.buyerFiatCurrency}`, {
       baseURL: peachProxy
-    }`);
+    });
     form.value.buyerFiatRate = buyerCurrencyExchangeRate;
     form.value.buyerFiatDecimal = $getDecimal(form.value.buyerFiatCurrency);
     priceInBuyerCurrency.value = ( priceInBitcoin.value * (((premium) / 100) + 1) * buyerCurrencyExchangeRate).toFixed(form.value.buyerFiatDecimal)
