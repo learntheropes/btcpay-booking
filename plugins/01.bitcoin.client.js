@@ -10,18 +10,16 @@ import bitcoinMessage from 'bitcoinjs-message';
 import * as crypto from 'crypto';
 import nuxtStorage from 'nuxt-storage';
 
+let mnemonic = nuxtStorage.localStorage.getData('bitcoin_mnemonic');
+
+if (!mnemonic) {
+
+  // Generate a random 12 words mnemonic
+  mnemonic = bip39.generateMnemonic();
+  nuxtStorage.localStorage.setData('bitcoin_mnemonic', mnemonic, 14, 'd');
+}
+
 export default defineNuxtPlugin(nuxtApp => {
-
-  let mnemonic = nuxtStorage.localStorage.getData('bitcoin_mnemonic');
-
-  if (!mnemonic) {
-
-    // Generate a random 12 words mnemonic
-    mnemonic = bip39.generateMnemonic();
-    nuxtStorage.localStorage.setData('bitcoin_mnemonic', mnemonic, 14, 'd');
-  }
-
-  mnemonic = nuxtStorage.localStorage.getData('bitcoin_mnemonic');
 
   const signMessage = (message) => {
 

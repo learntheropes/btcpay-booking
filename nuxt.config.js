@@ -86,7 +86,6 @@ export default defineNuxtConfig({
 
   // Define the private and public env variables
   runtimeConfig: {
-    mnemonic: process.env.MNEMONIC,
     btcpayApikey: process.env.BTCPAY_APIKEY,
     pusherSecret: process.env.PUSHER_SECRET,
     smtpPassword: process.env.SMTP_PASSWORD,

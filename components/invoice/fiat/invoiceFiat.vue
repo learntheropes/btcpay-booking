@@ -30,10 +30,9 @@ onMounted(async () => {
       invoice.metadata.buyerGateway.gatewayMethod,
       invoice.amount
     );
-  } catch (error) {
-    const matches = await $peach.getMatches();
-    console.log('matches', matches)
-  }
+  } catch (_error) {}
+  const matches = await $peach.getMatches();
+  console.log('matches', matches)
 });
 </script>
 
