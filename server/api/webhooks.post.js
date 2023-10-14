@@ -56,7 +56,7 @@ export default defineEventHandler(async (event) => {
   const partialUrl = (isDeployed) ? deploymentDomain : 'ngrok-free.app';
   console.log('partialUrl', partialUrl)
   const exists = find(existingsWebhooks, wh => wh.url.includes(partialUrl));
-
+  console.log('exists', exists)
   // If it exists and we are in production, just return
   if (exists && isDeployed) return 'ok'
 
