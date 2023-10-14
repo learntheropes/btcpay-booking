@@ -21,17 +21,25 @@ const {
 
 
 onMounted(async () => {
-
-  try {
-    await $peach.registerAccount();
-    await $peach.updateUser();
-    await $peach.postBuyOffer(
+  let peachOfferId = invoice.metadata.buyerGateway.peachOfferId;
+  if (!peachOfferId) {
+    try {
+      await $peach.registerAccount();
+      await $peach.updateUser();
+    } catch (_error) {
+    }
+    peachOfferId = await $peach.postBuyOffer(
       invoice.metadata.buyerGateway.gatewayCurrency,
       invoice.metadata.buyerGateway.gatewayMethod,
       invoice.amount
     );
-  } catch (_error) {}
-  const matches = await $peach.getMatches();
+    invoice.metadata.buyerGateway.peachOfferId = peachOfferId;
+    await $fetch(`/api/invoices/${invoiceId}`, {
+      method: 'PUT',
+      body: invoice
+    })
+  }
+  const matches = await $peach.getMatches(peachOfferId);
   console.log('matches', matches)
 });
 </script>

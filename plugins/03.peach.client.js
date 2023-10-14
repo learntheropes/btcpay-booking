@@ -170,24 +170,20 @@ export default defineNuxtPlugin(nuxtApp => {
         messageSignature
       }
     });
-    nuxtStorage.localStorage.setData('peach_offer_id', offerId, 14, 'd');
-    return offerId
+    return offerId;
   }
 
-  const getMatches = async () => {
+  const getMatches = async (peachOfferId) => {
 
     const accessToken = await getAccessToken();
 
-    const offerId = nuxtStorage.localStorage.getData('peach_offer_id');
-
-    return await $fetch(`/v1/offer/${offerId}/matches`, {
+    return await $fetch(`/v1/offer/${peachOfferId}/matches`, {
       baseURL: peachProxy,
       headers: {
         Authorization: `Bearer ${accessToken}`
       },
     })
   }
-
 
   return {
     provide: {
