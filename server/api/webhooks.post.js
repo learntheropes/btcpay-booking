@@ -52,7 +52,9 @@ export default defineEventHandler(async (event) => {
   // Get all the existing webhooks and find the one matching the enviroment
   event.node.req.method = 'GET';
   const existingsWebhooks = await greenfieldApi(`/webhooks`, event);
+  console.log('existingsWebhooks', existingsWebhooks)
   const partialUrl = (isDeployed) ? deploymentDomain : 'ngrok-free.app';
+  console.log('partialUrl', partialUrl)
   const exists = find(existingsWebhooks, wh => wh.url.includes(partialUrl));
 
   // If it exists and we are in production, just return

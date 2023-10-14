@@ -94,7 +94,6 @@ export default defineNuxtPlugin(nuxtApp => {
   return {
     provide: {
       bitcoin: {
-        mnemonic,
         signMessage,
         signAddress
       }
