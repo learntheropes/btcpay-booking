@@ -226,19 +226,8 @@ export default defineNuxtConfig({
         branch: 'main',
         dir: '/content',
       }
-    },
-
-    routeRules: {
-      '/api/peach': { proxy: 'https://api.peachbitcoin.com' },
     }
   },
-
-  // devServer: {
-  //   https: {
-  //     key: 'localhost-key.pem',
-  //     cert: 'localhost.pem'
-  //   }
-  // },
 
   vite: {
     // This is needed to inject bulma custom sass variables such as $primary 

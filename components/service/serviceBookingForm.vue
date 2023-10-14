@@ -16,7 +16,7 @@ const {
   }
 });
 
-const proxy = 'https://corsproxy.io/?';
+const peachProxy = 'https://peach-cors-proxy.vercel.app';
 
 // Get the buyer leanguage
 const { locale } = useI18n();
@@ -81,7 +81,9 @@ onMounted(async () => {
   decimal.value = $getDecimal(buyerCurrency.value);
   const { 
     paymentMethods: peachPaymentMethods
-  } = await $fetch(`${proxy}https://api.peachbitcoin.com/v1/info/`);
+  } = await $fetch(`/v1/info/`, {
+    baseURL: peachProxy
+  });
   
   // Get available fiat methods for the buyer currency
   buyerPaymentMethods.value = sortBy(peachPaymentMethods
@@ -94,7 +96,9 @@ onMounted(async () => {
     }), 'name');
 
   // Get all the currencies available on peach
-  const peachCurrencies = await $fetch(`${proxy}https://api.peachbitcoin.com/v1/market/prices`);
+  const peachCurrencies = await $fetch(`/v1/market/prices`, {
+    baseURL: peachProxy
+  });
   peachAvailableCurrencies.value = Object.keys(peachCurrencies).filter(currency => currency !== 'SAT' && currency !== 'USDT').sort()
   
   // Get Yadio exchange rates
@@ -102,7 +106,9 @@ onMounted(async () => {
   yadioRate.value = BTC;
 
   // Get Peach exchange rate
-  const { price } = await $fetch(`${proxy}https://api.peachbitcoin.com/v1/market/price/BTC${buyerCurrency.value}`);
+  const { price } = await $fetch(`/v1/market/price/BTC${buyerCurrency.value}`, {
+    baseURL: peachProxy
+  });
   peachRate.value = price
 })
 
@@ -210,7 +216,9 @@ const priceInBitcoin = computed(() => {
 let priceInBuyerCurrency = ref(0)
 watch(async () => [form.value.buyerFiatCurrency, priceInBitcoin.value], async () => {
 
-  const { paymentMethods: peachPaymentMethods } = await $fetch(`${proxy}https://api.peachbitcoin.com/v1/info`);
+  const { paymentMethods: peachPaymentMethods } = await $fetch(`/v1/info`, {
+    baseURL: peachProxy
+  });
     buyerPaymentMethods.value = sortBy(peachPaymentMethods
       .sort()
       .filter(method => method.currencies.includes(form.value.buyerFiatCurrency) && !method.anonymous)
@@ -221,7 +229,9 @@ watch(async () => [form.value.buyerFiatCurrency, priceInBitcoin.value], async ()
         }
       }), 'name');
 
-    const { price: buyerCurrencyExchangeRate } = await $fetch(`${proxy}https://api.peachbitcoin.com/v1/market/price/BTC${form.value.buyerFiatCurrency}`);
+    const { price: buyerCurrencyExchangeRate } = await $fetch(`/v1/market/price/BTC${form.value.buyerFiatCurrency}, {
+      baseURL: peachProxy
+    }`);
     form.value.buyerFiatRate = buyerCurrencyExchangeRate;
     form.value.buyerFiatDecimal = $getDecimal(form.value.buyerFiatCurrency);
     priceInBuyerCurrency.value = ( priceInBitcoin.value * (((premium) / 100) + 1) * buyerCurrencyExchangeRate).toFixed(form.value.buyerFiatDecimal)
@@ -363,7 +373,7 @@ const createInvoice = async () => {
               v-for="freeSlot of freeSlots"
               :key="freeSlot.value"
               :value="freeSlot.value"
-            >{{ $t('from') }} {{ freeSlot.display.from }} {{ $t('serviceBookingForm.to') }} {{ freeSlot.display.to }}</option>
+            >{{ $t('serviceBookingForm.from') }} {{ freeSlot.display.from }} {{ $t('serviceBookingForm.to') }} {{ freeSlot.display.to }}</option>
           </OSelect>
         </OField>
         <p
@@ -515,7 +525,7 @@ const createInvoice = async () => {
         </OField>
       </VField>
 
-      <p class="help">{{ $t('serviceBookingForm.getDiscount', { premium: premium + 2 }) }}</p>
+      <p class="help">{{ $t('serviceBookingForm.getDiscount', { premium }) }}</p>
 
       <OField>
         <OButton

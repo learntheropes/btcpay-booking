@@ -3,7 +3,7 @@ import * as crypto from 'crypto';
 
 export default defineNuxtPlugin(nuxtApp => {
 
-  const proxy = 'https://corsproxy.io/?';
+  const peachProxy = 'https://peach-cors-proxy.vercel.app';
 
   // Register peach account
   const registerAccount = async () => {
@@ -23,7 +23,7 @@ export default defineNuxtPlugin(nuxtApp => {
 
     // Fetch peach register endpoint
     const { expiry, accessToken } = await $fetch(`/v1/user/register/`, {
-      baseURL: `${proxy}https://api.peachbitcoin.com`,
+      baseURL: peachProxy,
       method: 'POST',
       body: {
         message: message,
@@ -54,7 +54,7 @@ export default defineNuxtPlugin(nuxtApp => {
 
     // Fetch peach auth endpoint
     const { expiry, accessToken } = await $fetch(`/v1/user/auth/`, {
-      baseURL: `${proxy}https://api.peachbitcoin.com`,
+      baseURL: peachProxy,
       method: 'POST',
       body: {
         message: message,
@@ -93,7 +93,7 @@ export default defineNuxtPlugin(nuxtApp => {
     const accessToken = await getAccessToken();
 
     return await $fetch(`/v1/user/me`, {
-      baseURL: `${proxy}https://api.peachbitcoin.com`,
+      baseURL: peachProxy,
       headers: {
         Authorization: `Bearer ${accessToken}`
       }
@@ -109,7 +109,7 @@ export default defineNuxtPlugin(nuxtApp => {
     const message = 'foo bar';
 
     return await $fetch(`/v1/user`, {
-      baseURL: `${proxy}https://api.peachbitcoin.com`,
+      baseURL: peachProxy,
       method: 'PATCH',
       headers: {
         Authorization: `Bearer ${accessToken}`,
@@ -155,7 +155,7 @@ export default defineNuxtPlugin(nuxtApp => {
     const sats = parseInt(parseFloat(amount)*100000000);
 
     const { id: offerId } = await $fetch(`/v1/offer`, {
-      baseURL: `${proxy}https://api.peachbitcoin.com`,
+      baseURL: peachProxy,
       method: 'POST',
       headers: {
         Authorization: `Bearer ${accessToken}`
@@ -181,7 +181,7 @@ export default defineNuxtPlugin(nuxtApp => {
     const offerId = nuxtStorage.localStorage.getData('peach_offer_id');
 
     return await $fetch(`/v1/offer/${offerId}/matches`, {
-      baseURL: `${proxy}https://api.peachbitcoin.com`,
+      baseURL: peachProxy,
       headers: {
         Authorization: `Bearer ${accessToken}`
       },

@@ -15,10 +15,9 @@ const { t } = useI18n();
 
 const copy = () => {
   navigator.clipboard.writeText(mnemonic);
-  NotificationProgrammatic.open(t('copied', { key: 'backup' }));
+  NotificationProgrammatic.open(t('invoiceFiatPaymentDetails.copied', { key: 'backup' }));
 }
 
-// let mnemonic; 
 const download = () => {
   const filename = `${invoiceId}_backup.txt`;
   let element = document.createElement('a');
