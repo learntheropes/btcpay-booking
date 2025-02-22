@@ -6,6 +6,9 @@
     }
   } = useRoute();
 
+  import { useLocalePath } from 'vue-i18n-routing'
+  const  localePath  = useLocalePath()
+
   // Get the buyer language
   const { locale } = useI18n();
 

@@ -4,12 +4,15 @@
     title,
     description,
     image,
+    email,
+    pgp,
     twitter,
     nostr,
     telegram,
     instagram,
     facebook,
     tiktok,
+    youtube,
     websites,
     body,
     gallery
@@ -21,6 +24,12 @@
       type: String,
     },
     image: {
+      type: String,
+    },
+    email: {
+      type: String,
+    },
+    pgp: {
       type: String,
     },
     twitter: {
@@ -39,6 +48,9 @@
       type: String,
     },
     tiktok: {
+      type: String,
+    },
+    youtube: {
       type: String,
     },
     websites: {
@@ -78,6 +90,24 @@
           <div v-if="description" class="subtitle is-6">{{ description }}</div>
           <div>
             <div class="columns is-multiline">
+              <div v-if="email" class="column is-narrow ltr-has-no-padding">
+                <IconWithText
+                  icon="email"
+                  :text="email"
+                  textVariant="primary"
+                  :textTo="'mailto:'+email"
+                  textTarget="_blank"
+                />
+              </div>
+                <div v-if="pgp" class="column is-narrow ltr-has-no-padding">
+                <IconWithText
+                  icon="pgp"
+                  :text="pgp"
+                  textVariant="primary"
+                  :textTo="'https://keys.openpgp.org/vks/v1/by-fingerprint/'+pgp"
+                  textTarget="_blank"
+                />
+              </div>
               <div v-if="twitter" class="column is-narrow ltr-has-no-padding">
                 <IconWithText
                   icon="twitter"
@@ -129,6 +159,15 @@
                   :text="tiktok"
                   textVariant="primary"
                   :textTo="'https://www.tiktok.com/@'+facebook"
+                  textTarget="_blank"
+                />
+              </div>
+              <div v-if="youtube" class="column is-narrow ltr-has-no-padding">
+                <IconWithText
+                  icon="youtube"
+                  :text="youtube"
+                  textVariant="primary"
+                  :textTo="'https://www.youtube.com/@'+youtube"
                   textTarget="_blank"
                 />
               </div>

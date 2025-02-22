@@ -15,29 +15,35 @@ image: learntheropes.png
 gallery:
 #  - picture1.jpg
 #  - picture2.jpg
+# Email address
+email: giovanni@learntheropes.xyz
+# PGP fingerprint
+pgp: 5BA78A510CDA44132BDC51FA58C798100FF8A743
 # Your twitter handle.
-twitter: learntheropes_
+twitter: null
 # Your Nostr pubkey or NIP-05
 nostr: giovanni@learntheropes.xyz
 # Telegram username or channel
-telegram: giovanni_learntheropes_xyz
+telegram: null
 # Instagram username.
 instagram: null
 # Facebook username.
 facebook: null
 # Tiktok username
 tiktok: null
+# Youtube username.
+youtube: null
 # Websites and/or blogs, including the protocol (https://)
 # Note this is an Array of Object
 # You can provide as many websites as you wish or none
 # Each website must contains title and url properties
 # Url must be unique
 # I don´t show websites, but here you have a commented out example:
-websites:
-  - title: blog
-    url: https://giovanni.learntheropes.xyz/en/
-  - title: btcpay
-    url: https://learntheropes.xyz
+websites: null
+  # - title: blog
+  #   url: https://giovanni.learntheropes.xyz/en/
+  # - title: btcpay
+  #  url: https://learntheropes.xyz
 ---
 My name is Giovanni. I'm italian living between Paraguay and Argentina.  
 In the pre bitcoin era I was a sailor and boatbuilder.  

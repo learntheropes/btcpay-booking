@@ -1,4 +1,6 @@
 <script setup>
+import { useLocalePath } from 'vue-i18n-routing'
+const  localePath  = useLocalePath()
 // Get the buyer leanguage
 const { locale } = useI18n();
 

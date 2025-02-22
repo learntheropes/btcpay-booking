@@ -2,14 +2,9 @@
 title: Learntheropes
 description: Il mio sito di prenotazione di consulenze sviluppato con Btcpay e Nuxt
 image: learntheropes.png
-twitter: learntheropes_
+email: giovanni@learntheropes.xyz
+pgp: 5BA78A510CDA44132BDC51FA58C798100FF8A743
 nostr: giovanni@learntheropes.xyz
-telegram: giovanni_learntheropes_xyz
-websites:
-  - title: blog
-    url: https://giovanni.learntheropes.xyz/en/
-  - title: btcpay
-    url: https://learntheropes.xyz
 ---
 Mi chiamo Giovanni. Sono italiano e vivo tra Paraguay e Argentina  
 Nell'era pre bitcoin ero un marinaio e un costruttore di barche.  

@@ -1,4 +1,6 @@
 <script setup>
+// import { email } from '@vee-validate/rules';
+
   // Get the buyer leanguage
   const { locale } = useI18n();
   
@@ -7,12 +9,15 @@
     title,
     description,
     image,
+    email,
+    pgp,
     twitter,
     nostr,
     telegram,
     instagram,
     facebook,
     tiktok,
+    youtube,
     websites,
     body
   } = await queryContent(`/profile`).locale(locale.value).findOne();
@@ -76,12 +81,15 @@
           :title="title"
           :description="description"
           :image="image"
+          :email="email"
+          :pgp="pgp"
           :twitter="twitter"
           :nostr="nostr"
           :telegram="telegram"
           :instagram="instagram"
           :facebook="facebook"
           :tiktok="tiktok"
+          :youtube="youtube"
           :websites="websites"
           :body="body"
         />

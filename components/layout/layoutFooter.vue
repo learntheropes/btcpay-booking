@@ -1,4 +1,6 @@
 <script setup>
+import { useLocalePath } from 'vue-i18n-routing'
+const  localePath  = useLocalePath()
   const { locale, locales } = useI18n();
   const switchLocalePath = useSwitchLocalePath();
   const availableLocales = computed(() => (locales.value).filter(i => i.code !== locale.value));
