@@ -86,6 +86,7 @@ export default defineNuxtConfig({
 
   // Define the private and public env variables
   runtimeConfig: {
+    ngrokToken: process.env.NGROK_TOKEN,
     btcpayApikey: process.env.BTCPAY_APIKEY,
     pusherSecret: process.env.PUSHER_SECRET,
     smtpPassword: process.env.SMTP_PASSWORD,

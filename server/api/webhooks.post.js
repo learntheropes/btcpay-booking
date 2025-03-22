@@ -4,6 +4,7 @@ import { ofetch } from 'ofetch';
 
 const {
   btcpayApikey,
+  ngrokToken,
   public: {
     isDeployed,
     deploymentDomain
@@ -18,7 +19,7 @@ export default defineEventHandler(async (event) => {
 
   if (isDeployed) {
 
-    webhookDomain = deploymentDomain
+    webhookDomain = deploymentDomain;
   }
   else {
 
@@ -28,13 +29,14 @@ export default defineEventHandler(async (event) => {
 
       const api = ngrok.getApi();
       const tunnels = await api.listTunnels();
-
       webhookDomain = tunnels.tunnels[0].public_url;
     }
     else {
+      // await ngrok.upgradeConfig({ relocate: true });
       const ngrokUrl = await ngrok.connect({
         addr: 3000, 
-        region: 'eu'
+        region: 'eu',
+        authtoken: ngrokToken
       });
 
       webhookDomain = ngrokUrl;

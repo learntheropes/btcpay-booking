@@ -37,25 +37,26 @@ const {
 // Add missing info for on chain and lighning network
 const methods = [
   {
-    paymentMethod: 'BTC',
+    paymentMethodId: 'BTC-CHAIN',
     name: 'bitcoin',
     destination: 'address'
   },
   {
-    paymentMethod: 'BTC-LightningNetwork',
+    paymentMethodId: 'BTC-LN',
     name: 'lightning',
     destination: 'invoice'
   }
 ];
 
-const paymentMethodsCleaned = paymentMethods.filter(el => find(methods, { paymentMethod: el.paymentMethod }));
+// Filter the payment methods to only show the ones that are in the methods array;
+const paymentMethodsCleaned = paymentMethods.filter(el => find(methods, { paymentMethodId: el.paymentMethodId }));
 
 // Get and set the initial payment method shown with default to 0
 const defaultPaymentMethod = invoice.checkout.defaultPaymentMethod;
 const selectedMethodIndex = ref((findIndex(methods, { paymentMethod: defaultPaymentMethod }) === -1) ? 0 : findIndex(methods, { paymentMethod: defaultPaymentMethod }));
 
 // Filter allowed payment methods based on btcpay response
-const allowedMethods = paymentMethodsCleaned.map(el => find(methods, { paymentMethod: el.paymentMethod }));
+const allowedMethods = paymentMethodsCleaned.map(el => find(methods, { paymentMethodId: el.paymentMethodId }));
 
 // Set the detail as initially visible
 const isDetailsOpen = ref(true);
@@ -106,8 +107,7 @@ const {
 // After that the invoice has been refreshed by the invoiceBitcoinExpired component
 $event('invoiceBitcoinIsLoading', false);
 
-const proxy = 'https://corsproxy.io/?';
-const { data } = await useFetch(`${proxy}https://mempool.space/api/v1/fees/recommended`);
+const { data } = await useFetch(`https://mempool.space/api/v1/fees/recommended`);
 const suggestedFee = data.value.fastestFee
 </script>
 

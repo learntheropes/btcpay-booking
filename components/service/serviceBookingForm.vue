@@ -48,7 +48,7 @@ const {
   // Function to listen event
   $listen,
   // Function to capitalize strings
-  $capitalize
+  $capitalize,
 } = useNuxtApp();
 
 // Dirty hack to show and disable previous icon in datepicker
@@ -73,11 +73,14 @@ const yadioRate = ref(null);
 const peachRate = ref(null);
 
 onMounted(async () => {
-
   // Get the buyer currency based on the IP location
-  const { country: buyerCountry } = await $fetch('https://api.country.is/');
+  // Default to ARS if the request is blocked like on Brave
+  try {
+  const { country: buyerCountry } = await $fetch('https://api.country.is');
   buyerCurrency.value = countryToCurrency[buyerCountry];
-
+  } catch(error) {
+    buyerCurrency.value = 'ARS'
+  }
   // Define the decimal length based on the currency
   decimal.value = $getDecimal(buyerCurrency.value);
   const { 
