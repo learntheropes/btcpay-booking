@@ -33,6 +33,7 @@ const {
     required: true
   }
 });
+console.log( 'invoice', invoice);
 
 // Add missing info for on chain and lighning network
 const methods = [
@@ -53,8 +54,9 @@ const paymentMethodsCleaned = paymentMethods.filter(el => find(methods, { paymen
 
 // Get and set the initial payment method shown with default to 0
 const defaultPaymentMethod = invoice.checkout.defaultPaymentMethod;
-const selectedMethodIndex = ref((findIndex(methods, { paymentMethod: defaultPaymentMethod }) === -1) ? 0 : findIndex(methods, { paymentMethod: defaultPaymentMethod }));
-
+console.log('defaultPaymentMethod', defaultPaymentMethod);
+const selectedMethodIndex = ref((findIndex(methods, { paymentMethodId: defaultPaymentMethod }) === -1) ? 0 : findIndex(methods, { paymentMethodId: defaultPaymentMethod }));
+console.log('selectedMethodIndex', selectedMethodIndex.value);
 // Filter allowed payment methods based on btcpay response
 const allowedMethods = paymentMethodsCleaned.map(el => find(methods, { paymentMethodId: el.paymentMethodId }));
 
