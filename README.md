@@ -5,12 +5,13 @@ Without KYC requirements for the merchant and the client. Merchant and buyer per
 [Demo](https://booking.learntheropes.xyz)
 
 ## Status
-The development of this project is currently paused, waiting for Peach Bitcoin to implement buy offers to resume the development
-Under active development.  
+The development of this project is currently paused, waiting for Peach Bitcoin to implement buy offers to resume the development.  
 - [x] Btcpay server api integration. Ready.  
 - [x] Bitcoin checkout. On-chain and Lighning Network. Ready. 
 - [x] Optional USDt checkout if configured on btcpay server. Ready 
 - Fiat integration with Peach Bitcoin api. Under current development.  
+- [ ] Fiat integration with Robosat. To be considered if feasible.
+- [ ] Fiat integration with Mostro. To be considered if feasible
 - [ ] Merchant control panel. Planned.  
 - [ ] Calendar integration. Planned, with google calendar or better with a privacy focused calendar app that provides api.  
 
