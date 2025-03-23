@@ -218,7 +218,6 @@ const validationSchema = {
 const postChatMessage = async () => {
   const message = await $pgp.encryptMessage(form.value.newMessage, sellerPublicKey);
   const signature = await $pgp.signMessage(form.value.newMessage);
-  console.log({ message, signature })
   return({ message, signature })
 }
 

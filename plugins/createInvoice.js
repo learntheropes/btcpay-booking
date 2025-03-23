@@ -3,24 +3,23 @@ export default defineNuxtPlugin(nuxtApp => {
   return {
     provide: {
       createInvoice: async ({
-        buyerTime,
-        buyerExtras,
-        buyerName,
-        buyerEmail,
-        buyerFingerprint,
-        buyerPGP,
-        buyerDetails,
-        buyerService,
-        buyerGateway: {
-          gatewayType,
-          gatewayMethod,
-        },
-        buyerFiatCurrency,
-        buyerFiatRate,
-        buyerFiatDecimal,
+        bookingDate,
+        bookingTime,
+        bookingExtras,
+        bookingName,
+        bookingEmail,
+        bookingFingerprint,
+        bookingPGP,
+        bookingDescription,
+        bookingService,
+        bookingGatewayType,
+        bookingGatewayPaymentMethod,
+        bookingFiatCurrency,
+        bookingFiatRate,
+        bookingFiatDecimal,
         bitcoinExhangeRate,
-        priceInBitcoin,
-        priceInFiat
+        bookingBitcoinAmount,
+        bookingFiatAmount
       }) => {
 
         // Get buyer locale
@@ -36,7 +35,7 @@ export default defineNuxtPlugin(nuxtApp => {
         // Set expirationMinutes and monitoringMinutes based on the gateway
         // For bitcoin, leave the btcpay store settings.
         let expirationMinutes, monitoringMinutes
-        switch(gatewayType) {
+        switch(bookingGatewayType) {
           case 'fiat':
             expirationMinutes = 60 * 24 * 2;
             monitoringMinutes = 60 * 24 * 3;
@@ -56,33 +55,32 @@ export default defineNuxtPlugin(nuxtApp => {
           method: 'POST',
           // Create the request body for btcpay
           body: {
-            currency: buyerFiatCurrency,
-            amount: priceInFiat,
+            currency: bookingFiatCurrency,
+            amount: bookingFiatAmount,
             metadata: {
               // The order id is the concatenation of the service slug and the epoch in seconds of the bookings
-              orderId: `${buyerService}-${buyerTime.map(t => new Date(t).getTime()).join('-')}`,
-              buyerTime,
+              orderId: `${bookingService}-${bookingTime.map(t => new Date(t).getTime()).join('-')}`,
+              bookingDate,
+              bookingTime,
               // This is added to show properly formatted time on the btcpay invoice dashboard
-              buyerBookingTime: buyerTime.map(t => nuxtApp.$dayjs(t).format('llll')).join('\n'),
-              buyerExtras,
+              buyerBookingTime: bookingTime.map(t => nuxtApp.$dayjs(t).format('llll')).join('\n'),
+              bookingExtras,
               // This is added to show extras on the btcpay invoice dashboard
-              buyerBookingExtras: buyerExtras.map(extra => extra.title).join('\n'),
-              buyerName,
-              buyerEmail,
-              buyerFingerprint,
-              buyerPGP,
-              buyerDetails,
+              buyerBookingExtras: bookingExtras.map(extra => extra.title).join('\n'),
+              bookingName,
+              bookingEmail,
+              bookingFingerprint,
+              bookingPGP,
+              bookingDescription,
               buyerLanguage: locale.value,
-              buyerService,
-              buyerGateway: {
-                gatewayType,
-                gatewayMethod,
-                gatewayCurrency: buyerFiatCurrency
-              },
-              buyerFiatPrice: priceInFiat,
-              buyerBitcoinPrice: priceInFiat,
-              buyerFiatRate,
-              buyerFiatDecimal,
+              bookingService,
+              bookingGatewayType,
+              bookingGatewayPaymentMethod,
+              bookingFiatCurrency: bookingFiatCurrency,
+              bookingFiatAmount: bookingFiatAmount,
+              bookingBitcoinAmount: bookingBitcoinAmount,
+              bookingFiatRate,
+              bookingFiatDecimal,
               bitcoinExhangeRate,
             },
             checkout: {

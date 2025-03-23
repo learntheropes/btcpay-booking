@@ -50,7 +50,8 @@
     "pusher-js": "^8.0.2",
     "qrcode": "^1.5.3",
     "uuid": "^9.0.0",
-    "vee-validate": "^4.8.4"
+    "vee-validate": "^4.8.4",
+    "yaml": "^2.7.0"
   },
   "engines": {
     "node": "16.x"

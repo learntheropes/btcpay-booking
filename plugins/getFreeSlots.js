@@ -32,27 +32,27 @@ export default defineNuxtPlugin((nuxtApp) => {
         };
 
         // Get the selected date in buyer local time
-        const getLocalBuyerDate = () => {
+        const getLocalBookingDate = () => {
 
           const utcOffsetHours = nuxtApp.$getUTCOffset();
 
-          if (form.value.buyerDate instanceof Date) {
+          if (form.value.bookingDate instanceof Date) {
 
-            const epoch = new Date().setTime(form.value.buyerDate.getTime() + (utcOffsetHours * 60 * 60 * 1000));
+            const epoch = new Date().setTime(form.value.bookingDate.getTime() + (utcOffsetHours * 60 * 60 * 1000));
             return new Date(epoch);
           }
           return null;
         };
         
         // Main function to get the slots given the choosen day
-        const getAvailableSlots = (localBuyerDate) => {
+        const getAvailableSlots = (localbookingDate) => {
 
-          if (localBuyerDate instanceof Date) {
+          if (localbookingDate instanceof Date) {
             
-            const dayOfWeek = localBuyerDate.getDay();
+            const dayOfWeek = localbookingDate.getDay();
             const { from, to } = availability[dayOfWeek];
-            const start = new Date(localBuyerDate).setUTCHours(from);
-            const end = new Date(localBuyerDate).setUTCHours(to);
+            const start = new Date(localbookingDate).setUTCHours(from);
+            const end = new Date(localbookingDate).setUTCHours(to);
 
             const epochSteps = nuxtApp.$getSlotRange(start, end, duration * 60 * 1000);
 
@@ -76,11 +76,11 @@ export default defineNuxtPlugin((nuxtApp) => {
         // Extract the service name and the start time of the booking
         const busySlots = flatten(paidInvoices
             .filter(invoice => invoice.metadata)
-            .map(({ metadata: { buyerService, buyerTime }}) => buyerTime.map(time => {
+            .map(({ metadata: { bookingService, bookingTime }}) => bookingTime.map(time => {
               return {
                 from: new Date(parseInt(time * 1000)).toISOString(),
                 to: new Date(parseInt(time * 1000 + parseInt(duration * 60 * 1000))).toISOString(),
-                service: buyerService
+                service: bookingService
               }
             })));
 
@@ -110,8 +110,8 @@ export default defineNuxtPlugin((nuxtApp) => {
           else return availableSlots.filter(slot => getFreeSerialSlot(busySlots, slot.value))
         }
 
-        const localBuyerDate = getLocalBuyerDate();
-        const availableSlots = getAvailableSlots(localBuyerDate);
+        const localbookingDate = getLocalBookingDate();
+        const availableSlots = getAvailableSlots(localbookingDate);
         const freeSlots = getFreeSlots(availableSlots);
 
         // Set the component as lnot oading

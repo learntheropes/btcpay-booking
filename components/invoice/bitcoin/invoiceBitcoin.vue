@@ -103,17 +103,17 @@ $listen('invoiceBitcoinIsLoading', (value) => {
       :initialExpiresIn="initialExpiresIn"
     />
     <InvoiceBitcoinExpired
-      v-else-if="status === 'Expired' || status === 'InvoiceExpired'"
+      v-else-if="status === 'expired' || status === 'InvoiceExpired'"
       :invoice="invoice"
       :paymentMethods="paymentMethods"
     />
     <InvoiceBitcoinProcessing
-      v-else-if="status == 'Processing' || status === 'InvoiceProcessing'"
+      v-else-if="status == 'paid' || status === 'InvoiceProcessing'"
       :invoiceId="invoiceId"
       :invoice="invoice"
     />
     <InvoiceBitcoinReceived
-      v-else-if="status === 'Settled' || status === 'InvoiceReceivedPayment'"
+      v-else-if="status === 'completed' || status === 'InvoiceReceivedPayment'"
       :invoiceId="invoiceId"
       :invoice="invoice"
     />

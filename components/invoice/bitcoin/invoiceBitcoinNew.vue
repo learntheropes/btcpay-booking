@@ -163,7 +163,7 @@ const suggestedFee = data.value.fastestFee
                 <div class="level-item has-text-warning">{{ $t('invoiceBitcoinNew.totalFiat') }}</div>
               </div>
               <div class="level-rigth">
-                <div class="level-item">{{ parseFloat(invoice.metadata.buyerFiatPrice).toFixed(invoice.metadata.buyerFiatDecimal) }} {{ invoice.metadata.buyerGateway.gatewayCurrency }}</div>
+                <div class="level-item">{{ parseFloat(invoice.metadata.buyerFiatPrice).toFixed(invoice.metadata.bookingFiatDecimal) }} {{ invoice.metadata.bookingFiatCurrency }}</div>
               </div>
             </div>
             <div class="level is-mobile">
@@ -171,7 +171,7 @@ const suggestedFee = data.value.fastestFee
                 <div class="level-item has-text-warning">{{ $t('invoiceBitcoinNew.exchangeRate') }}</div>
               </div>
               <div class="level-rigth">
-                <div class="level-item">{{ Number.parseFloat(filteredPaymentMethods[selectedPaymentMethodIndex].rate).toFixed(2) }} {{ filteredPaymentMethods[selectedPaymentMethodIndex].currency }}/{{ invoice.metadata.buyerGateway.gatewayCurrency }}</div>
+                <div class="level-item">{{ Number.parseFloat(filteredPaymentMethods[selectedPaymentMethodIndex].rate).toFixed(2) }} {{ filteredPaymentMethods[selectedPaymentMethodIndex].currency }}/{{ invoice.metadata.bookingFiatCurrency }}</div>
               </div>
             </div>
             <div class="level is-mobile">

@@ -26,7 +26,7 @@ const { locale } = useI18n();
 const  {
   duration,
   currency: merchantCurrency,
-  price: merchantPriceInBitcoin,
+  price: merchantPrice,
   extras
 } = await queryContent(`/services/${service}`).locale(locale.value).findOne();
 
@@ -65,7 +65,7 @@ const onChangeYear = (year) => {
   $updateDatapickerNavigation('booking', datepickerCurrentMonth, datepickerCurrentYear)
 };
 
-const buyerCurrency = ref(null);
+const bookingCurrency = ref(null);
 const decimal = ref(null);
 const buyerPaymentMethods = ref([]);
 const peachAvailableCurrencies = ref([])
@@ -77,12 +77,12 @@ onMounted(async () => {
   // Default to ARS if the request is blocked like on Brave
   try {
   const { country: buyerCountry } = await $fetch('https://api.country.is');
-  buyerCurrency.value = countryToCurrency[buyerCountry];
+  bookingCurrency.value = countryToCurrency[buyerCountry];
   } catch(error) {
-    buyerCurrency.value = 'ARS'
+    bookingCurrency.value = 'EUR'
   }
   // Define the decimal length based on the currency
-  decimal.value = $getDecimal(buyerCurrency.value);
+  decimal.value = $getDecimal(bookingCurrency.value);
   const { 
     paymentMethods: peachPaymentMethods
   } = await $fetch(`/v1/info/`, {
@@ -91,7 +91,7 @@ onMounted(async () => {
   
   // Get available fiat methods for the buyer currency
   buyerPaymentMethods.value = sortBy(peachPaymentMethods
-    .filter(method => method.currencies.includes(buyerCurrency) && !method.anonymous)
+    .filter(method => method.currencies.includes(bookingCurrency) && !method.anonymous)
     .map(method => {
       return {
         id: method.id,
@@ -106,11 +106,11 @@ onMounted(async () => {
   peachAvailableCurrencies.value = Object.keys(peachCurrencies).filter(currency => currency !== 'SAT' && currency !== 'USDT').sort()
   
   // Get Yadio exchange rates
-  const { BTC } = await $fetch(`https://api.yadio.io/exrates/${buyerCurrency.value}`);
+  const { BTC } = await $fetch(`https://api.yadio.io/exrates/${bookingCurrency.value}`);
   yadioRate.value = BTC;
 
   // Get Peach exchange rate
-  const { price } = await $fetch(`/v1/market/price/BTC${buyerCurrency.value}`, {
+  const { price } = await $fetch(`/v1/market/price/BTC${bookingCurrency.value}`, {
     baseURL: peachProxy
   });
   peachRate.value = price
@@ -128,58 +128,59 @@ const {
 
 // Define the form reactive properties
 const initialForm = {
-  buyerDate: '',
-  buyerTime: [],
-  buyerExtras: [],
-  buyerName: '',
-  buyerEmail: '',
-  buyerFingerprint: '',
-  buyerPGP: '',
-  buyerDetails: '',
-  buyerService: service,
-  buyerGateway: {},
-  buyerFiatCurrency: buyerCurrency,
-  buyerFiatRate: peachRate,
-  buyerFiatDecimal: decimal,
+  bookingDate: '',
+  bookingTime: [],
+  bookingExtras: [],
+  bookingName: '',
+  bookingEmail: '',
+  bookingFingerprint: '',
+  bookingPGP: '',
+  bookingDescription: '',
+  bookingService: service,
+  bookingGatewayType: '',
+  bookingGatewayPaymentMethod: '',
+  bookingFiatCurrency: bookingCurrency,
+  bookingFiatRate: peachRate,
+  bookingFiatDecimal: decimal,
   bitcoinExhangeRate: 0,
-  priceInBitcoin: 0,
-  priceInFiat: 0
+  bookingBitcoinAmount: 0,
+  bookingFiatAmount: 0
 }
 const form = ref(initialForm);
 
 // Define the form validation
 const validationSchema = {
-  buyerDate: {
+  bookingDate: {
     required: true,
   },
-  buyerTime: {
+  bookingTime: {
     required: true,
     arrayLengthBetween: {
       min: 1,
-      max: 3
+      max: 30
     }
   },
-  buyerName: (name) ? {
+  bookingName: (name) ? {
     required: name === 'required'
   } : null,
-  buyerEmail: (email) ? {
+  bookingEmail: (email) ? {
     required: email === 'required',
     email: email === 'required'
   } : null,
-  buyerFingerprint: (pgp) ? {
+  bookingFingerprint: (pgp) ? {
     required: pgp === 'required',
     // This setting goes together with return true in the custom rule if there is no value provided
     // If one is provided, I want to make sure that is correct.
-    checkPGPKey: `@buyerEmail`,
+    checkPGPKey: `@bookingEmail`,
   }: null,
-  buyerDetails: (details) ? {
+  bookingDescription: (details) ? {
     required: details === 'required',
   } : null
 };
 
 // Listen for the pgp key emited by the custom validation finction
 // This is to avoid calling the server twice, for validation and storing
-$listen('setPGP', (pgp) => form.value.buyerPGP = pgp);
+$listen('setPGP', (pgp) => form.value.bookingPGP = pgp);
 
 // Get the calendar settings object
 const {
@@ -193,9 +194,9 @@ const {
 // Watch the change on buyer date
 // Clear buyer time and update free slots
 let freeSlots = ref([])
-watch(async () => form.value.buyerDate, async () => {
+watch(async () => form.value.bookingDate, async () => {
 
-  form.value.buyerTime = []
+  form.value.bookingTime = []
 
   freeSlots.value = await $getFreeSlots({
     form,
@@ -204,30 +205,30 @@ watch(async () => form.value.buyerDate, async () => {
   })
 });
 
-// Get the bitcoin exchange rate in the currency of the merchant
-const { BTC: btcExchangeRateForMerchantCurrency } = await $fetch(`https://api.yadio.io/exrates/${merchantCurrency}`);
-form.value.bitcoinExhangeRate = btcExchangeRateForMerchantCurrency;
+// Get the bitcoin exchange rate in the currency and provider of the merchant
+const { rate: btcExchangeRateForMerchantCurrency } = await $fetch(`/api/rates/${merchantCurrency}`);
+form.value.bitcoinExhangeRate = parseFloat(btcExchangeRateForMerchantCurrency);
 
 // Calculate the total price of the service in bitcoin 
 const totalServicePriceInBitcoin = computed(() => {
-  const basePriceInBitcoin = (form.value.buyerTime.length * merchantPriceInBitcoin / btcExchangeRateForMerchantCurrency);
-  const extraPriceInBitcoin = form.value.buyerExtras.reduce((sum, extra) => sum + extra.price, 0) / btcExchangeRateForMerchantCurrency;
+  const basePriceInBitcoin = (form.value.bookingTime.length * merchantPrice / parseFloat(btcExchangeRateForMerchantCurrency));
+  const extraPriceInBitcoin = form.value.bookingExtras.reduce((sum, extra) => sum + extra.price, 0) / parseFloat(btcExchangeRateForMerchantCurrency);
   const total = (basePriceInBitcoin + extraPriceInBitcoin).toFixed(8);
-  form.value.priceInBitcoin = total;
+  form.value.bookingBitcoinAmount = total;
   return total;
 });
 
 // If the buyer changes the currency or the price in bitcoin changes
 // Update the listed payment methods and the amount of fiat
-let priceInBuyerCurrency = ref(0);
-watch(async () => [form.value.buyerFiatCurrency, totalServicePriceInBitcoin.value], async () => {
+let priceInbookingCurrency = ref(0);
+watch(async () => [form.value.bookingFiatCurrency, totalServicePriceInBitcoin.value], async () => {
 
   const { paymentMethods: peachPaymentMethods } = await $fetch(`/v1/info`, {
     baseURL: peachProxy
   });
     buyerPaymentMethods.value = sortBy(peachPaymentMethods
       .sort()
-      .filter(method => method.currencies.includes(form.value.buyerFiatCurrency) && !method.anonymous)
+      .filter(method => method.currencies.includes(form.value.bookingFiatCurrency) && !method.anonymous)
       .map(method => {
         return {
           id: method.id,
@@ -235,12 +236,12 @@ watch(async () => [form.value.buyerFiatCurrency, totalServicePriceInBitcoin.valu
         }
       }), 'name');
 
-    const { price: buyerCurrencyExchangeRate } = await $fetch(`/v1/market/price/BTC${form.value.buyerFiatCurrency}`, {
+    const { price: bookingCurrencyExchangeRate } = await $fetch(`/v1/market/price/BTC${form.value.bookingFiatCurrency}`, {
       baseURL: peachProxy
     });
-    form.value.buyerFiatRate = buyerCurrencyExchangeRate;
-    form.value.buyerFiatDecimal = $getDecimal(form.value.buyerFiatCurrency);
-    form.value.priceInFiat = ( totalServicePriceInBitcoin.value * (((premium) / 100) + 1) * buyerCurrencyExchangeRate).toFixed(form.value.buyerFiatDecimal);
+    form.value.bookingFiatRate = bookingCurrencyExchangeRate;
+    form.value.bookingFiatDecimal = $getDecimal(form.value.bookingFiatCurrency);
+    form.value.bookingFiatAmount = ( totalServicePriceInBitcoin.value * (((premium) / 100) + 1) * bookingCurrencyExchangeRate).toFixed(form.value.bookingFiatDecimal);
 });
 
 // Handle is loading free slots
@@ -252,12 +253,12 @@ $listen('setIsLoadingFreeSlots', (bool) => {
 
 // Reset times selections
 const clearTime = () => {
-  form.value.buyerTime = [];
+  form.value.bookingTime = [];
 };
 
 // Reset extras selections
 const clearExtras = () => {
-  form.value.buyerExtras  = [];
+  form.value.bookingExtras  = [];
 };
 
 // Filter merchant enabled gateways
@@ -267,12 +268,10 @@ const {
 } = await queryContent(`/settings`).findOne();
 
 // Set the choosen gateway at the same moment the form is submitted
-const setGateway = (gatewayType, gatewayMethod, gatewayCurrency) => {
-  form.value.buyerGateway = {
-    gatewayType,
-    gatewayMethod,
-    gatewayCurrency
-  };
+const setGateway = (bookingGatewayType, bookingGatewayPaymentMethod, bookingFiatCurrency) => {
+  form.value.bookingGatewayType = bookingGatewayType;
+  form.value, bookingGatewayPaymentMethod = bookingGatewayPaymentMethod;
+  form.value.bookingFiatCurrency = bookingFiatCurrency;
 }
 
 const isLoadingPage = ref(false);
@@ -309,19 +308,19 @@ const createInvoice = async () => {
       @submit="createInvoice"
     >
       <VField
-        name="buyerDate"
-        :label="$t('serviceBookingForm.buyerDate')"
+        name="bookingDate"
+        :label="$t('serviceBookingForm.bookingDate')"
         v-slot="{ handleChange, handleBlur, value, errors }"
-        v-model="form.buyerDate"
+        v-model="form.bookingDate"
       >
         <OField
-          :label="$t('serviceBookingForm.buyerDate')"
+          :label="$t('serviceBookingForm.bookingDate')"
           :variant="errors[0] ? 'danger' : null"
           :message="errors[0] ? errors[0] : ''"
         >
           <ODatepicker
-            :label="$t('serviceBookingForm.buyerDate')"
-            :aria-label="$t('serviceBookingForm.buyerDate')"
+            :label="$t('serviceBookingForm.bookingDate')"
+            :aria-label="$t('serviceBookingForm.bookingDate')"
             :model-value="value"
             @update:modelValue="handleChange"
             @change="handleChange"
@@ -340,13 +339,13 @@ const createInvoice = async () => {
       </VField>
 
       <VField
-        name="buyerTime"
-        :label="$t('serviceBookingForm.buyerTime')"
+        name="bookingTime"
+        :label="$t('serviceBookingForm.bookingTime')"
         v-slot="{ handleChange, handleBlur, value, errors }"
-        v-model="form.buyerTime"
+        v-model="form.bookingTime"
       >
         <OField
-          :label="$t('serviceBookingForm.buyerTime')"
+          :label="$t('serviceBookingForm.bookingTime')"
           :variant="errors[0] ? 'danger' : null"
           :message="errors[0] ? errors[0] : ''"
         >
@@ -359,8 +358,8 @@ const createInvoice = async () => {
             <OIcon pack="mdi" icon="loading" size="small" spin class="is-hidden-tablet" />
           </OLoading>
           <OSelect
-            :label="$t('serviceBookingForm.buyerTime')"
-            :aria-label="$t('serviceBookingForm.buyerTime')"
+            :label="$t('serviceBookingForm.bookingTime')"
+            :aria-label="$t('serviceBookingForm.bookingTime')"
             :model-value="value"
             @update:modelValue="handleChange"
             @change="handleChange"
@@ -370,7 +369,7 @@ const createInvoice = async () => {
             expanded
           >
             <option
-              v-if="!form.buyerDate"
+              v-if="!form.bookingDate"
               disabled
             >
               {{ $t('serviceBookingForm.selectDateFirst') }}
@@ -383,7 +382,7 @@ const createInvoice = async () => {
           </OSelect>
         </OField>
         <p
-          v-if="form.buyerTime.length"
+          v-if="form.bookingTime.length"
           @click.native="clearTime"
           class="help is-primary"
         >
@@ -394,19 +393,19 @@ const createInvoice = async () => {
 
       <VField
         v-if="extras && extras.length"
-        name="buyerExtras"
-        :label="$t('serviceBookingForm.buyerExtras')"
+        name="bookingExtras"
+        :label="$t('serviceBookingForm.bookingExtras')"
         v-slot="{ handleChange, handleBlur, value, errors }"
-        v-model="form.buyerExtras"
+        v-model="form.bookingExtras"
       >
         <OField
-          :label="$t('serviceBookingForm.buyerExtras')"
+          :label="$t('serviceBookingForm.bookingExtras')"
           :variant="errors[0] ? 'danger' : null"
           :message="errors[0] ? errors[0] : ''"
         >
           <OSelect
-            :label="$t('serviceBookingForm.buyerExtras')"
-            :aria-label="$t('serviceBookingForm.buyerExtras')"
+            :label="$t('serviceBookingForm.bookingExtras')"
+            :aria-label="$t('serviceBookingForm.bookingExtras')"
             :model-value="value"
             @update:modelValue="handleChange"
             @change="handleChange"
@@ -423,7 +422,7 @@ const createInvoice = async () => {
           </OSelect>
         </OField>
         <p
-          v-if="form.buyerExtras.length"
+          v-if="form.bookingExtras.length"
           @click.native="clearExtras"
           class="help is-primary"
         >
@@ -433,20 +432,20 @@ const createInvoice = async () => {
       </VField>
 
       <VField
-        name="buyerName"
-        :label="$t('serviceBookingForm.buyerName')"
+        name="bookingName"
+        :label="$t('serviceBookingForm.bookingName')"
         v-slot="{ handleChange, handleBlur, value, errors }"
-        v-model="form.buyerName"
+        v-model="form.bookingName"
       >
         <OField
           v-if="name"
-          :label="$t('serviceBookingForm.buyerName')"
+          :label="$t('serviceBookingForm.bookingName')"
           :variant="errors[0] ? 'danger' : null"
           :message="errors[0] ? errors[0] : ''"
         >
           <OInput
-            :label="$t('serviceBookingForm.buyerName')"
-            :aria-label="$t('serviceBookingForm.buyerName')"
+            :label="$t('serviceBookingForm.bookingName')"
+            :aria-label="$t('serviceBookingForm.bookingName')"
             :model-value="value"
             @update:modelValue="handleChange"
             @change="handleChange"
@@ -456,20 +455,20 @@ const createInvoice = async () => {
       </VField>
 
       <VField
-        name="buyerEmail"
-        :label="$t('serviceBookingForm.buyerEmail')"
+        name="bookingEmail"
+        :label="$t('serviceBookingForm.bookingEmail')"
         v-slot="{ handleChange, handleBlur, value, errors }"
-        v-model="form.buyerEmail"
+        v-model="form.bookingEmail"
       >
         <OField
           v-if="email"
-          :label="$t('serviceBookingForm.buyerEmail')"
+          :label="$t('serviceBookingForm.bookingEmail')"
           :variant="errors[0] ? 'danger' : null"
           :message="errors[0] ? errors[0] : ''"
         >
           <OInput
-            :label="$t('serviceBookingForm.buyerEmail')"
-            :aria-label="$t('serviceBookingForm.buyerEmail')"
+            :label="$t('serviceBookingForm.bookingEmail')"
+            :aria-label="$t('serviceBookingForm.bookingEmail')"
             type="email"
             :model-value="value"
             @update:modelValue="handleChange"
@@ -481,21 +480,21 @@ const createInvoice = async () => {
 
       <!-- 5BA78A510CDA44132BDC51FA58C798100FF8A743 -->
       <VField
-        name="buyerFingerprint"
-        :label="$t('serviceBookingForm.buyerFingerprint')"
+        name="bookingFingerprint"
+        :label="$t('serviceBookingForm.bookingFingerprint')"
         v-slot="{ handleChange, handleBlur, value, errors }"
-        v-model="form.buyerFingerprint"
+        v-model="form.bookingFingerprint"
       >
         <OField
           v-if="pgp"
-          :label="$t('serviceBookingForm.buyerFingerprint')"
+          :label="$t('serviceBookingForm.bookingFingerprint')"
           :variant="errors[0] ? 'danger' : null"
           :message="errors[0] ? errors[0] : $t('serviceBookingForm.fingerprintOnServer')"
         >
           <!-- https://github.com/logaretm/vee-validate/issues/3575#issuecomment-1516900983 -->
           <OInput
-            :label="$t('serviceBookingForm.buyerFingerprint')"
-            :aria-label="$t('serviceBookingForm.buyerFingerprint')"
+            :label="$t('serviceBookingForm.bookingFingerprint')"
+            :aria-label="$t('serviceBookingForm.bookingFingerprint')"
             :model-value="value"
             @change="handleChange"
             @blur="handleBlur"
@@ -505,20 +504,20 @@ const createInvoice = async () => {
       </VField>
 
       <VField
-        name="buyerDetails"
-        :label="$t('serviceBookingForm.buyerDetails')"
+        name="bookingDescription"
+        :label="$t('serviceBookingForm.bookingDescription')"
         v-slot="{ handleChange, handleBlur, value, errors }"
-        v-model="form.buyerDetails"
+        v-model="form.bookingDescription"
       >
         <OField
           v-if="details"
-          :label="$t('serviceBookingForm.buyerDetails')"
+          :label="$t('serviceBookingForm.bookingDescription')"
           :variant="errors[0] ? 'danger' : null"
           :message="errors[0] ? errors[0] : ''"
         >
           <OInput
-            :label="$t('serviceBookingForm.buyerDetails')"
-            :aria-label="$t('serviceBookingForm.buyerDetails')"
+            :label="$t('serviceBookingForm.bookingDescription')"
+            :aria-label="$t('serviceBookingForm.bookingDescription')"
             type="textarea"
             :model-value="value"
             @update:modelValue="handleChange"
@@ -536,11 +535,11 @@ const createInvoice = async () => {
       <OField>
         <OButton
           variant="primary"
-          @click.native="setGateway('bitcoin', 'bitcoin', 'BTC')"
+          @click.native="setGateway('crypto', null, null)"
           native-type="submit"
           icon-right="sale"
           expanded
-        >{{ `${$t('invoiceBitcoinNew.payWith')} bitcoin ${form.priceInBitcoin} BTC` }}</OButton>
+        >{{ `${$t('invoiceBitcoinNew.payWith')} bitcoin ${form.bookingBitcoinAmount} BTC` }}</OButton>
       </OField>
 
       <p 
@@ -558,10 +557,10 @@ const createInvoice = async () => {
           :key="paymentMethod.id"
           variant="primary"
           outlined
-          @click="setGateway('fiat', paymentMethod.id, buyerCurrency)"
+          @click="setGateway('fiat', paymentMethod.id, bookingCurrency)"
           native-type="submit"
           expanded
-        >{{ `${$t('invoiceBitcoinNew.payWith')} ${paymentMethod.name} ${form.priceInFiat} ${form.buyerFiatCurrency}` }}</OButton>
+        >{{ `${$t('invoiceBitcoinNew.payWith')} ${paymentMethod.name} ${form.bookingFiatAmount} ${form.bookingFiatCurrency}` }}</OButton>
         <div v-else>{{ $t('serviceBookingForm.fiatNotAvailable') }}</div>
       </OField>
 
@@ -569,7 +568,7 @@ const createInvoice = async () => {
         name="changeCurrency"
         :label="$t('serviceBookingForm.changeCurrency')"
         v-slot="{ handleChange, handleBlur, value }"
-        v-model="form.buyerFiatCurrency"
+        v-model="form.bookingFiatCurrency"
       >
         <OField
           :label="$t('serviceBookingForm.changeCurrency')"

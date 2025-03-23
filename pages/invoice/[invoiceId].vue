@@ -25,17 +25,15 @@
     status,
     metadata: {
       buyerLanguage,
-      buyerService,
-      buyerGateway: {
-        gatewayType
-      }
+      bookingService,
+      bookingGatewayType
     }
   } = invoice;
 
   // Get the service name for the breadcrumb
   const {
-    title: buyerServiceTitle
-  } = await queryContent(`/services/${buyerService}`).locale(buyerLanguage).only([ 'title' ]).findOne();
+    title: bookingServiceTitle
+  } = await queryContent(`/services/${bookingService}`).locale(buyerLanguage).only([ 'title' ]).findOne();
 
   // Set title page
   const { t } = useI18n();
@@ -51,7 +49,7 @@
           <NuxtLink :to="localePath('/')">{{ profile }}</NuxtLink>
         </li>
         <li>
-          <NuxtLink :to="localePath(`/${buyerService}`)">{{ buyerServiceTitle }}</NuxtLink>
+          <NuxtLink :to="localePath(`/${bookingService}`)">{{ bookingServiceTitle }}</NuxtLink>
         </li>
         <li class="is-active">
           <NuxtLink>{{ `${t('invoiceBitcoinNew.invoice')} ${invoiceId}` }}</NuxtLink>
@@ -66,7 +64,7 @@
         />
       </div>
       <div class="column is-narrow">
-        <section v-if="gatewayType === 'bitcoin'" class="section">
+        <section v-if="bookingGatewayType === 'crypto'" class="section">
           <invoiceBitcoin
             :invoiceId="invoiceId"
             :invoice="invoice"
@@ -75,7 +73,7 @@
           />
 
         </section>
-        <section v-else-if="gatewayType === 'fiat'" class="section">
+        <section v-else-if="bookingGatewayType === 'fiat'" class="section">
           <invoiceFiat
             :invoiceId="invoiceId"
             :invoice="invoice"

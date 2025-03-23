@@ -30,10 +30,9 @@ onMounted(async () => {
     }
     await $peach.updateUser();
     try {
-      console.log('btc amount', invoice.metadata.buyerBitcoinPrice);
       peachOfferId = await $peach.postBuyOffer(
-      invoice.metadata.buyerGateway.gatewayCurrency,
-      invoice.metadata.buyerGateway.gatewayMethod,
+      invoice.metadata.bookingFiatCurrency,
+      invoice.metadata.bookingGatewayPaymentMethod,
       invoice.metadata.buyerBitcoinPrice / invoice.metadata.bitcoinExhangeRate
     )
     } catch (e) {
@@ -46,7 +45,6 @@ onMounted(async () => {
     })
   }
   const matches = await $peach.getMatches(peachOfferId);
-  console.log('matches', matches)
 });
 </script>
 

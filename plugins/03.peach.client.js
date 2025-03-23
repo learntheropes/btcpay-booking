@@ -161,13 +161,11 @@ export default defineNuxtPlugin(nuxtApp => {
       // Get the meansOfPayment
       const meansOfPayment = {};
       meansOfPayment[currency] = [method];
-      console.log('Means of payment', JSON.stringify(meansOfPayment));
       // Fake the payment data
       const data = nuxtStorage.localStorage.getData('peach_uniqe_id');
       const paymentData = {};
       paymentData[method] = {};
       paymentData[method].hashes = [crypto.createHash('sha256').update(data).digest('hex')];
-      console.log('Payment data', JSON.stringify(paymentData));
   
       const sats = parseInt(parseFloat(amount)*100000000);
   

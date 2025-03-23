@@ -217,12 +217,14 @@ export default defineNuxtConfig({
       lang: {
         driver: 'github',
         repo: process.env.GITHUB_REPO,
+        token: process.env.GITHUB_TOKEN,
         branch: 'main',
         dir: '/lang',
       },
       content: {
         driver: 'github',
         repo: process.env.GITHUB_REPO,
+        token: process.env.GITHUB_TOKEN,
         branch: 'main',
         dir: '/content',
       }

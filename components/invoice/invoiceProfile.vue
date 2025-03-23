@@ -25,27 +25,27 @@ const {
   id: invoiceId,
   metadata: {
     orderId,
-    buyerTime,
-    buyerExtras,
-    buyerName,
-    buyerEmail,
-    buyerFingerprint,
-    buyerPGP,
-    buyerDetails,
+    // bookingDate,
+    bookingTime,
+    bookingExtras,
+    bookingName,
+    bookingEmail,
+    bookingFingerprint,
+    bookingPGP,
+    bookingDescription,
     buyerLanguage,
-    buyerService,
-    buyerGateway: {
-      gatewayType,
-      gatewayMethod,
-      gatewayCurrency
-    }
+    bookingService,
+    bookingGatewayType, // fiat or crypto
+    bookingGatewayPaymentMethod, // payment method used if fiat
+    bookingFiatCurrency,
+
   }
 } = invoice;
 
 // Get the service name for the breadcrumb
 const {
-  title: buyerServiceTitle
-} = await queryContent(`/services/${buyerService}`).locale(buyerLanguage).only([ 'title' ]).findOne();
+  title: bookingServiceTitle
+} = await queryContent(`/services/${bookingService}`).locale(buyerLanguage).only([ 'title' ]).findOne();
 
 // Generate the qrcode for the invoice URL
 const qrCode = await QRCode.toDataURL(`${deploymentDomain}/invoice/${invoiceId}`);
@@ -74,40 +74,40 @@ const {
   </section>
   <section class="section content">
     <div class=block>
-      <div class="has-text-weight-semibold">{{ $t('serviceBookingForm.buyerService') }}</div>
-      <div>{{ buyerServiceTitle }}</div>
+      <div class="has-text-weight-semibold">{{ $t('serviceBookingForm.bookingService') }}</div>
+      <div>{{ bookingServiceTitle }}</div>
     </div>
     <div class=block>
-      <div class="has-text-weight-semibold">{{ $t('serviceBookingForm.buyerTime') }}</div>
-      <div>{{ buyerTime.map(t => $dayjs(t * 1000).format('llll')).join('\n') }}</div>
+      <div class="has-text-weight-semibold">{{ $t('serviceBookingForm.bookingTime') }}</div>
+      <div>{{ bookingTime.map(t => $dayjs(t * 1000).format('llll')).join('\n') }}</div>
     </div>
     <div class=block>
-      <div class="has-text-weight-semibold">{{ $t('serviceBookingForm.buyerExtras') }}</div>
-      <div>{{ (buyerExtras.length) ? buyerExtras.map(e => e.title).join('\n') : $t('invoiceProfile.notProvided') }}</div>
+      <div class="has-text-weight-semibold">{{ $t('serviceBookingForm.bookingExtras') }}</div>
+      <div>{{ (bookingExtras.length) ? bookingExtras.map(e => e.title).join('\n') : $t('invoiceProfile.notProvided') }}</div>
     </div>
     <div class=block>
-      <div class="has-text-weight-semibold">{{ $t('serviceBookingForm.buyerName') }}</div>
-      <div>{{ buyerName || $t('invoiceProfile.notProvided') }}</div>
+      <div class="has-text-weight-semibold">{{ $t('serviceBookingForm.bookingName') }}</div>
+      <div>{{ bookingName || $t('invoiceProfile.notProvided') }}</div>
     </div>
     <div class=block>
-      <div class="has-text-weight-semibold">{{ $t('serviceBookingForm.buyerEmail') }}</div>
-      <div>{{ buyerEmail || $t('notProvided') }}</div>
+      <div class="has-text-weight-semibold">{{ $t('serviceBookingForm.bookingEmail') }}</div>
+      <div>{{ bookingEmail || $t('notProvided') }}</div>
     </div>
     <div class=block>
-      <div class="has-text-weight-semibold">{{ $t('serviceBookingForm.buyerFingerprint') }}</div>
-      <div>{{ buyerFingerprint || $t('invoiceProfile.notProvided') }}</div>
+      <div class="has-text-weight-semibold">{{ $t('serviceBookingForm.bookingFingerprint') }}</div>
+      <div>{{ bookingFingerprint || $t('invoiceProfile.notProvided') }}</div>
     </div>
     <div class=block>
-      <div class="has-text-weight-semibold">{{ $t('serviceBookingForm.buyerPGP') }}</div>
-      <div>{{ buyerPGP || $t('invoiceProfile.notProvided') }}</div>
+      <div class="has-text-weight-semibold">{{ $t('serviceBookingForm.bookingPGP') }}</div>
+      <div>{{ bookingPGP || $t('invoiceProfile.notProvided') }}</div>
     </div>
     <div class=block>
-      <div class="has-text-weight-semibold">{{ $t('serviceBookingForm.buyerDetails') }}</div>
-      <div>{{ buyerDetails || $t('invoiceProfile.notProvided') }}</div>
+      <div class="has-text-weight-semibold">{{ $t('serviceBookingForm.bookingDescription') }}</div>
+      <div>{{ bookingDescription || $t('invoiceProfile.notProvided') }}</div>
     </div>
     <div class=block>
       <div class="has-text-weight-semibold">{{ $t('serviceBookingForm.buyerGateway') }}</div>
-      <div class="is-capitalized">{{ gatewayType }} - {{ gatewayMethod }} - {{ gatewayCurrency }}</div>
+      <div class="is-capitalized">{{ bookingGatewayType }} - {{ bookingGatewayPaymentMethod }} - {{ bookingFiatCurrency }}</div>
     </div>
     <div class=block>
       <div class="has-text-weight-semibold">{{ $t('serviceBookingForm.buyerLanguage') }}</div>

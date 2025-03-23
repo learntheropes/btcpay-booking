@@ -14,9 +14,7 @@ const {
 // Get the needed info from the invoice prop
 const {
   metadata: {
-    buyerGateway: {
-      gatewayMethod
-    },
+    bookingGatewayPaymentMethod
   }
 } = invoice;
 
@@ -27,7 +25,7 @@ const {
 } = useNuxtApp();
 
 // Format the payment method id to a readable name
-const paymentMethod = $capitalize(kebabCase(gatewayMethod).replace('-', ' ')).replace('-', '%');
+const paymentMethod = $capitalize(kebabCase(bookingGatewayPaymentMethod).replace('-', ' ')).replace('-', '%');
 
 // Mock decripted buyer details 
 const sellerPaymentDetails = {
