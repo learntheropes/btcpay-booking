@@ -1,12 +1,12 @@
 <script setup>
 import QRCode from 'qrcode';
-import find from 'lodash.find';
 import findIndex from 'lodash.findindex';
 import { NotificationProgrammatic } from "@oruga-ui/oruga-next";
 
 // Get invoice props
 const {
   invoice,
+  defaultPaymentMethod,
   paymentMethods,
   expiresIn,
   expiresInString,
@@ -15,6 +15,9 @@ const {
   invoice: {
     type: Object,
     required: true
+  },
+  defaultPaymentMethod: {
+    type: String
   },
   paymentMethods: {
     type: Array,
@@ -33,40 +36,24 @@ const {
     required: true
   }
 });
-console.log( 'invoice', invoice);
-
-// Add missing info for on chain and lighning network
-const methods = [
-  {
-    paymentMethodId: 'BTC-CHAIN',
-    name: 'bitcoin',
-    destination: 'address'
-  },
-  {
-    paymentMethodId: 'BTC-LN',
-    name: 'lightning',
-    destination: 'invoice'
-  }
-];
-
-// Filter the payment methods to only show the ones that are in the methods array;
-const paymentMethodsCleaned = paymentMethods.filter(el => find(methods, { paymentMethodId: el.paymentMethodId }));
-
-// Get and set the initial payment method shown with default to 0
-const defaultPaymentMethod = invoice.checkout.defaultPaymentMethod;
-console.log('defaultPaymentMethod', defaultPaymentMethod);
-const selectedMethodIndex = ref((findIndex(methods, { paymentMethodId: defaultPaymentMethod }) === -1) ? 0 : findIndex(methods, { paymentMethodId: defaultPaymentMethod }));
-console.log('selectedMethodIndex', selectedMethodIndex.value);
-// Filter allowed payment methods based on btcpay response
-const allowedMethods = paymentMethodsCleaned.map(el => find(methods, { paymentMethodId: el.paymentMethodId }));
 
 // Set the detail as initially visible
-const isDetailsOpen = ref(true);
+const isDetailsOpen = ref(false);
 
-// Swith from on chain to lightning and vice versa
-const setMethodIndex = (index) => {
-  selectedMethodIndex.value = index
+// Remove lnurl because it has no destination
+const filteredPaymentMethods = paymentMethods.filter(method => method.paymentMethodId !== "BTC-LNURL");
+
+// Set the payment method. with default get from the store settings or the first one in the array if not found
+const selectedPaymentMethodIndex = ref((findIndex(filteredPaymentMethods, { paymentMethodId: defaultPaymentMethod }) === -1) ? 0 : findIndex(filteredPaymentMethods, { paymentMethodId: defaultPaymentMethod }));
+
+const setPaymentMethodIndex = (index) => {
+  selectedPaymentMethodIndex.value = index
 };
+
+// const selectedPaymentMethod = ref(((findIndex(filteredPaymentMethods, { paymentMethodId: defaultPaymentMethod }) === -1) ? filteredPaymentMethods[0].paymentMethodId : filteredPaymentMethods[selectedPaymentMethodIndex.value].paymentMethodId));
+// const setPaymentMethod = (paymentMethodId) => {
+//   selectedPaymentMethodIndex.value = paymentMethodId;
+// };
 
 // Function to generate the qrcode from a string
 const generateQrCode = async (text) => {
@@ -74,12 +61,12 @@ const generateQrCode = async (text) => {
 };
 
 // Set the initial qrcode
-const initialQrCode = await generateQrCode(paymentMethodsCleaned[selectedMethodIndex.value].destination);
+const initialQrCode = await generateQrCode(filteredPaymentMethods[selectedPaymentMethodIndex.value].destination);
 let qrCode = ref(initialQrCode);
 
 // Watch for changes to pass to the qrcode
-watch(async () => selectedMethodIndex.value, async () => {
-  const newQrCode = await generateQrCode(paymentMethodsCleaned[selectedMethodIndex.value].destination);
+watch(async () => selectedPaymentMethodIndex.value, async () => {
+  const newQrCode = await generateQrCode(filteredPaymentMethods[selectedPaymentMethodIndex.value].destination);
   qrCode.value = newQrCode;
 });
 
@@ -88,15 +75,15 @@ const { t } = useI18n();
 
 // Functions to copy the address/invoice with notification
 const copyDestination = () => {
-  navigator.clipboard.writeText(paymentMethodsCleaned[selectedMethodIndex.value].destination);
+  navigator.clipboard.writeText(filteredPaymentMethods[selectedPaymentMethodIndex.value].destination);
   NotificationProgrammatic.open(t('invoiceBitcoinNew.destinationCopied'));
 };
 
-// Render and copy btc or sat amount based on the payment method selected
-const renderAmount = computed(() => (selectedMethodIndex.value === 0) ? paymentMethodsCleaned[selectedMethodIndex.value].due : parseInt(Number(paymentMethodsCleaned[selectedMethodIndex.value].due) * 100000000));
+// Render and copy amount based on the payment method selected
+const renderAmount = filteredPaymentMethods[selectedPaymentMethodIndex.value].due;
 
 const copyAmount = () => {
-  navigator.clipboard.writeText((selectedMethodIndex.value === 0) ? paymentMethodsCleaned[selectedMethodIndex.value].due : parseInt(Number(paymentMethodsCleaned[selectedMethodIndex.value].due) * 100000000));
+  navigator.clipboard.writeText(filteredPaymentMethods[selectedPaymentMethodIndex.value].due);
   NotificationProgrammatic.open(t('invoiceBitcoinNew.amountCopied'));
 };
 
@@ -168,7 +155,7 @@ const suggestedFee = data.value.fastestFee
                 <div class="level-item has-text-warning">{{ $t('invoiceBitcoinNew.totalPrice') }}</div>
               </div>
               <div class="level-rigth">
-                <div class="level-item">{{ (selectedMethodIndex === 0) ? Number.parseFloat(paymentMethodsCleaned[selectedMethodIndex].amount).toFixed(8) : Number.parseFloat(paymentMethodsCleaned[selectedMethodIndex].amount * 100000000).toFixed(0) }} {{ ((selectedMethodIndex === 0)) ? paymentMethodsCleaned[selectedMethodIndex].cryptoCode : 'SATS' }}</div>
+                <div class="level-item">{{ filteredPaymentMethods[selectedPaymentMethodIndex].amount }} {{ filteredPaymentMethods[selectedPaymentMethodIndex].currency }}</div>
               </div>
             </div>
             <div class="level is-mobile">
@@ -176,7 +163,7 @@ const suggestedFee = data.value.fastestFee
                 <div class="level-item has-text-warning">{{ $t('invoiceBitcoinNew.totalFiat') }}</div>
               </div>
               <div class="level-rigth">
-                <div class="level-item">{{ Number.parseFloat(invoice.amount).toFixed(2) }} {{ invoice.currency }}</div>
+                <div class="level-item">{{ parseFloat(invoice.metadata.buyerFiatPrice).toFixed(invoice.metadata.buyerFiatDecimal) }} {{ invoice.metadata.buyerGateway.gatewayCurrency }}</div>
               </div>
             </div>
             <div class="level is-mobile">
@@ -184,7 +171,7 @@ const suggestedFee = data.value.fastestFee
                 <div class="level-item has-text-warning">{{ $t('invoiceBitcoinNew.exchangeRate') }}</div>
               </div>
               <div class="level-rigth">
-                <div class="level-item">{{ Number.parseFloat(paymentMethodsCleaned[selectedMethodIndex].rate).toFixed(2) }} {{ paymentMethodsCleaned[selectedMethodIndex].cryptoCode }}/{{ invoice.currency }}</div>
+                <div class="level-item">{{ Number.parseFloat(filteredPaymentMethods[selectedPaymentMethodIndex].rate).toFixed(2) }} {{ filteredPaymentMethods[selectedPaymentMethodIndex].currency }}/{{ invoice.metadata.buyerGateway.gatewayCurrency }}</div>
               </div>
             </div>
             <div class="level is-mobile">
@@ -192,10 +179,10 @@ const suggestedFee = data.value.fastestFee
                 <div class="level-item has-text-warning">{{ $t('invoiceBitcoinNew.amountDue') }}</div>
               </div>
               <div class="level-rigth">
-                <div class="level-item">{{ (selectedMethodIndex === 0) ? Number.parseFloat(paymentMethodsCleaned[selectedMethodIndex].due).toFixed(8) : Number.parseFloat(paymentMethodsCleaned[selectedMethodIndex].due * 100000000).toFixed(0) }} {{ ((selectedMethodIndex === 0)) ? paymentMethodsCleaned[selectedMethodIndex].cryptoCode : 'SATS' }}</div>
+                <div class="level-item">{{ Number.parseFloat(filteredPaymentMethods[selectedPaymentMethodIndex].due).toFixed(8) }} {{ filteredPaymentMethods[selectedPaymentMethodIndex].currency }}</div>
               </div>
             </div>
-            <div v-if="selectedMethodIndex === 0" class="level is-mobile">
+            <div v-if="selectedPaymentMethodIndex === 0" class="level is-mobile">
               <div class="level-left">
                 <div class="level-item has-text-warning">{{ $t('invoiceBitcoinNew.recommendedFee') }}</div>
               </div>
@@ -212,12 +199,12 @@ const suggestedFee = data.value.fastestFee
           <div class="control">
             <div class="buttons is-centered">
               <OButton
-                v-for="method,index in allowedMethods"
-                :key="method.name"
+                v-for="method,index in filteredPaymentMethods"
+                :key="index"
                 variant="primary"
-                :outlined="selectedMethodIndex !== index"
-                @click.native="setMethodIndex(index)"
-              >{{ $t(`invoiceBitcoinNew.${method.name}`) }}</OButton>
+                :outlined="selectedPaymentMethodIndex !== index"
+                @click.native="setPaymentMethodIndex(index)"
+              >{{ $t(`invoiceBitcoinNew.${method.paymentMethodId}`) }}</OButton>
             </div>
           </div>
         </div>
@@ -231,16 +218,16 @@ const suggestedFee = data.value.fastestFee
           </figure>
           <div class="is-overlay ltr-is-center-center">
             <figure class="image is-48by48 ltr-is-48by48">
-              <NuxtIcon :name="allowedMethods[selectedMethodIndex].name" class="ltr-is-48by48" filled />
+              <NuxtIcon :name="filteredPaymentMethods[selectedPaymentMethodIndex].paymentMethodId" class="ltr-is-48by48" filled />
             </figure>
           </div>
         </div>
       </div>
     </div>
     <div class="card-content">
-      <OField :label="$t(`invoiceBitcoinNew.${allowedMethods[selectedMethodIndex].destination}`)">
+      <OField :label="$t(`invoiceBitcoinNew.destination`)">
         <OInput
-          v-model="paymentMethodsCleaned[selectedMethodIndex].destination"
+          v-model="filteredPaymentMethods[selectedPaymentMethodIndex].destination"
           icon-right="content-copy"
           icon-right-clickable
           @icon-right-click="copyDestination"
@@ -250,7 +237,7 @@ const suggestedFee = data.value.fastestFee
       </OField>
       <OField :label="$t('invoiceBitcoinNew.amount')">
         <OInput
-          v-model="renderAmount"
+          v-model="filteredPaymentMethods[selectedPaymentMethodIndex].due"
           icon-right="content-copy"
           icon-right-clickable
           @icon-right-click="copyAmount"
@@ -260,7 +247,7 @@ const suggestedFee = data.value.fastestFee
       </OField>
     </div>
     <footer class="card-footer">
-      <NuxtLink :to="paymentMethodsCleaned[selectedMethodIndex].paymentLink" class="card-footer-item">{{ $t('invoiceBitcoinNew.payInWallet') }}</NuxtLink>
+      <NuxtLink :to="filteredPaymentMethods[selectedPaymentMethodIndex].paymentLink" class="card-footer-item">{{ $t('invoiceBitcoinNew.payInWallet') }}</NuxtLink>
     </footer>
   </div>
 </template>

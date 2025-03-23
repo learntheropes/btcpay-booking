@@ -24,6 +24,10 @@ const {
   $listen
 } = useNuxtApp();
 
+// Get the default payment method of the store
+const { data: store } = await useFetch(`/api/store`);
+const defaultPaymentMethod = store.value.defaultPaymentMethod;
+
 // Get invoice  payment methods from BTCPay Greenfield API
 const { data } = await useFetch(`/api/invoices/${invoiceId}/payment-methods`);
 const paymentMethods = data.value
@@ -92,6 +96,7 @@ $listen('invoiceBitcoinIsLoading', (value) => {
     <InvoiceBitcoinNew
       v-if="status === 'New' || status === 'InvoiceCreated'"
       :invoice="invoice"
+      :defaultPaymentMethod="defaultPaymentMethod"
       :paymentMethods="paymentMethods"
       :expiresIn="expiresIn"
       :expiresInString="expiresInString"

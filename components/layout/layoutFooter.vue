@@ -4,7 +4,6 @@ const  localePath  = useLocalePath()
   const { locale, locales } = useI18n();
   const switchLocalePath = useSwitchLocalePath();
   const availableLocales = computed(() => (locales.value).filter(i => i.code !== locale.value));
-  // const { $commitBlockHeight } = useNuxtApp();
 </script>
 
 <template>
@@ -22,9 +21,6 @@ const  localePath  = useLocalePath()
             />
           </div>
         </div>
-        <!-- <div class="level-center">
-          <div class="level-item">{{ $t('layoutFooter.lastBuiltAt') }} {{ $commitBlockHeight }}</div>
-        </div> -->
         <div class="level-center">
           <NuxtLink :to="localePath('/dashboard')" class="level-item has-text-centered">{{ $t('layoutFooter.merchantDashboard') }}</NuxtLink>
         </div>

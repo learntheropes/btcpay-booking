@@ -19,7 +19,8 @@ export default defineNuxtPlugin(nuxtApp => {
         buyerFiatRate,
         buyerFiatDecimal,
         bitcoinExhangeRate,
-        priceInBitcoin
+        priceInBitcoin,
+        priceInFiat
       }) => {
 
         // Get buyer locale
@@ -40,10 +41,10 @@ export default defineNuxtPlugin(nuxtApp => {
             expirationMinutes = 60 * 24 * 2;
             monitoringMinutes = 60 * 24 * 3;
             break;
-          case 'crypto':
-            expirationMinutes = 60;
-            monitoringMinutes = 60 * 5;
-            break;
+          // case 'crypto':
+          //   expirationMinutes = 60;
+          //   monitoringMinutes = 60 * 5;
+          //   break;
           default:
             expirationMinutes = null;
             monitoringMinutes = null;  
@@ -55,8 +56,8 @@ export default defineNuxtPlugin(nuxtApp => {
           method: 'POST',
           // Create the request body for btcpay
           body: {
-            currency: 'BTC',
-            amount: priceInBitcoin,
+            currency: buyerFiatCurrency,
+            amount: priceInFiat,
             metadata: {
               // The order id is the concatenation of the service slug and the epoch in seconds of the bookings
               orderId: `${buyerService}-${buyerTime.map(t => new Date(t).getTime()).join('-')}`,
@@ -78,6 +79,8 @@ export default defineNuxtPlugin(nuxtApp => {
                 gatewayMethod,
                 gatewayCurrency: buyerFiatCurrency
               },
+              buyerFiatPrice: priceInFiat,
+              buyerBitcoinPrice: priceInFiat,
               buyerFiatRate,
               buyerFiatDecimal,
               bitcoinExhangeRate,

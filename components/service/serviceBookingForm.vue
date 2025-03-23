@@ -26,7 +26,7 @@ const { locale } = useI18n();
 const  {
   duration,
   currency: merchantCurrency,
-  price,
+  price: merchantPriceInBitcoin,
   extras
 } = await queryContent(`/services/${service}`).locale(locale.value).findOne();
 
@@ -142,7 +142,8 @@ const initialForm = {
   buyerFiatRate: peachRate,
   buyerFiatDecimal: decimal,
   bitcoinExhangeRate: 0,
-  priceInBitcoin: 0
+  priceInBitcoin: 0,
+  priceInFiat: 0
 }
 const form = ref(initialForm);
 
@@ -207,18 +208,19 @@ watch(async () => form.value.buyerDate, async () => {
 const { BTC: btcExchangeRateForMerchantCurrency } = await $fetch(`https://api.yadio.io/exrates/${merchantCurrency}`);
 form.value.bitcoinExhangeRate = btcExchangeRateForMerchantCurrency;
 
-// Calculate the price in bitcoin 
-const priceInBitcoin = computed(() => {
-  const priceInMerchantCurrency = (form.value.buyerTime.length * price) + form.value.buyerExtras.reduce((sum, extra) => sum + extra.price, 0);
-  const priceInBitcoin = ( priceInMerchantCurrency / btcExchangeRateForMerchantCurrency).toFixed(8);
-  form.value.priceInBitcoin = priceInBitcoin;
-  return priceInBitcoin
+// Calculate the total price of the service in bitcoin 
+const totalServicePriceInBitcoin = computed(() => {
+  const basePriceInBitcoin = (form.value.buyerTime.length * merchantPriceInBitcoin / btcExchangeRateForMerchantCurrency);
+  const extraPriceInBitcoin = form.value.buyerExtras.reduce((sum, extra) => sum + extra.price, 0) / btcExchangeRateForMerchantCurrency;
+  const total = (basePriceInBitcoin + extraPriceInBitcoin).toFixed(8);
+  form.value.priceInBitcoin = total;
+  return total;
 });
 
 // If the buyer changes the currency or the price in bitcoin changes
 // Update the listed payment methods and the amount of fiat
-let priceInBuyerCurrency = ref(0)
-watch(async () => [form.value.buyerFiatCurrency, priceInBitcoin.value], async () => {
+let priceInBuyerCurrency = ref(0);
+watch(async () => [form.value.buyerFiatCurrency, totalServicePriceInBitcoin.value], async () => {
 
   const { paymentMethods: peachPaymentMethods } = await $fetch(`/v1/info`, {
     baseURL: peachProxy
@@ -238,7 +240,7 @@ watch(async () => [form.value.buyerFiatCurrency, priceInBitcoin.value], async ()
     });
     form.value.buyerFiatRate = buyerCurrencyExchangeRate;
     form.value.buyerFiatDecimal = $getDecimal(form.value.buyerFiatCurrency);
-    priceInBuyerCurrency.value = ( priceInBitcoin.value * (((premium) / 100) + 1) * buyerCurrencyExchangeRate).toFixed(form.value.buyerFiatDecimal)
+    form.value.priceInFiat = ( totalServicePriceInBitcoin.value * (((premium) / 100) + 1) * buyerCurrencyExchangeRate).toFixed(form.value.buyerFiatDecimal);
 });
 
 // Handle is loading free slots
@@ -538,7 +540,7 @@ const createInvoice = async () => {
           native-type="submit"
           icon-right="sale"
           expanded
-        >{{ `${$t('invoiceBitcoinNew.payWith')} bitcoin ${priceInBitcoin} BTC` }}</OButton>
+        >{{ `${$t('invoiceBitcoinNew.payWith')} bitcoin ${form.priceInBitcoin} BTC` }}</OButton>
       </OField>
 
       <p 
@@ -559,7 +561,7 @@ const createInvoice = async () => {
           @click="setGateway('fiat', paymentMethod.id, buyerCurrency)"
           native-type="submit"
           expanded
-        >{{ `${$t('invoiceBitcoinNew.payWith')} ${paymentMethod.name} ${priceInBuyerCurrency} ${form.buyerFiatCurrency}` }}</OButton>
+        >{{ `${$t('invoiceBitcoinNew.payWith')} ${paymentMethod.name} ${form.priceInFiat} ${form.buyerFiatCurrency}` }}</OButton>
         <div v-else>{{ $t('serviceBookingForm.fiatNotAvailable') }}</div>
       </OField>
 

@@ -14,7 +14,7 @@ gateways:
   crypto: true
 # If fiat is set to true, define the premium that the buyer will pay to buy the bitcoins with fiat.
 # The higher it is, more chance you have that the booking will be succesfull 
-premium: 10
+premium: 8
 # Btcpay server settings 
 # You can provide your own btcpay instance details
 # Or you can email me asking for a non custodial store on my Btcpay instance

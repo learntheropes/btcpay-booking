@@ -25,14 +25,20 @@ onMounted(async () => {
   if (!peachOfferId) {
     try {
       await $peach.registerAccount();
-      await $peach.updateUser();
-    } catch (_error) {
+    } catch (e) {
+      console.error('Error registering the user', e);
     }
-    peachOfferId = await $peach.postBuyOffer(
+    await $peach.updateUser();
+    try {
+      console.log('btc amount', invoice.metadata.buyerBitcoinPrice);
+      peachOfferId = await $peach.postBuyOffer(
       invoice.metadata.buyerGateway.gatewayCurrency,
       invoice.metadata.buyerGateway.gatewayMethod,
-      invoice.amount
-    );
+      invoice.metadata.buyerBitcoinPrice / invoice.metadata.bitcoinExhangeRate
+    )
+    } catch (e) {
+      console.error('Error publishing offer', e);
+    };
     invoice.metadata.buyerGateway.peachOfferId = peachOfferId;
     await $fetch(`/api/invoices/${invoiceId}`, {
       method: 'PUT',

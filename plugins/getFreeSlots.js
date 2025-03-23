@@ -74,13 +74,15 @@ export default defineNuxtPlugin((nuxtApp) => {
         const paidInvoices = invoices.filter(({ status }) => status === 'Settled');
 
         // Extract the service name and the start time of the booking
-        const busySlots = flatten(paidInvoices.map(({ metadata: { buyerService, buyerTime }}) => buyerTime.map(time => {
-          return {
-            from: new Date(parseInt(time * 1000)).toISOString(),
-            to: new Date(parseInt(time * 1000 + parseInt(duration * 60 * 1000))).toISOString(),
-            service: buyerService
-          }
-        })));
+        const busySlots = flatten(paidInvoices
+            .filter(invoice => invoice.metadata)
+            .map(({ metadata: { buyerService, buyerTime }}) => buyerTime.map(time => {
+              return {
+                from: new Date(parseInt(time * 1000)).toISOString(),
+                to: new Date(parseInt(time * 1000 + parseInt(duration * 60 * 1000))).toISOString(),
+                service: buyerService
+              }
+            })));
 
         // Functiion to get the free slots in case of parallel concurrency
         const getFreeParallelSlots = (busySlots, slot) => {
