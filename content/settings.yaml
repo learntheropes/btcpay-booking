@@ -30,13 +30,6 @@ btcpay:
   # Tor onion service url is in the dashboard footer, under Copy Tor URL.
   # Mandatory
   host: https://learntheropes.xyz
-# smtp settings to send email notifications to the buyer and to you.
-smtp:
-  # The email that will send the notification.
-  # This is also the username to login smtp.
-  username: giovanni@learntheropes.xyz
-
-  port: 111
 # One of 'serial' and 'parallel' or null for default, that is serial.
 # Serial means the bookings of the different services can't overlap. Used for instance if you are a consultant that offers multiple services.
 # Parallel means the different services can overlap. Used for instance in case of each service is a different room in your house that you rent.
