@@ -6,15 +6,15 @@ Without KYC requirements for the merchant and the client. Merchant and buyer per
 
 ## Status
 The development of this project is currently paused, waiting for Peach Bitcoin to implement buy offers to resume the development.  
-- [x] Btcpay server api integration. Ready.  
-- [x] Bitcoin checkout. On-chain and Lighning Network. Ready. 
-- [x] Optional USDt checkout if configured on btcpay server. Ready 
+- [x] Btcpay server api integration. Done.  
+- [x] Bitcoin checkout. On-chain and Lighning Network. Done. 
+- [x] Optional USDt checkout if configured on btcpay server. Done 
+- [x] Calendar integration. Google calendar done. Looking for privacy oriented calendar to add as alternative.  
 - Fiat integration with Peach Bitcoin api. Under current development
 - [ ] Fiat integration with Robosat. To be considered if feasible
 - [ ] Fiat integration with Mostro. To be considered if feasible
 - [ ] Fiat integration with hodl Hodl. To be considered if feasible
 - [ ] Merchant control panel. Planned.  
-- [ ] Calendar integration. Planned, with google calendar or better with a privacy focused calendar app that provides api.  
 
 ## Features
 - Self custodial solution with btcpay server integration.  
