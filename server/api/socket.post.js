@@ -60,10 +60,13 @@ export default defineEventHandler(async (event) => {
     await addGoogleCalendarEvent({
       start: new Date(metadata.startDate).toISOString(),
       end: new Date(metadata.endDate).toISOString(),
-      summary: metadata.summary,
-      description: metadata.description,
-      location: metadata.location,
-      attendees: metadata.attendees,
+      summary: metadata.bookingService,
+      description: `${metadata.bookingName}\n${metadata.bookingEmail}\n${metadata.bookingPGP}\n${metadata.buyerBookingExtras}\n${bookingDescription}`,
+      // location: metadata.location,
+      attendees: [
+        { email: metadata.bookingEmail },
+      ],
+      sendInviteEmail: false,
     });
   }
 

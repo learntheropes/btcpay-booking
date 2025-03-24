@@ -7,7 +7,7 @@ export const addGoogleCalendarEvent = async (event) => {
 
   const { googleBookingCalendarId } = useRuntimeConfig();
 
-  const { start, end, summary, description, location, attendees } = event;
+  const { start, end, summary, description, location, attendees, sendInviteEmail } = event;
 
   const calendarEvent = {
     start: {
@@ -28,6 +28,7 @@ export const addGoogleCalendarEvent = async (event) => {
     const response = await calendar.events.insert({
       calendarId: googleBookingCalendarId,
       requestBody: calendarEvent,
+      sendUpdates: (sendInviteEmail) ? 'all' : null 
     });
 
     return response.data;
