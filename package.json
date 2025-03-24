@@ -35,6 +35,7 @@
     "bitcoinjs-message": "^2.2.0",
     "country-to-currency": "^1.0.11",
     "dayjs": "^1.11.7",
+    "googleapis": "^148.0.0",
     "i18n-iso-countries": "^7.6.0",
     "lodash.find": "^4.6.0",
     "lodash.findindex": "^4.6.0",

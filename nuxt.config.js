@@ -90,6 +90,10 @@ export default defineNuxtConfig({
     btcpayApikey: process.env.BTCPAY_APIKEY,
     pusherSecret: process.env.PUSHER_SECRET,
     smtpPassword: process.env.SMTP_PASSWORD,
+    googleServiceAccountEmail: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
+    googleServiceAccountPrivateKey: process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY,
+    googlePesonalCalendarIds: process.env.GOOGLE_PERSONAL_CALENDAR_IDS,
+    googleBookingCalendarId: process.env.GOOGLE_BOOKING_CALENDAR_ID,
     public: {
       defaultService: process.env.DEFAULT_SERVICE,
       isDev,

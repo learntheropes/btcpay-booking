@@ -25,12 +25,15 @@ export default defineEventHandler(async (event) => {
   const { btcpay: { storeid, host }} = yaml.parse(settingsYaml.toString());
 
   // Get the invoice details from the btcpay Greenfield api
-  const { metadata, metadata: { bookingGatewayType }} = await ofetch(`${host}/api/v1/stores/${storeid}/invoices/${invoiceId}`, {
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `token ${btcpayApikey}`
-    }
-  });
+  if (invoiceStatus === 'paid') {
+    const { metadata, metadata: { bookingGatewayType }} = await ofetch(`${host}/api/v1/stores/${storeid}/invoices/${invoiceId}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `token ${btcpayApikey}`
+      }
+    });
+  }
+
 
   if (bookingGatewayType === 'crypto' && invoiceStatus === 'paid') {
 
@@ -50,6 +53,17 @@ export default defineEventHandler(async (event) => {
         'Content-Type': 'application/json',
         'Authorization': `token ${btcpayApikey}`
       }
+    });
+  };
+
+  if (invoiceStatus === 'paid') {
+    await addGoogleCalendarEvent({
+      start: new Date(metadata.startDate).toISOString(),
+      end: new Date(metadata.endDate).toISOString(),
+      summary: metadata.summary,
+      description: metadata.description,
+      location: metadata.location,
+      attendees: metadata.attendees,
     });
   }
 
