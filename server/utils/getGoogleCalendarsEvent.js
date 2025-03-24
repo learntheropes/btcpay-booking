@@ -60,7 +60,8 @@ export const getGoogleCalendarsEvent = async event => {
     // Convert to a Date and then to an ISO string in UTC
     const startUTC = new Date(startStr).toISOString();
     const endUTC = new Date(endStr).toISOString();
-    return { start: startUTC, end: endUTC };
+
+    return { start: startUTC, end: endUTC, service: ev.summary };
   });
 
   return cleanedEvents;

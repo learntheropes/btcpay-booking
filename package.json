@@ -39,7 +39,6 @@
     "i18n-iso-countries": "^7.6.0",
     "lodash.find": "^4.6.0",
     "lodash.findindex": "^4.6.0",
-    "lodash.flatten": "^4.4.0",
     "lodash.kebabcase": "^4.1.1",
     "lodash.sortby": "^4.7.0",
     "mitt": "^3.0.0",

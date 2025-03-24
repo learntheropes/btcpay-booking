@@ -1,124 +1,91 @@
 import { defineNuxtPlugin } from '#app';
-import find from 'lodash.find'
-import flatten from 'lodash.flatten'
 
 export default defineNuxtPlugin((nuxtApp) => {
 
   return {
     provide: {
+      getAvailableSlots: async ({ form, service, duration }) => {
 
-      getFreeSlots: async ({ form, service, duration }) => {
+        const selectedDate = form.value.bookingDate.toISOString().split('T')[0];
 
-        // Set the component as loading
-        nuxtApp.$event('setIsLoadingFreeSlots', true);
-
-        // Get availability and concurrency from general settings from yaml file
+        // get some settings
         const {
           availability,
           concurrency
-        } = await queryContent(`/settings`).findOne()
+        } = await queryContent(`/settings`).findOne();
 
-        const getFormattedLocalSlot = (step) => {
-        
-          const utcOffsetHours = nuxtApp.$getUTCOffset();
+          // Get busy slots from Google Calendar
+          const { data: getBusySlots } = await useFetch(`/api/google/events?date=${selectedDate}`);
+          const busySlots = getBusySlots.value;
 
-          const fromLocalTime = new Date().setTime(new Date(step).getTime() + (utcOffsetHours * 60 * 60 * 1000));
-          const toLocalTime = new Date().setTime(new Date(step).getTime() + (duration * 60 * 1000) + (utcOffsetHours * 60 * 60 * 1000));
 
-          return {
-            from: nuxtApp.$getFormattedTime(fromLocalTime),
-            to: nuxtApp.$getFormattedTime(toLocalTime)
-          }
-        };
-
-        // Get the selected date in buyer local time
-        const getLocalBookingDate = () => {
-
-          const utcOffsetHours = nuxtApp.$getUTCOffset();
-
-          if (form.value.bookingDate instanceof Date) {
-
-            const epoch = new Date().setTime(form.value.bookingDate.getTime() + (utcOffsetHours * 60 * 60 * 1000));
-            return new Date(epoch);
-          }
-          return null;
-        };
-        
-        // Main function to get the slots given the choosen day
-        const getAvailableSlots = (localbookingDate) => {
-
-          if (localbookingDate instanceof Date) {
-            
-            const dayOfWeek = localbookingDate.getDay();
-            const { from, to } = availability[dayOfWeek];
-            const start = new Date(localbookingDate).setUTCHours(from);
-            const end = new Date(localbookingDate).setUTCHours(to);
-
-            const epochSteps = nuxtApp.$getSlotRange(start, end, duration * 60 * 1000);
-
-            return epochSteps.map(step => {
-              return {
-                display: getFormattedLocalSlot(step),
-                value: new Date(step).toISOString()
-              }
-            });
-          }
+        // 1. Parse the selectedDate as a UTC date.
+        // Append "T00:00:00.000Z" to ensure we are working in UTC.
+        const day = new Date(selectedDate + "T00:00:00.000Z");
+        const dayOfWeek = day.getUTCDay(); // Sunday = 0, Monday = 1, etc.
+      
+        // 2. Get the availability for that day.
+        const dayAvailability = availability[dayOfWeek];
+        if (!dayAvailability) {
+          // If no availability is set for that day, return an empty array.
           return [];
-        };
-
-        // Get the paid invoice to extract the busy slots.
-        const { data} = await useFetch('/api/invoices');
-        const invoices = data.value;
-
-        // Filter the invoice that have been paid
-        const paidInvoices = invoices.filter(({ status }) => status === 'Settled');
-
-        // Extract the service name and the start time of the booking
-        const busySlots = flatten(paidInvoices
-            .filter(invoice => invoice.metadata)
-            .map(({ metadata: { bookingService, bookingTime }}) => bookingTime.map(time => {
-              return {
-                from: new Date(parseInt(time * 1000)).toISOString(),
-                to: new Date(parseInt(time * 1000 + parseInt(duration * 60 * 1000))).toISOString(),
-                service: bookingService
-              }
-            })));
-
-        // Functiion to get the free slots in case of parallel concurrency
-        const getFreeParallelSlots = (busySlots, slot) => {
-
-          return !find(busySlots,  busySlot => {
-
-            return busySlot.service === service && (slot >= busySlot.from && slot < busySlot.to);
-          });
-        };
-
-        // Functiion to get the free slots in case of (default) serial concurrency
-        const getFreeSerialSlot = (busySlots, slot) => {
-
-          return !find(busySlots,  busySlot => {
-
-            return ((slot >= busySlot.from && slot < busySlot.to));
-          });
-        };
-
-        // Filter out the already booked slots
-        // Serial concurrency is default
-        const getFreeSlots = (availableSlots) => {
-
-          if (concurrency === 'parallel') return availableSlots.filter(getFreeParallelSlots(busySlots, slot.value))
-          else return availableSlots.filter(slot => getFreeSerialSlot(busySlots, slot.value))
         }
+      
+        // 3. Build the start and end Date objects for the availability window.
+        // These hours are given in UTC.
+        const pad = num => String(num).padStart(2, '0');
+        const startTime = new Date(selectedDate + "T" + pad(dayAvailability.from) + ":00:00.000Z");
+        const endTime = new Date(selectedDate + "T" + pad(dayAvailability.to) + ":00:00.000Z");
+      
+        // 4. Create candidate slots by stepping in increments equal to the duration.
+        const candidateSlots = [];
+        for (
+          let slotTime = startTime.getTime();
+          slotTime + duration * 60000 <= endTime.getTime();
+          slotTime += duration * 60000
+        ) {
+          candidateSlots.push({
+            start: new Date(slotTime),
+            end: new Date(slotTime + duration * 60000)
+          });
+        }
+      
+        // 5. Filter out slots that overlap with busy slots.
+        // For "parallel" concurrency, only consider busy slots whose service matches the given one.
+        const filteredSlots = candidateSlots.filter(slot => {
+          return !busySlots.some(busy => {
+            // Only consider busy slots on the same date.
+            const busyStart = new Date(busy.start);
+            const busyEnd = new Date(busy.end);
+            const busyDate = busyStart.toISOString().split('T')[0];
+            if (busyDate !== selectedDate) return false;
+            // For parallel concurrency, ignore busy slots whose service does not match.
+            if (concurrency === "parallel" && busy.service !== service) return false;
+            // Overlap if busy slot starts before the candidate slot ends and ends after the candidate slot starts.
+            return busyStart < slot.end && busyEnd > slot.start;
+          });
+        });
+      
+        // 6. Format the slots in the required output.
+        // "value" is the slot's start time in UTC as an ISO string.
+        // "display" times are formatted using the user's local time zone.
+        const formatHHmm = date => {
+          return new Date(date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
+        };
+      
+        const result = filteredSlots.map(slot => ({
+          display: {
+            from: formatHHmm(slot.start),
+            to: formatHHmm(slot.end)
+          },
+          value: slot.start.toISOString()
+        }));
 
-        const localbookingDate = getLocalBookingDate();
-        const availableSlots = getAvailableSlots(localbookingDate);
-        const freeSlots = getFreeSlots(availableSlots);
-
-        // Set the component as lnot oading
-        nuxtApp.$event('setIsLoadingFreeSlots', false);
-
-        return freeSlots;
+        console.log('result', result);
+      
+        return result;
       }
+      
     }
   }
 });

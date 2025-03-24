@@ -40,7 +40,7 @@ const {
   // Function to get the Datepicker field settings
   $getDatepicker,
   // Function to restive the daily free spots
-  $getFreeSlots,
+  $getAvailableSlots,
   // Function the get the invoice from btcpay
   $createInvoice,
   // getDecimal function from currency
@@ -198,7 +198,7 @@ watch(async () => form.value.bookingDate, async () => {
 
   form.value.bookingTime = []
 
-  freeSlots.value = await $getFreeSlots({
+  freeSlots.value = await $getAvailableSlots({
     form,
     service,
     duration
