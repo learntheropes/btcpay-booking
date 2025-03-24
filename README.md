@@ -47,7 +47,8 @@ Optionally, if you want to show the services in a specific order, add the order 
 5. Set the enviroment variables as in the `./.env.example` file.  
 6. Optionally set a custom color in the [first line](https://github.com/learntheropes/btcpay-booking/blob/de5be9f24fe72c59a8f10557451a8af0afbdd601/assets/scss/custom.scss#L1) of `./assets/scss/custom.scss`.  
 7. Optionally add or remove languages support by adding/removing translations in `./lang` folder and settings in `./assets/js/locale.js` `locales` [json object](https://github.com/learntheropes/btcpay-booking/blob/de5be9f24fe72c59a8f10557451a8af0afbdd601/assets/js/locales.js#L3C5-L26C3). 
-8. Deploy (Digital Ocean app platform is supported out of the box, Vercel is supported with a few settings change that I will document soon, Self hosting is supported if you know how to build and deploy a Nuxt application).  
+8. For google calendar integration, create a service account on google in a new project. Enable the google calendar API. Create a key and copy the email and the private key. Create a new calendar in your googgle account and share it with writing privilege with the service email. Add all the variables to the `.env` file. Optional add also a comma separated list of calendars id to check when you are busy. These calendars must be shared as well with reading privileges with the service email.
+9. Deploy (Digital Ocean app platform is supported out of the box, Vercel is supported with a few settings change that I will document soon, Self hosting is supported if you know how to build and deploy a Nuxt application).  
 
 ## BTCPay instance
 If you don't have a btcpay instance, feel free to [email](mailto:giovanni@learntheropes.xyz) me optionally with [PGP](https://keys.openpgp.org/vks/v1/by-fingerprint/5BA78A510CDA44132BDC51FA58C798100FF8A743) and I will invite you to create an account/store on my btcpay server.  
