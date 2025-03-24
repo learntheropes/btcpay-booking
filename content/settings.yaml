@@ -42,20 +42,20 @@ availability:
   # Sunday - from and to in UTC time zone or null.
   - null
   # Monday - from and to in UTC time zone or null.
-  - from: 7
-    to: 15
+  - from: 12
+    to: 20
   # Tuesday - from and to in UTC time zone or null.
-  - from: 8
-    to: 18
+  - from: 12
+    to: 20
   # Wednesday - from and to in UTC time zone or null.
-  - from: 10
-    to: 13
+  - from: 12
+    to: 20
   # Thursday - from and to in UTC time zone or null.
-  - from: 9
-    to: 15
+  - from: 12
+    to: 20
   # Friday - from and to UTC time zone or null.
-  - from: 9
-    to: 15
+  - from: 12
+    to: 18
   # Saturday - from and to UTC time zone or null.
   - null
 # Fields setting for the buyer booking form
