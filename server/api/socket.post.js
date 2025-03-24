@@ -4,15 +4,15 @@ import yaml from 'yaml'
 export default defineEventHandler(async (event) => {
 
   // Verify the Greenfield api webhook and return if unauthorized
-  // let { statusCode, body } = await verifyWebhook(event);
+  let { statusCode, body } = await verifyWebhook(event);
 
-  // if (statusCode !== 200) {
-  //   setResponseStatus(event, statusCode);
-  //   return body;
-  // }
+  if (statusCode !== 200) {
+    setResponseStatus(event, statusCode);
+    return body;
+  }
 
   // Temporarily disable the webhook verification
-  const body = await readBody(event);
+  // const body = await readBody(event);
   // REMOVE
 
   const { btcpayApikey } = useRuntimeConfig();
