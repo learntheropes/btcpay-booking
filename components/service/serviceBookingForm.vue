@@ -69,7 +69,6 @@ const bookingCurrency = ref(null);
 const decimal = ref(null);
 const buyerPaymentMethods = ref([]);
 const peachAvailableCurrencies = ref([])
-const yadioRate = ref(null);
 const peachRate = ref(null);
 
 onMounted(async () => {
@@ -105,10 +104,6 @@ onMounted(async () => {
   });
   peachAvailableCurrencies.value = Object.keys(peachCurrencies).filter(currency => currency !== 'SAT' && currency !== 'USDT').sort()
   
-  // Get Yadio exchange rates
-  const { BTC } = await $fetch(`https://api.yadio.io/exrates/${bookingCurrency.value}`);
-  yadioRate.value = BTC;
-
   // Get Peach exchange rate
   const { price } = await $fetch(`/v1/market/price/BTC${bookingCurrency.value}`, {
     baseURL: peachProxy
@@ -197,12 +192,14 @@ let freeSlots = ref([])
 watch(async () => form.value.bookingDate, async () => {
 
   form.value.bookingTime = []
+  isLoadingFreeSlots.value = true;
 
   freeSlots.value = await $getAvailableSlots({
     form,
     service,
     duration
-  })
+  });
+  isLoadingFreeSlots.value = false
 });
 
 // Get the bitcoin exchange rate in the currency and provider of the merchant
