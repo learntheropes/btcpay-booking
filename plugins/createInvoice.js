@@ -51,11 +51,6 @@ export default defineNuxtPlugin(nuxtApp => {
             monitoringMinutes = null;  
         };
 
-        console.log('2', nuxtApp.$dayjs(new Date(bookingTime[0]).getTime()).utc().format('YYYY-MM-DDTHH:mm:ss[Z]').replace('T', ' ').replace(':00Z', ' UTC'))
-        console.log('4', nuxtApp.$dayjs(new Date(bookingTime[bookingTime.length - 1]).getTime()).utc().add(duration, 'minute').format('YYYY-MM-DDTHH:mm:ss[Z]').replace('T', ' ').replace(':00Z', ' UTC'))
-
-
-
         // Create the invoice on btcpay Greenfield api
         // And get the invoiceId page
         const { data } = await useFetch('/api/invoices', {
@@ -69,7 +64,6 @@ export default defineNuxtPlugin(nuxtApp => {
               bookingEpochs: bookingTime.map(t => new Date(t).getTime()).join('-'),
               bookingTimeStart: nuxtApp.$dayjs(new Date(bookingTime[0]).getTime()).utc().format('YYYY-MM-DD HH:mm') + ' UTC',
               bookingTimeEnd:  nuxtApp.$dayjs(new Date(bookingTime[bookingTime.length - 1]).getTime()).utc().add(duration, 'minute').format('YYYY-MM-DD HH:mm') + ' UTC',
-              // bookingTimeEnd: nuxtApp.$dayjs(bookingTime[bookingTime.length - 1]).add(duration, 'minute').format('llll'),
               bookingExtras: bookingExtras.map(extra => extra.title).join('\n'),
               bookingName,
               bookingEmail,

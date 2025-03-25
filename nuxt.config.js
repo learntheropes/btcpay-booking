@@ -236,6 +236,9 @@ export default defineNuxtConfig({
   },
 
   vite: {
+    build: {
+      sourcemap: true
+    },
     // This is needed to inject bulma custom sass variables such as $primary 
     // in the css page and component stylesheets 
     css: {
