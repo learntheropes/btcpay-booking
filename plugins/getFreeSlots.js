@@ -73,19 +73,14 @@ export default defineNuxtPlugin((nuxtApp) => {
           return new Date(date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
         };
       
-        const result = filteredSlots.map(slot => ({
+        return filteredSlots.map(slot => ({
           display: {
             from: formatHHmm(slot.start),
             to: formatHHmm(slot.end)
           },
           value: slot.start.toISOString()
         }));
-
-        console.log('result', result);
-      
-        return result;
       }
-      
     }
   }
 });

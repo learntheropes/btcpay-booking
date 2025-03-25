@@ -1,9 +1,9 @@
+
 export default defineNuxtPlugin(nuxtApp => {
 
   return {
     provide: {
       createInvoice: async ({
-        bookingDate,
         bookingTime,
         bookingExtras,
         bookingName,
@@ -32,6 +32,8 @@ export default defineNuxtPlugin(nuxtApp => {
           }
         } = await queryContent(`/settings`).findOne();
 
+        const { duration } = await queryContent(`/services/${bookingService}`).findOne();
+
         // Set expirationMinutes and monitoringMinutes based on the gateway
         // For bitcoin, leave the btcpay store settings.
         let expirationMinutes, monitoringMinutes
@@ -48,7 +50,12 @@ export default defineNuxtPlugin(nuxtApp => {
             expirationMinutes = null;
             monitoringMinutes = null;  
         };
-        
+
+        console.log('2', nuxtApp.$dayjs(new Date(bookingTime[0]).getTime()).utc().format('YYYY-MM-DDTHH:mm:ss[Z]').replace('T', ' ').replace(':00Z', ' UTC'))
+        console.log('4', nuxtApp.$dayjs(new Date(bookingTime[bookingTime.length - 1]).getTime()).utc().add(duration, 'minute').format('YYYY-MM-DDTHH:mm:ss[Z]').replace('T', ' ').replace(':00Z', ' UTC'))
+
+
+
         // Create the invoice on btcpay Greenfield api
         // And get the invoiceId page
         const { data } = await useFetch('/api/invoices', {
@@ -58,21 +65,18 @@ export default defineNuxtPlugin(nuxtApp => {
             currency: bookingFiatCurrency,
             amount: bookingFiatAmount,
             metadata: {
-              // The order id is the concatenation of the service slug and the epoch in seconds of the bookings
-              orderId: `${bookingService}-${bookingTime.map(t => new Date(t).getTime()).join('-')}`,
-              bookingDate,
-              bookingTime,
-              // This is added to show properly formatted time on the btcpay invoice dashboard
-              buyerBookingTime: bookingTime.map(t => nuxtApp.$dayjs(t).format('llll')).join('\n'),
-              bookingExtras,
-              // This is added to show extras on the btcpay invoice dashboard
-              buyerBookingExtras: bookingExtras.map(extra => extra.title).join('\n'),
+              orderId: `${bookingService}-${new Date(bookingTime[0]).getTime()}`,
+              bookingEpochs: bookingTime.map(t => new Date(t).getTime()).join('-'),
+              bookingTimeStart: nuxtApp.$dayjs(new Date(bookingTime[0]).getTime()).utc().format('YYYY-MM-DD HH:mm') + ' UTC',
+              bookingTimeEnd:  nuxtApp.$dayjs(new Date(bookingTime[bookingTime.length - 1]).getTime()).utc().add(duration, 'minute').format('YYYY-MM-DD HH:mm') + ' UTC',
+              // bookingTimeEnd: nuxtApp.$dayjs(bookingTime[bookingTime.length - 1]).add(duration, 'minute').format('llll'),
+              bookingExtras: bookingExtras.map(extra => extra.title).join('\n'),
               bookingName,
               bookingEmail,
               bookingFingerprint,
               bookingPGP,
               bookingDescription,
-              buyerLanguage: locale.value,
+              bookingLanguage: locale.value,
               bookingService,
               bookingGatewayType,
               bookingGatewayPaymentMethod,

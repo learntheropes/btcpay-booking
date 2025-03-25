@@ -24,7 +24,7 @@
   const {
     status,
     metadata: {
-      buyerLanguage,
+      bookingLanguage,
       bookingService,
       bookingGatewayType
     }
@@ -33,7 +33,7 @@
   // Get the service name for the breadcrumb
   const {
     title: bookingServiceTitle
-  } = await queryContent(`/services/${bookingService}`).locale(buyerLanguage).only([ 'title' ]).findOne();
+  } = await queryContent(`/services/${bookingService}`).locale(bookingLanguage).only([ 'title' ]).findOne();
 
   // Set title page
   const { t } = useI18n();

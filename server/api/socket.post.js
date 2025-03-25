@@ -58,8 +58,8 @@ export default defineEventHandler(async (event) => {
 
   if (invoiceStatus === 'paid') {
     await addGoogleCalendarEvent({
-      start: new Date(metadata.startDate).toISOString(),
-      end: new Date(metadata.endDate).toISOString(),
+      start: `${bookingTimeEnd.split(' ')[0]}T${bookingTimeEnd.split(' ')[1]}:00Z`,
+      end: `${bookingTimeEnd.split(' ')[0]}T${bookingTimeEnd.split(' ')[1]}:00Z`,
       summary: metadata.bookingService,
       description: `${metadata.bookingName}\n${metadata.bookingEmail}\n${metadata.bookingPGP}\n${metadata.buyerBookingExtras}\n${bookingDescription}`,
       // location: metadata.location,
